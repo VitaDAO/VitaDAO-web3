@@ -42,6 +42,12 @@ function VotingCard(props: Props) {
     );
     if (filterProposals.length > 0) {
       setProposal(filterProposals[0]);
+    } else {
+      await actions.getProposalData({
+        contracts,
+        provider: library,
+        proposalIndex: props.id,
+      });
     }
   };
   const setStakedBalance = async () => {

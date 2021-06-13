@@ -5,6 +5,8 @@ import CardBody from "./cardBody/proposal/cardBody";
 import PillLink from "../pillLink/pillLink";
 import { proposals } from "../icons/vita_dao/index";
 import { StoreContext } from "../../store/store";
+import { ContractContext } from "../../store/contractContext/contractContext";
+import { useWeb3React } from "@web3-react/core";
 
 export interface Props {
   id: string;
@@ -17,7 +19,9 @@ export interface Props {
 }
 
 function ProposalCard(props: Props) {
-  const { state } = useContext(StoreContext);
+  const { state, actions } = useContext(StoreContext);
+  const { contracts } = useContext(ContractContext);
+  const { library } = useWeb3React();
   const { proposalTitle, proposalType, id } = props;
   const Icon = proposals[proposalType] ?? proposals.project;
   const [proposal, setProposal] = useState(null);
@@ -32,6 +36,12 @@ function ProposalCard(props: Props) {
     );
     if (filterProposals.length > 0) {
       setProposal(filterProposals[0]);
+    } else {
+      await actions.getProposalData({
+        contracts,
+        provider: library,
+        proposalIndex: props.id,
+      });
     }
   };
   return (
@@ -45,10 +55,14 @@ function ProposalCard(props: Props) {
         startDate={props.startDate}
         endDate={props.endDate}
         votesYes={
-          proposal !== null && proposal !== undefined ? proposal.yesVotes : 0
+          proposal !== null && proposal !== undefined
+            ? proposal.yesVotes
+            : props.votesYes
         }
         votesNo={
-          proposal !== null && proposal !== undefined ? proposal.yesVotes : 0
+          proposal !== null && proposal !== undefined
+            ? proposal.yesVotes
+            : props.votesNo
         }
       />
       <PillLink
