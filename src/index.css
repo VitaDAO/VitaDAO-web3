@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+:root {
+  font-size: 6px;
+  font-family: var(--font1);
+  position: relative;
+  /* GLOBAL STYLES */
+
+  /* COLORS */
+
+  --yellow: #fce366;
+  --blue: #4dd9f6;
+  --green: #6adf84;
+  --moleculeGreen: #37b5a5;
+  --grey1: #bcbcbc;
+  --grey2: #8c8c8c;
+  --grey3: #454545;
+  --grey4: #a9a9a9;
+  --black: #000;
+  --white: #fff;
+  --red: #ff7272;
+  --blackOverlay: rgba(0, 0, 0, 0.8);
+
+  /* FONTS */
+  /* Gilroy is a paid font, font1 is currently Montserrat, a placeholder */
+
+  --font1: "Montserrat", sans-serif;
+  --font2: "Fira Mono", monospace;
+
+  /* Breakpoints */
+
+  --tabletBreakpoint: 1000px;
+  --smallLaptopBreakpoint: 1441px;
+  --largeScreenBreakpoint: 1919px;
+
+  /* Gradients */
+  --gradient-top-grey: linear-gradient(
+    180deg,
+    #181818 0%,
+    rgba(18, 18, 18, 0) 100%
+  );
+
+  /* Transitions */
+  --transition1: all 150ms ease-out;
+}
+
+/* media queries */
+@media screen and (min-width: 1000px) {
+  :root {
+    font-size: 8px;
+  }
+}
+@media screen and (min-width: 1441px) {
+  :root {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 1921px) {
+  :root {
+    font-size: 14px;
+  }
+}
+input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+button {
+  border: none;
+  cursor: pointer;
+}
+button:active {
+  outline: none;
+}
+button:focus {
+  outline: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* h1 {
+  font-size: 3.4rem;
+  font-weight: 400;
+  font-family: var(--font2);
+}
+h2 {
+  font-size: 2.4rem;
+  font-weight: 400;
+  font-family: var(--font2);
+}
+h3 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  font-family: var(--font2);
+}
+h4 {
+  font-family: var(--font2);
+  font-size: 2rem;
+  font-weight: 400;
+}
+h5 {
+  font-family: var(--font1);
+  font-size: 2.2rem;
+  font-weight: 400;
+}
+
+p {
+  font-family: var(--font1);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+p2 {
+  font-family: var(--font1);
+  font-size: 3.2rem;
+  font-weight: 400;
+}  */
