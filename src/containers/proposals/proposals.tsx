@@ -12,7 +12,8 @@ function Proposals() {
 
   useEffect(() => {
     if (state.loadingProposal) loadProposalData();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.loadingProposal]);
 
   const loadProposalData = async () => {
     state.data.proposals.forEach(

@@ -68,7 +68,7 @@ export interface State {
   data: Data;
   prices:Prices;
   loading: boolean;
-  stakedBalance: any;
+  stakedBalance: number;
   proposals:any;
   proposalStatus: any;
   proposalData: any;
@@ -126,7 +126,7 @@ const initialState: State = {
   prices: initialPrices,
   data: data,
   loading: true,
-  stakedBalance: null,
+  stakedBalance: 0,
   proposals:[],
   proposalData: {},
   proposalStatus: {},

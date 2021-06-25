@@ -32,6 +32,11 @@ function StakeToken(props: any) {
       contracts,
       provider: library,
     });
+    await actions.getStakedBalance({
+      address: account,
+      contracts,
+      provider: library,
+    });
   }
   const hasEnoughBalance = () => {
     return stakeAmount > state.balances[`${token.toLowerCase()}Balance`]
@@ -48,6 +53,7 @@ function StakeToken(props: any) {
   const handleRefresh = async () => {
     await tokenBalanceAction();
     setTimeout(() => {}, 2000);
+    console.log("aaaa");
   };
   useEffect(() => {
     handleRefresh();
@@ -75,6 +81,7 @@ function StakeToken(props: any) {
         provider: library,
         stakingAmount: stakeAmount,
       });
+      await tokenBalanceAction();
     }
   };
 
@@ -86,7 +93,6 @@ function StakeToken(props: any) {
         provider: library,
         amount: stakeAmount,
       });
-      await tokenBalanceAction();
     }
   };
 
@@ -94,6 +100,10 @@ function StakeToken(props: any) {
 
   return (
     <div className={classes.Main}>
+      <div className={classes.balances}>
+        <p>Staked tokens: {state.stakedBalance}</p>
+        <p>Vita tokens: {state.balances["vitaBalance"]}</p>
+      </div>
       <div className={classes.index}>
         <h1 className={classes.title}>Stake</h1>
         <div className={classes.buySellContainer}>

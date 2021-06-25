@@ -43,11 +43,11 @@ function Navbar(props: Props) {
   return (
     <div className={classes.Navbar}>
       <div className={classes.rightContainer}>
-        <div className={classes.navItem}>
+        {/* <div className={classes.navItem}>
           <NavLink className={classes.navLink} to="/about">
             about
           </NavLink>
-        </div>
+        </div> */}
 
         {walletModal}
 

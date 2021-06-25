@@ -21,9 +21,12 @@ const useStyles = makeStyles(() =>
         "url(../media/images/vita_dao_image.png) bottom center no-repeat",
       marginTop: "14rem",
     },
+    balances:{
+      font: (style: Theme & Props) => style.typography.h2,
+      color: (style: Theme & Props) => style.textColor,
+    },
     index: {
-      position: "relative",
-      width: "100%",
+      marginTop:"10rem",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
