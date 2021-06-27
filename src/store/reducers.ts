@@ -37,6 +37,8 @@ export interface IFlags {
   approvedTokensPending: boolean;
   stakedTokens: boolean;
 
+  loadingProposalNumbers:boolean;
+
 }
 
 
@@ -75,6 +77,7 @@ export interface State {
   loadingProposal: boolean;
   voted:boolean;
   loadingStakedBalance: boolean;
+  proposalNumber: any;
 }
 
 const initialFlags: IFlags = {
@@ -103,7 +106,9 @@ const initialFlags: IFlags = {
   transactionStep: 0,
   approvedTokens: false,
   approvedTokensPending: false,
-  stakedTokens: false
+  stakedTokens: false,
+  loadingProposalNumbers: false
+
 };
 const initialPrices = {
   ethPrice: "0.00",
@@ -130,7 +135,8 @@ const initialState: State = {
   proposalResult:{},
   loadingProposal: true,
   voted:false,
-  loadingStakedBalance: true
+  loadingStakedBalance: true,
+  proposalNumber: 0
 };
 
 const reducer = (state = initialState, action) => {
@@ -201,9 +207,13 @@ const reducer = (state = initialState, action) => {
       return { ...state, voted:true };
     case types.Vote.PROPOSAL_VOTE_REQUEST:
       return { ...state, voted:false };
-      case types.Vote.PROPOSAL_VOTE_FAIL:
-        return { ...state, error: action.payload, voted:false};
-    default:
+    case types.Vote.PROPOSAL_VOTE_FAIL:
+      return { ...state, error: action.payload, voted:false};
+    case types.ProposalNumber.GET_PROPOSAL_NUMBER_SUCCESS:
+      return { ...state, proposalNumber:action.payload, flags: {...state.flags, loadingProposalNumber: true}};
+    case types.ProposalNumber.GET_PROPOSAL_NUMBER_FAIL:
+      return { ...state, error: action.payload};
+  default:
       return state;
   }
 };

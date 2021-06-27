@@ -1,6 +1,7 @@
 
 import { Contract} from "ethers";
 import web3 from "web3";
+import { createProposalData } from './ipfs';
 
 export interface RaphaelPayload {
     tokenContract?: Contract;
@@ -92,6 +93,12 @@ export const getStakingAddress = async(payload: any) => {
     return await raphaelContract.methods.getStakingAddress()
     .call();
 }
+export const getProposalCount = async(payload: any) =>{
+    const { contracts} = payload;
+    const {raphaelContract} = contracts;
+    return await raphaelContract.methods.getProposalCount()
+    .call();
+}
 
 export const isShutdown = async(payload: any) => {
 //     function isShutdown() external view returns(bool);
@@ -141,7 +148,9 @@ export const createProposal = async(payload: any) => {
 //     function createProposal(string memory details) external;
     const { contracts, address} = payload;
     const {raphaelContract} = contracts;
-    return await raphaelContract.methods.createProposal("Awesome Project 3").send({from:address});
+    const proposal = null;
+    const contentHash = await createProposalData();
+    return await raphaelContract.methods.createProposal(contentHash).send({from:address});
    
 }
 

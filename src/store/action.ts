@@ -100,6 +100,13 @@ export const useActions = (state, dispatch) => ({
       payload: data,
     });
   },
+  getProposalNumber:(data)=>{
+    dispatch({ type: types.ProposalNumber.GET_PROPOSAL_NUMBER_PENDING });
+    dispatch({
+      type: types.ProposalNumber.GET_PROPOSAL_NUMBER_REQUEST,
+      payload: data,
+    });
+  }
 });
 
 export interface Actions {
@@ -118,4 +125,5 @@ export interface Actions {
   getProposalVotes:(data: any) => void;
   getProposalResult:(data: any) => void;
   getProposalStatus:(data: any) => void;
+  getProposalNumber:(data: any) => void;
 }
