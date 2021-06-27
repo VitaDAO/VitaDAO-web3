@@ -30,16 +30,13 @@ export const getBalances = async (payload: any) => {
 
   const [
     ethBalance,
-    daiBalance,
     vitaBalance,
   ] = await Promise.all([
     getEthBalance(ethAddress, provider),
-    getERC20Balance(ethAddress, contracts.daiContract, 18),
     getERC20Balance(ethAddress, contracts.tokenContract, 18),
   ]);
   return {
     ethBalance,
-    daiBalance,
     vitaBalance
   } as IBalances;
 };

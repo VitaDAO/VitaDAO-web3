@@ -27,12 +27,12 @@ function StakeToken(props: any) {
   const [editedCurrency, setEditedCurrency] = useState("");
 
   async function tokenBalanceAction() {
-    await actions.setBalances({
+    actions.setBalances({
       ethAddress: account,
       contracts,
       provider: library,
     });
-    await actions.getStakedBalance({
+    actions.getStakedBalance({
       address: account,
       contracts,
       provider: library,
@@ -46,19 +46,17 @@ function StakeToken(props: any) {
 
   useEffect(() => {
     if (!state.isWalletConnected) {
-      setStakeAmount(0.0);
+      setStakeAmount(0);
     }
   }, [state.isWalletConnected]);
 
   const handleRefresh = async () => {
     await tokenBalanceAction();
-    setTimeout(() => {}, 2000);
-    console.log("aaaa");
   };
   useEffect(() => {
     handleRefresh();
     // eslint-disable-next-line
-  }, [account]);
+  }, [account, state.flags.stakedTokens]);
 
   useEffect(() => {
     !hasEnoughBalance() &&

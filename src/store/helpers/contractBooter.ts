@@ -22,10 +22,6 @@ export function getWeb3Contracts(web3) {
 		TokenABI.abi as AbiItem[],
 		checksumAddress(process.env.REACT_APP_TOKEN)
 	);
-	const daiContract = new web3.eth.Contract(
-		TokenABI.abi as AbiItem[],
-		checksumAddress(process.env.REACT_APP_MOCK_DAI)
-	);
 
 	const raphaelContract = new web3.eth.Contract(
 		RaphaelABI.abi as AbiItem[],
@@ -40,7 +36,6 @@ export function getWeb3Contracts(web3) {
 		tokenContract,
 		raphaelContract,
 		stakingContract,
-		daiContract,
 	};
 	return contracts;
 }
@@ -63,17 +58,11 @@ export function getEthersContracts(provider) {
 		provider
 	);
 
-	const daiContract = new Contract(
-		checksumAddress(process.env.REACT_APP_MOCK_DAI),
-		TokenABI.abi as AbiItem[],
-		provider
-	);
 
 	const contracts = {
 		tokenContract,
 		raphaelContract,
 		stakingContract,
-		daiContract,
 	};
 	return contracts;
 }

@@ -4,7 +4,6 @@ import { data, Data } from "./dummyData";
 
 const initialContracts = {
   tokenContract: null,
-  daiContract: null,
   raphaelContract: null,
   stakingContract: null
 };
@@ -36,17 +35,16 @@ export interface IFlags {
   transactionStep: number;
   approvedTokens:boolean;
   approvedTokensPending: boolean;
+  stakedTokens: boolean;
 
 }
 
 
 export interface IBalances {
   vitaBalance: number;
-  daiBalance: number;
   ethBalance: number;
 }
 export interface Prices {
-  daiPrice: string;
   ethPrice: string;
 }
 
@@ -104,11 +102,10 @@ const initialFlags: IFlags = {
   burnSuccess: false,
   transactionStep: 0,
   approvedTokens: false,
-  approvedTokensPending: false
-
+  approvedTokensPending: false,
+  stakedTokens: false
 };
 const initialPrices = {
-  daiPrice: "0.00",
   ethPrice: "0.00",
 };
 const initialState: State = {
@@ -120,7 +117,6 @@ const initialState: State = {
   flags: initialFlags,
   balances: {
     vitaBalance: 0,
-    daiBalance: 0,
     ethBalance: 0,
   },
   prices: initialPrices,
@@ -147,7 +143,6 @@ const reducer = (state = initialState, action) => {
         stakedBalance: null,
         balance: {
           vitaBalance: 0,
-          daiBalance: 0,
           ethBalance: 0,
         },
         userAddress: "",
@@ -164,7 +159,6 @@ const reducer = (state = initialState, action) => {
       return { ...state, userAddress: action.payload, stakedBalance: null,
         balance: {
           vitaBalance: 0,
-          daiBalance: 0,
           ethBalance: 0,
         }};
     case types.SetWalletConnected.SET_WALLET_CONNECTED_SUCCESS:
@@ -173,15 +167,17 @@ const reducer = (state = initialState, action) => {
       return { ...state, error: action.payload, loading: false };
     case types.SetBalances.SET_BALANCES_SUCCESS:
       return { ...state, balances: action.payload, loading: false };
-    case types.Stake.STAKE_TOKENS_PENDING:
-      return {...state, flags: {...state.flags, approvedTokensPending: true}}
     case types.ApproveTokens.APPROVE_TOKENS_SUCCESS:
-      return { ...state, flags: {...state.flags, approvedTokens:true, approvedTokensPending:false}};
+      return { ...state, flags: {...state.flags, approvedTokens:true, stakedTokens:false, approvedTokensPending:false}};
+    case types.Stake.STAKE_TOKENS_SUCCESS:
+      return { ...state, flags: {...state.flags, stakedTokens:true, stakeTokensPending:false}};
+    case types.Stake.STAKE_TOKENS_FAIL:
+        return { ...state, flags: {...state.flags, stakedTokens:false, stakeTokensPending:false}};
     case types.ApproveTokens.APPROVE_TOKENS_FAIL:
       return { ...state, flags: {...state.flags, approvedTokens:false
       },error: action.payload,};
     case types.StakedBalance.GET_STAKED_BALANCE_SUCCESS:
-      return { ...state, stakedBalance: action.payload, approvedTokens:false, loadingStakedBalance: false };
+      return { ...state, stakedBalance: action.payload, loadingStakedBalance: false };
     case types.StakedBalance.GET_STAKED_BALANCE_FAIL:
       return { ...state, stakedBalance: null, loadingStakedBalance: false, error: action.payload, };
 
