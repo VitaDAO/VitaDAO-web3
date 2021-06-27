@@ -32,7 +32,6 @@ export class BlockchainContext implements BlockchainContext {
     tokenInstanceContract: Contract;
     raphaelInstanceContract: Contract;
     stakingInstanceContract: Contract;
-    daiInstanceContract: Contract;
     walletAddress?: string;
     ethAddress?: string;
     web3Provider?: any;

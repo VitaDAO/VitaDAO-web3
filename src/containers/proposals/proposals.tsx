@@ -10,11 +10,6 @@ function Proposals() {
   const { contracts } = useContext(ContractContext);
   const { library } = useWeb3React();
 
-  useEffect(() => {
-    if (state.loadingProposal) loadProposalData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.loadingProposal]);
-
   const loadProposalData = async () => {
     state.data.proposals.forEach(
       async (proposal) =>
@@ -25,6 +20,11 @@ function Proposals() {
         })
     );
   };
+  useEffect(() => {
+    if (state.loadingProposal) loadProposalData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.loadingProposal]);
+
   return (
     <CardGrid title="proposals">
       {state.data.proposals.map((proposal) => (

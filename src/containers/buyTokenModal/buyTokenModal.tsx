@@ -22,7 +22,7 @@ function BuyTokenModal(props: any) {
   const { state, actions } = useContext(StoreContext);
   const { contracts } = useContext(ContractContext);
   // const [transaction, setTransaction] = useState("buy");
-  const [sellToken, setSellToken] = useState<string>("DAI");
+  const [sellToken, setSellToken] = useState<string>("ETH");
   const [sellAmount, setSellAmount] = useState<number>(0.0);
   const [showBuySpinner, setShowBuySpinner] = useState(false);
   const [showSellSpinner, setShowSellSpinner] = useState(false);
@@ -51,7 +51,7 @@ function BuyTokenModal(props: any) {
   }, [sellAmount, buyAmount]);
 
   const resetAfterTradeComplete = () => {
-    setSellToken("DAI");
+    setSellToken("ETH");
     setBuyAmount(0.0);
     setSellAmount(0.0);
     // actions.clear();
@@ -296,7 +296,7 @@ function BuyTokenModal(props: any) {
               />
             </div>
             <ProgressBubbles
-              stepCount={sellToken === "DAI" || sellToken === "VITA" ? 2 : 3}
+              stepCount={sellToken === "ETH" || sellToken === "VITA" ? 2 : 3}
               currentStep={state.flags.transactionStep}
             />
           </>

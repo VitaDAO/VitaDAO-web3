@@ -30,7 +30,6 @@ export const getStakedBalance = async (payload: any) => {
 // function getStakedBalance(address staker) external view override returns(uint256) 
     const { contracts, address} = payload;
     const {stakingContract} = contracts;
-
     const res = await stakingContract.methods.getStakedBalance(address)
     .call();
     console.log(web3.utils.fromWei(res));
