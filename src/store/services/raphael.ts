@@ -1,7 +1,7 @@
 
 import { Contract} from "ethers";
 import web3 from "web3";
-import { createProposalData } from './ipfs';
+import { uploadDataToIpfs, getProposalDataFromIPFS } from './ipfs';
 
 export interface RaphaelPayload {
     tokenContract?: Contract;
@@ -15,6 +15,7 @@ export interface RaphaelPayload {
 //Getter functions
 export const getProposalStatus = async (payload: any) => {
 // function getProposalStatus(uint256 proposalIndex) external view returns(uint256);
+    
     const { contracts, proposalIndex} = payload;
     const {raphaelContract} = contracts;
 	return await raphaelContract.methods.getProposalStatus(proposalIndex).call();
@@ -32,8 +33,9 @@ export const getProposalData = async(payload: any) => {
     const startBlock = res[3];
     const endBlock = res[4];
     const proposalName = res[0];
+    const data = getProposalDataFromIPFS(proposalName);
     const id = proposalIndex;
-    return {proposalName, id, yesVotes, noVotes, startBlock, endBlock}
+    return {proposalName, id, yesVotes, noVotes, startBlock, endBlock, data};
   
 }
 
@@ -96,8 +98,19 @@ export const getStakingAddress = async(payload: any) => {
 export const getProposalCount = async(payload: any) =>{
     const { contracts} = payload;
     const {raphaelContract} = contracts;
-    return await raphaelContract.methods.getProposalCount()
-    .call();
+    return Number(web3.utils.fromWei(await raphaelContract.methods.proposalCount().call()));
+}
+
+export const getAllProposals = async(payload: any) =>{
+    const { contracts} = payload;
+    const numberOfProposals = await getProposalCount(payload);
+    let data = [];
+    for(let i = 0; i<numberOfProposals; i++){
+        const res = await getProposalData({contracts, proposalIndex: i+1});
+        data.push(res);
+    }
+    debugger;
+    return data;
 }
 
 export const isShutdown = async(payload: any) => {
@@ -146,10 +159,12 @@ export const setNativeTokenAddress = async(payload: any) => {
 
 export const createProposal = async(payload: any) => {
 //     function createProposal(string memory details) external;
-    const { contracts, address} = payload;
+    const { contracts, address, proposalData} = payload;
     const {raphaelContract} = contracts;
-    const proposal = null;
-    const contentHash = await createProposalData();
+    const numberOfProposals = await getProposalCount(payload);
+
+    const contentHash = await uploadDataToIpfs(proposalData, numberOfProposals);
+    debugger;
     return await raphaelContract.methods.createProposal(contentHash).send({from:address});
    
 }
@@ -180,7 +195,6 @@ export const vote = async(payload: any) => {
 //     function vote(uint256 proposalIndex, bool _vote) external;
     const { contracts, address, vote, proposalIndex} = payload;
     const {raphaelContract} = contracts;
-    debugger;
     // createProposal(payload)
     // updateProposalStatus(payload);
     return await raphaelContract.methods.vote(proposalIndex, vote)

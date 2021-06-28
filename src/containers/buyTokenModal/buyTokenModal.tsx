@@ -37,7 +37,7 @@ function BuyTokenModal(props: any) {
   const [editedCurrency, setEditedCurrency] = useState("");
 
   async function tokenBalanceAction() {
-    await actions.setBalances({
+    actions.setBalances({
       ethAddress: account,
       contracts,
       provider: library,

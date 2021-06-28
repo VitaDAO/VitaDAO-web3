@@ -7,7 +7,6 @@ import { proposals } from "../icons/vita_dao/index";
 import { StoreContext } from "../../store/store";
 import { ContractContext } from "../../store/contractContext/contractContext";
 import { useWeb3React } from "@web3-react/core";
-import { createProposalData } from "../../store/services/ipfs";
 
 export interface Props {
   id: string;
@@ -35,12 +34,11 @@ function ProposalCard(props: Props) {
     const filterProposals = state.proposals.filter(
       (proposal) => proposal.id === id
     );
-    const res = await createProposalData();
-    console.log(res);
+
     if (filterProposals.length > 0) {
       setProposal(filterProposals[0]);
     } else {
-      await actions.getProposalData({
+      actions.getProposalData({
         contracts,
         provider: library,
         proposalIndex: props.id,

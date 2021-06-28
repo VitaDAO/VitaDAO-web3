@@ -176,7 +176,7 @@ const reducer = (state = initialState, action) => {
     case types.ApproveTokens.APPROVE_TOKENS_SUCCESS:
       return { ...state, flags: {...state.flags, approvedTokens:true, stakedTokens:false, approvedTokensPending:false}};
     case types.Stake.STAKE_TOKENS_SUCCESS:
-      return { ...state, flags: {...state.flags, stakedTokens:true, stakeTokensPending:false}};
+      return { ...state, flags: {...state.flags,approvedTokens:false, stakedTokens:true, stakeTokensPending:false}};
     case types.Stake.STAKE_TOKENS_FAIL:
         return { ...state, flags: {...state.flags, stakedTokens:false, stakeTokensPending:false}};
     case types.ApproveTokens.APPROVE_TOKENS_FAIL:

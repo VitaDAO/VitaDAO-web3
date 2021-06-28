@@ -11,13 +11,12 @@ function Proposals() {
   const { library } = useWeb3React();
 
   const loadProposalData = async () => {
-    state.data.proposals.forEach(
-      async (proposal) =>
-        await actions.getProposalData({
-          contracts,
-          provider: library,
-          proposalIndex: proposal.id,
-        })
+    state.data.proposals.forEach(async (proposal) =>
+      actions.getProposalData({
+        contracts,
+        provider: library,
+        proposalIndex: proposal.id,
+      })
     );
   };
   useEffect(() => {
