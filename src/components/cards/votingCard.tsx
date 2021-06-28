@@ -27,7 +27,8 @@ function VotingCard(props: Props) {
   const [proposal, setProposal] = useState(null);
 
   const size =
-    new Date().getTime() >= new Date(props.endDate).getTime()
+    new Date().getTime() >= new Date(props.endDate).getTime() ||
+    new Date().getTime() >= new Date(props.startDate).getTime()
       ? "smallest"
       : "small";
   useEffect(() => {
