@@ -151,20 +151,7 @@ function StakeToken(props: any) {
             )}
           </>
         )}
-        <div className={classes.buttonContainer}>
-          <PillButton
-            color="green"
-            label="Stake tokens"
-            clickFunction={() =>
-              actions.createProposal({
-                address: account,
-                contracts,
-                provider: library,
-              })
-            }
-            disabled={state.flags.approvedTokensPending}
-          />
-        </div>
+        <div className={classes.buttonContainer}></div>
       </div>
     </div>
   );

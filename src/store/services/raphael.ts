@@ -63,7 +63,8 @@ export const getProposalData = async(payload: any) => {
     const id = proposalIndex;
     return {proposalName, id, yesVotes, noVotes, startBlock, endBlock,
         link: data.link, proposal_type: data.proposal_type, summary: data.summary, 
-        title: data.title, voting_start_date: data.voting_start_date, voting_end_date: data.voting_end_date, project: data.project === undefined? null: data.project};
+        title: data.title, voting_start_date: data.voting_start_date, voting_end_date: data.voting_end_date,
+        project: data.project === undefined? null: data.project};
   
 }
 
