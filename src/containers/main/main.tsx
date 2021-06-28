@@ -5,7 +5,7 @@ import useStyles from "./mainStyles";
 import Home from "../home/home";
 import { ThemeContext } from "../../store/themeContext/themeContext";
 import Footer from "../../components/footer/footer";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Apply from "../apply/apply";
 import Proposals from "../proposals/proposals";
 import Projects from "../projects/projects";
