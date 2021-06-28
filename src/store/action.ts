@@ -44,6 +44,13 @@ export const useActions = (state, dispatch) => ({
       payload: data,
     });
   },
+  createProposal:(data) =>{
+    dispatch({ type: types.CreateProposal.CREATE_PROPOSAL_PENDING });
+    dispatch({
+      type: types.CreateProposal.CREATE_PROPOSAL_REQUEST,
+      payload: data,
+    });
+  },
   withdraw: (data) =>{
     dispatch({ type: types.Withdraw.WITHDRAW_TOKEN_PENDING });
     dispatch({
@@ -106,6 +113,13 @@ export const useActions = (state, dispatch) => ({
       type: types.ProposalNumber.GET_PROPOSAL_NUMBER_REQUEST,
       payload: data,
     });
+  },
+  getAllProposals:(data)=>{
+    dispatch({ type: types.GetAllProposals.GET_ALL_PROPOSAL_DATA_PENDING });
+    dispatch({
+      type: types.GetAllProposals.GET_ALL_PROPOSAL_DATA_REQUEST,
+      payload: data,
+    });
   }
 });
 
@@ -126,4 +140,6 @@ export interface Actions {
   getProposalResult:(data: any) => void;
   getProposalStatus:(data: any) => void;
   getProposalNumber:(data: any) => void;
+  getAllProposals:(data: any) => void;
+  createProposal:(data: any) => void;
 }

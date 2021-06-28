@@ -1,6 +1,6 @@
 import types from "./actionTypes";
 import { getBalances } from './services/balances';
-import { getProposalCount, getProposalData, getProposalResult, getProposalStatus, getProposalVotes, vote } from './services/raphael';
+import { createProposal, getAllProposals, getProposalCount, getProposalData, getProposalResult, getProposalStatus, getProposalVotes, vote } from './services/raphael';
 import { getStakedBalance, stake, withdraw } from './services/staking';
 import { approveTokens } from './services/token';
 
@@ -157,6 +157,34 @@ export const applyMiddleware = (dispatch) => (action) => {
       .catch((err) =>
         dispatch({
           type: types.ProposalNumber.GET_PROPOSAL_NUMBER_FAIL,
+          payload: err.response,
+        })
+      );
+    case types.GetAllProposals.GET_ALL_PROPOSAL_DATA_REQUEST:
+      return getAllProposals(action.payload)
+      .then((res) => {
+        dispatch({
+          type: types.GetAllProposals.GET_ALL_PROPOSAL_DATA_SUCCESS,
+          payload: res,
+        });
+      })
+      .catch((err) =>
+        dispatch({
+          type: types.GetAllProposals.GET_ALL_PROPOSAL_DATA_FAIL,
+          payload: err.response,
+        })
+      );
+    case types.CreateProposal.CREATE_PROPOSAL_REQUEST:
+      return createProposal(action.payload)
+      .then((res) => {
+        dispatch({
+          type: types.CreateProposal.CREATE_PROPOSAL_SUCCESS,
+          payload: res,
+        });
+      })
+      .catch((err) =>
+        dispatch({
+          type: types.CreateProposal.CREATE_PROPOSAL_FAIL,
           payload: err.response,
         })
       );

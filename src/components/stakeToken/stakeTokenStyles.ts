@@ -79,7 +79,6 @@ const useStyles = makeStyles(() =>
       margin: "0 auto 2rem auto",
     },
     buttonContainer: {
-      margin: "0 auto auto auto",
       width: "100%",
       height: "10rem",
       display: "flex",

@@ -26,7 +26,10 @@ function VotingCard(props: Props) {
   const params = useParams<RouteParams>();
   const [proposal, setProposal] = useState(null);
 
-  const size = Date.now() >= parseInt(props.endDate) ? "smallest" : "small";
+  const size =
+    new Date().getTime() >= new Date(props.endDate).getTime()
+      ? "smallest"
+      : "small";
   useEffect(() => {
     loadProposalData();
     if (state.isWalletConnected && state.stakedBalance === null) {

@@ -15,7 +15,6 @@ function DisplayBalance(props: Props) {
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
-    console.log(state.balances);
     setBalance(state.balances[`${token.toLowerCase()}Balance`]);
   }, [token, state.balances]);
 

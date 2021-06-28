@@ -48,7 +48,6 @@ export function ContractProvider(props: any) {
   };
 
   const updateContractsWeb3 = (provider: any) => {
-    // debugger;
     const contracts = getWeb3Contracts(provider);
     setContracts(contracts);
   };

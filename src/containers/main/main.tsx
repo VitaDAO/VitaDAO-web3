@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import WalletModal from "../../components/walletModal/walletModal";
 import Navbar from "../../components/navbar/navbar";
 import useStyles from "./mainStyles";
@@ -17,15 +17,27 @@ import IPProposal from "../ipProposal/ipProposal";
 import BuyTokenModal from "../buyTokenModal/buyTokenModal";
 import StakeToken from "../../components/stakeToken/stakeToken";
 import { useWallets } from "../../store/walletContext/WalletContext";
+import { StoreContext } from "../../store/store";
+import { ContractContext } from "../../store/contractContext/contractContext";
+import { useWeb3React } from "@web3-react/core";
 
 export interface Props {}
 
 export default function Main(props: Props) {
+  const { state, actions } = useContext(StoreContext);
+  const { contracts } = useContext(ContractContext);
+  const { library } = useWeb3React();
   const { theme } = useContext(ThemeContext);
   const { showWalletModal, setShowWalletModal, disconnectWallet } =
     useWallets();
   const classes = useStyles({ ...theme, ...props });
-
+  const loadProposalData = async () => {
+    actions.getAllProposals({ contracts: contracts, provider: library });
+  };
+  useEffect(() => {
+    if (state.data === null && contracts !== null) loadProposalData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contracts]);
   return (
     <Router>
       <div className={classes.Main}>

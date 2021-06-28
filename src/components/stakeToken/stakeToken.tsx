@@ -135,6 +135,7 @@ function StakeToken(props: any) {
                 <PillButton
                   color="green"
                   label="Approve tokens"
+                  pending={state.flags.approvedTokensPending}
                   clickFunction={() => approveTokens()}
                 />
               </div>
@@ -144,12 +145,26 @@ function StakeToken(props: any) {
                   color="green"
                   label="Stake tokens"
                   clickFunction={() => lockTokens()}
-                  disabled={state.flags.approvedTokensPending}
+                  pending={state.flags.stakeTokensPending}
                 />
               </div>
             )}
           </>
         )}
+        <div className={classes.buttonContainer}>
+          <PillButton
+            color="green"
+            label="Stake tokens"
+            clickFunction={() =>
+              actions.createProposal({
+                address: account,
+                contracts,
+                provider: library,
+              })
+            }
+            disabled={state.flags.approvedTokensPending}
+          />
+        </div>
       </div>
     </div>
   );
