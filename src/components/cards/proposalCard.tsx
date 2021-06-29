@@ -27,17 +27,18 @@ function ProposalCard(props: Props) {
   const [proposal, setProposal] = useState(null);
 
   useEffect(() => {
-    loadProposalData();
+    if (state.loadingProposal) loadProposalData();
   });
 
   const loadProposalData = async () => {
     const filterProposals = state.proposals.filter(
       (proposal) => proposal.id === id
     );
+
     if (filterProposals.length > 0) {
       setProposal(filterProposals[0]);
     } else {
-      await actions.getProposalData({
+      actions.getProposalData({
         contracts,
         provider: library,
         proposalIndex: props.id,

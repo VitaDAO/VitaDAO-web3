@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import { useWeb3React } from "@web3-react/core";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import VotingCard from "../../components/cards/votingCard";
 import ProjectProposalDetails from "../../components/projectProposalDetails/projectProposalDetails";
+import { ContractContext } from "../../store/contractContext/contractContext";
 import { StoreContext } from "../../store/store";
 import useStyles from "./projectProposalStyles";
 
@@ -10,40 +12,49 @@ interface RouteParams {
 }
 
 function ProjectProposal() {
-  const { state } = useContext(StoreContext);
+  const { state, actions } = useContext(StoreContext);
+  const { contracts } = useContext(ContractContext);
+  const { library } = useWeb3React();
   const params = useParams<RouteParams>();
   const classes = useStyles();
-  const project = state.data.proposals.find(
-    (proposal) => proposal.id === params.id
-  ).project;
-  const proposal = state.data.proposals.find(
-    (proposal) => proposal.id === params.id
+  const loadProposalData = async () => {
+    actions.getAllProposals({ contracts: contracts, provider: library });
+  };
+  useEffect(() => {
+    if (state.data === null) loadProposalData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
+  const proposal = state.data?.find(
+    (proposal) => proposal.id.toString() === params.id
   );
+  const project = proposal?.project;
 
   return (
-    <div className={classes.ProjectDetails}>
-      <div className={classes.leftContainer}>
-        <ProjectProposalDetails
-          budget={project.budget}
-          heading={project.title}
-          subHeading={"project proposal"}
-          institution={project.institution}
-          researchLead={project.research_lead}
-          ipStatus={project.ip_status}
-          clinicalStage={project.clinical_stage}
-          summary={project.summary}
-          projectSummary={project.project_summary}
-          aimsAndHypothesis={project.aims_and_hypothesis}
-        />
+    state.data !== null && (
+      <div className={classes.ProjectDetails}>
+        <div className={classes.leftContainer}>
+          <ProjectProposalDetails
+            budget={project.budget}
+            heading={project.title}
+            subHeading={"project proposal"}
+            institution={project.institution}
+            researchLead={project.research_lead}
+            ipStatus={project.ip_status}
+            clinicalStage={project.clinical_stage}
+            summary={project.summary}
+            projectSummary={project.project_summary}
+            aimsAndHypothesis={project.aims_and_hypothesis}
+          />
+        </div>
+        <div className={classes.rightContainer}>
+          <VotingCard
+            id={params.id}
+            startDate={proposal.voting_start_date}
+            endDate={proposal.voting_end_date}
+          />
+        </div>
       </div>
-      <div className={classes.rightContainer}>
-        <VotingCard
-          id={params.id}
-          startDate={proposal.voting_start_date}
-          endDate={proposal.voting_end_date}
-        />
-      </div>
-    </div>
+    )
   );
 }
 

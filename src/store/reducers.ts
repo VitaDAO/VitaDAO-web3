@@ -1,6 +1,5 @@
 import { Contracts } from "./stateTypes";
 import types from "./actionTypes";
-import { data, Data } from "./dummyData";
 
 const initialContracts = {
   tokenContract: null,
@@ -35,8 +34,11 @@ export interface IFlags {
   transactionStep: number;
   approvedTokens:boolean;
   approvedTokensPending: boolean;
+  stakeTokensPending: boolean;
   stakedTokens: boolean;
-
+  loadingProposalNumbers:boolean;
+  proposalCreated: boolean;
+  creatingProposal: boolean;
 }
 
 
@@ -63,7 +65,7 @@ export interface State {
   balances: IBalances;
   flags: IFlags;
   error: string;
-  data: Data;
+  data: any;
   prices:Prices;
   loading: boolean;
   stakedBalance: number;
@@ -75,6 +77,9 @@ export interface State {
   loadingProposal: boolean;
   voted:boolean;
   loadingStakedBalance: boolean;
+  proposalNumber: any;
+  contractsLoaded:boolean;
+
 }
 
 const initialFlags: IFlags = {
@@ -103,7 +108,11 @@ const initialFlags: IFlags = {
   transactionStep: 0,
   approvedTokens: false,
   approvedTokensPending: false,
-  stakedTokens: false
+  stakedTokens: false,
+  stakeTokensPending: false,
+  loadingProposalNumbers: false,
+  proposalCreated: false,
+  creatingProposal: false
 };
 const initialPrices = {
   ethPrice: "0.00",
@@ -120,7 +129,7 @@ const initialState: State = {
     ethBalance: 0,
   },
   prices: initialPrices,
-  data: data,
+  data: null,
   loading: true,
   stakedBalance: 0,
   proposals:[],
@@ -130,7 +139,9 @@ const initialState: State = {
   proposalResult:{},
   loadingProposal: true,
   voted:false,
-  loadingStakedBalance: true
+  loadingStakedBalance: true,
+  proposalNumber: 0,
+  contractsLoaded: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -154,6 +165,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         contracts: action.payload,
+        contractsLoaded:true
       };
     case types.SetWalletAddress.SET_WALLET_ADDRESS_SUCCESS:
       return { ...state, userAddress: action.payload, stakedBalance: null,
@@ -169,8 +181,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, balances: action.payload, loading: false };
     case types.ApproveTokens.APPROVE_TOKENS_SUCCESS:
       return { ...state, flags: {...state.flags, approvedTokens:true, stakedTokens:false, approvedTokensPending:false}};
+    case types.Stake.STAKE_TOKENS_REQUEST:
+      return { ...state, flags: {...state.flags,stakeTokensPending:true}};
     case types.Stake.STAKE_TOKENS_SUCCESS:
-      return { ...state, flags: {...state.flags, stakedTokens:true, stakeTokensPending:false}};
+      return { ...state, flags: {...state.flags,approvedTokens:false, stakedTokens:true, stakeTokensPending:false}};
     case types.Stake.STAKE_TOKENS_FAIL:
         return { ...state, flags: {...state.flags, stakedTokens:false, stakeTokensPending:false}};
     case types.ApproveTokens.APPROVE_TOKENS_FAIL:
@@ -201,9 +215,23 @@ const reducer = (state = initialState, action) => {
       return { ...state, voted:true };
     case types.Vote.PROPOSAL_VOTE_REQUEST:
       return { ...state, voted:false };
-      case types.Vote.PROPOSAL_VOTE_FAIL:
-        return { ...state, error: action.payload, voted:false};
-    default:
+    case types.Vote.PROPOSAL_VOTE_FAIL:
+      return { ...state, error: action.payload, voted:false};
+    case types.ProposalNumber.GET_PROPOSAL_NUMBER_SUCCESS:
+      return { ...state, proposalNumber:action.payload, flags: {...state.flags, loadingProposalNumber: true}};
+    case types.ProposalNumber.GET_PROPOSAL_NUMBER_FAIL:
+      return { ...state, error: action.payload};
+    case types.GetAllProposals.GET_ALL_PROPOSAL_DATA_SUCCESS:
+      return { ...state, data:action.payload };
+    case types.GetAllProposals.GET_ALL_PROPOSAL_DATA_FAIL:
+      return { ...state, error: action.payload, voted:false};
+    case types.CreateProposal.CREATE_PROPOSAL_SUCCESS:
+      return { ...state, flags: {...state.flags, proposalCreated:true, creatingProposal:false}};
+    case types.CreateProposal.CREATE_PROPOSAL_FAIL:
+        return { ...state, flags: {...state.flags, proposalCreated:false, creatingProposal:false}};
+    case types.CreateProposal.CREATE_PROPOSAL_REQUEST:
+      return { ...state, flags: {...state.flags, proposalCreated:false, creatingProposal:true}};
+  default:
       return state;
   }
 };

@@ -7,6 +7,7 @@ const useStyles = makeStyles(() =>
     VoteCount: {
       width: "100%",
       height: "14rem",
+      marginBottom:"1rem",
       borderTop: (style: Theme & Props) => `1px solid ${style.divider}`,
       borderBottom: (style: Theme & Props) =>
         style.size === "small" || style.size === "smallest"

@@ -17,10 +17,9 @@ function ProposeModal(props: Props) {
           Make proposals to other members of VitaDAO.
         </p>
         <p className={classes.ParagraphAlert}>
-          Please connect your wallet to an active member address to submit a
-          proposal.
+          Please reach us with your proposal on discord channel.
         </p>
-        <div style={{ margin: "1rem 0" }}>
+        {/* <div style={{ margin: "1rem 0" }}>
           <PillButton
             label="propose"
             color="white"
@@ -28,7 +27,7 @@ function ProposeModal(props: Props) {
               alert("connect your wallet before making a proposal")
             }
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,20 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ThemeContext } from "../../store/themeContext/themeContext";
 import useStyles from "./fundingProposalStyles";
 import { StoreContext } from "../../store/store";
 import PillLink from "../pillLink/pillLink";
 import VotingCard from "../cards/votingCard";
+import { ContractContext } from "../../store/contractContext/contractContext";
+import { useWeb3React } from "@web3-react/core";
+import { useParams } from "react-router-dom";
 
 export interface Props {}
 interface RouteParams {
   id: string;
 }
 function FundingProposal(props: Props) {
-  const { state } = useContext(StoreContext);
+  const { state, actions } = useContext(StoreContext);
+  const { contracts } = useContext(ContractContext);
+  const { library } = useWeb3React();
   const { theme } = useContext(ThemeContext);
-
+  const params = useParams<RouteParams>();
   const classes = useStyles({ ...props, ...theme });
-  const fundingProposal = state.data.proposals[0];
+
+  const loadProposalData = async () => {
+    actions.getAllProposals({ contracts: contracts, provider: library });
+  };
+  useEffect(() => {
+    if (state.data === null) loadProposalData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
+  const fundingProposal = state.data.find(
+    (proposal) => proposal.id === params.id
+  );
   const project = fundingProposal.project;
 
   return (

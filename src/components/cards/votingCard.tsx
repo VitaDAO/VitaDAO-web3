@@ -26,7 +26,11 @@ function VotingCard(props: Props) {
   const params = useParams<RouteParams>();
   const [proposal, setProposal] = useState(null);
 
-  const size = Date.now() >= parseInt(props.endDate) ? "smallest" : "small";
+  const size =
+    new Date().getTime() >= new Date(props.endDate).getTime() ||
+    new Date().getTime() >= new Date(props.startDate).getTime()
+      ? "smallest"
+      : "small";
   useEffect(() => {
     loadProposalData();
     if (state.isWalletConnected && state.stakedBalance === null) {
@@ -43,7 +47,7 @@ function VotingCard(props: Props) {
     if (filterProposals.length > 0) {
       setProposal(filterProposals[0]);
     } else {
-      await actions.getProposalData({
+      actions.getProposalData({
         contracts,
         provider: library,
         proposalIndex: props.id,
@@ -51,7 +55,7 @@ function VotingCard(props: Props) {
     }
   };
   const setStakedBalance = async () => {
-    await actions.getStakedBalance({
+    actions.getStakedBalance({
       address: state.userAddress,
       contracts,
       provider: library,
@@ -59,7 +63,7 @@ function VotingCard(props: Props) {
   };
 
   const vote = async (vote: boolean) => {
-    await actions.vote({
+    actions.vote({
       address: account,
       contracts,
       provider: library,

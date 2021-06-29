@@ -16,10 +16,8 @@ function StakeToken(props: any) {
   const { theme } = useContext(ThemeContext);
   const { state, actions } = useContext(StoreContext);
   const { contracts } = useContext(ContractContext);
-  const [showBuySpinner, setShowBuySpinner] = useState(false);
+  const [showBuySpinner] = useState(false);
   const [disableMessage, setDisableMessage] = useState("Enter Staking Amount");
-  const [lockButton, setLockButton] = useState(true);
-  const [approvePending, setApprovePending] = useState(false);
   const [token, setToken] = useState<string>("VITA");
   const [stakeAmount, setStakeAmount] = useState<number>(0.0);
   const { account, library } = useWeb3React();
@@ -37,6 +35,7 @@ function StakeToken(props: any) {
       contracts,
       provider: library,
     });
+    if (state.flags.stakedTokens) setStakeAmount(0.0);
   }
   const hasEnoughBalance = () => {
     return stakeAmount > state.balances[`${token.toLowerCase()}Balance`]
@@ -136,6 +135,7 @@ function StakeToken(props: any) {
                 <PillButton
                   color="green"
                   label="Approve tokens"
+                  pending={state.flags.approvedTokensPending}
                   clickFunction={() => approveTokens()}
                 />
               </div>
@@ -145,12 +145,13 @@ function StakeToken(props: any) {
                   color="green"
                   label="Stake tokens"
                   clickFunction={() => lockTokens()}
-                  disabled={state.flags.approvedTokensPending}
+                  pending={state.flags.stakeTokensPending}
                 />
               </div>
             )}
           </>
         )}
+        <div className={classes.buttonContainer}></div>
       </div>
     </div>
   );

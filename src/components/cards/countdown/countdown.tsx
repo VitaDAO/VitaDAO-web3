@@ -7,6 +7,7 @@ export interface Props {
   daysRemaining: string;
   color: string;
   approved: boolean;
+  hasStarted: boolean;
 }
 
 function Countdown(props: Props) {
@@ -18,9 +19,13 @@ function Countdown(props: Props) {
       {parseInt(props.daysRemaining) > 0 ? (
         <>
           <Time className={classes.TimeIcon} />
-          {`Voting ends in ${props.daysRemaining} day${
-            props.daysRemaining === "1" ? "" : "s"
-          }`}
+          {props.hasStarted
+            ? `Voting ends in ${props.daysRemaining} day${
+                props.daysRemaining === "1" ? "" : "s"
+              }`
+            : `Voting starts in ${props.daysRemaining} day${
+                props.daysRemaining === "1" ? "" : "s"
+              }`}
         </>
       ) : (
         // TODO: label below ("approved" or "rejected") must come from API

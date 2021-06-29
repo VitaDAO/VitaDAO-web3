@@ -11,23 +11,16 @@ function Proposals() {
   const { library } = useWeb3React();
 
   const loadProposalData = async () => {
-    state.data.proposals.forEach(
-      async (proposal) =>
-        await actions.getProposalData({
-          contracts,
-          provider: library,
-          proposalIndex: proposal.id,
-        })
-    );
+    actions.getAllProposals({ contracts: contracts, provider: library });
   };
   useEffect(() => {
-    if (state.loadingProposal) loadProposalData();
+    if (state.data === null && contracts !== null) loadProposalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.loadingProposal]);
+  }, [contracts]);
 
   return (
     <CardGrid title="proposals">
-      {state.data.proposals.map((proposal) => (
+      {state.data?.map((proposal) => (
         <ProposalCard
           id={proposal.id}
           key={proposal.id}
@@ -35,8 +28,8 @@ function Proposals() {
           proposalType={proposal.proposal_type}
           startDate={proposal.voting_start_date}
           endDate={proposal.voting_end_date}
-          votesYes={proposal.votes_yes}
-          votesNo={proposal.votes_no}
+          votesYes={proposal.yesVotes}
+          votesNo={proposal.noVotes}
         />
       ))}
     </CardGrid>

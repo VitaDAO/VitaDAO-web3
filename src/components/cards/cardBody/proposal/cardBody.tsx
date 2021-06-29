@@ -11,11 +11,14 @@ export interface Props {
 }
 
 function CardBody(props: Props) {
-  const { endDate, votesYes, votesNo } = props;
+  const { endDate, startDate, votesYes, votesNo } = props;
 
-  const inProgress = Date.now() < parseInt(endDate);
-  const daysRemaining = inProgress
-    ? (parseInt(endDate) - Date.now()) / 86400000
+  const hasStarted = new Date().getTime() < new Date(startDate).getTime();
+  const inProgress = new Date().getTime() < new Date(endDate).getTime();
+  const daysRemaining = hasStarted
+    ? (new Date(startDate).getTime() - Date.now()) / 86400000
+    : inProgress
+    ? (new Date(endDate).getTime() - Date.now()) / 864000000
     : 0;
 
   const color = daysRemaining < 3 ? "var(--red)" : "var(--grey1)";
@@ -25,6 +28,7 @@ function CardBody(props: Props) {
       <Countdown
         color={color}
         approved={approved}
+        hasStarted={hasStarted}
         daysRemaining={daysRemaining.toFixed()}
       />
       <VoteCount
