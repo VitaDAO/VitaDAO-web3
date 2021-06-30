@@ -32,14 +32,16 @@ export const getProposalData = async(payload: any) => {
     const noVotes = Number(web3.utils.fromWei(res[2]));
     const startBlock = res[3];
     const endBlock = res[4];
-    const proposalData = res[0];
-    const data = JSON.parse(await getProposalDataFromIPFS(proposalData));
+    const proposalData = JSON.parse(res[0]);
+    let data;
+    if(proposalData.cid !== undefined || proposalData.cid !==null)
+     data = JSON.parse(await getProposalDataFromIPFS(proposalData.cid));
     const id = proposalIndex;
-
+    debugger;
     var timeNow = new Date();
     const startDateBlock = (blockNumber - startBlock)*15;
     const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock));
-    const endDateBlock = (blockNumber - endBlock)*15;
+    const endDateBlock = (endBlock - blockNumber)*15;
     const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
     
     return {proposalData, id, yesVotes, noVotes, startBlock, endBlock,
@@ -115,8 +117,10 @@ export const getProposalCount = async(payload: any) =>{
 export const getAllProposals = async(payload: any) =>{
     const { contracts, provider} = payload;
     const numberOfProposals = await getProposalCount(payload);
+
+
     let data = [];
-    for(let i = 0; i<numberOfProposals; i++){
+    for(let i = 3; i<numberOfProposals; i++){
         const res = await getProposalData({contracts, proposalIndex: i+1, provider});
         data.push(res);
     }
