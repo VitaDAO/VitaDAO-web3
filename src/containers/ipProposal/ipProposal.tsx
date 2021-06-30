@@ -37,6 +37,7 @@ export default function IPProposal() {
             requestSummary={proposal.summary}
             proposalDetails={proposal.details}
             link={proposal.link}
+            id={params.id}
           />
         </div>
         <div className={classes.rightContainer}>

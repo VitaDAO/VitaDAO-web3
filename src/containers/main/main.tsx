@@ -5,7 +5,7 @@ import useStyles from "./mainStyles";
 import Home from "../home/home";
 import { ThemeContext } from "../../store/themeContext/themeContext";
 import Footer from "../../components/footer/footer";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Apply from "../apply/apply";
 import Proposals from "../proposals/proposals";
 import Projects from "../projects/projects";
@@ -35,9 +35,12 @@ export default function Main(props: Props) {
     actions.getAllProposals({ contracts: contracts, provider: library });
   };
   useEffect(() => {
-    if (state.data === null && contracts !== null) loadProposalData();
+    if (state.data === null && contracts !== null && library !== undefined) {
+      debugger;
+      loadProposalData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contracts]);
+  }, [contracts, library]);
   return (
     <Router>
       <div className={classes.Main}>

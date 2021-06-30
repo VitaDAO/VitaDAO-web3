@@ -7,11 +7,11 @@ import { ContractContext } from "../../store/contractContext/contractContext";
 
 function Proposals() {
   const { state, actions } = useContext(StoreContext);
-  const { contracts } = useContext(ContractContext);
+  const { contracts, initializeWeb3 } = useContext(ContractContext);
   const { library } = useWeb3React();
 
   const loadProposalData = async () => {
-    actions.getAllProposals({ contracts: contracts, provider: library });
+    actions.getAllProposals({ contracts: contracts, provider: initializeWeb3 });
   };
   useEffect(() => {
     if (state.data === null && contracts !== null) loadProposalData();

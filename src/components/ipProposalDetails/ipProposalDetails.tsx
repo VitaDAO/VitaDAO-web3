@@ -8,6 +8,7 @@ export interface Props {
   requestSummary: string;
   proposalDetails: string;
   link?: string;
+  id: string;
 }
 
 function IPProposalDetails(props: Props) {
@@ -18,6 +19,7 @@ function IPProposalDetails(props: Props) {
     <div className={classes.IPProposalDetails}>
       <h4 className={classes.subHeading}>{props.subHeading}</h4>
       <h1 className={classes.heading}>{props.heading}</h1>
+      <h2 className={classes.subHeading}> Proposal no. {props.id}</h2>
       <h4 className={classes.subHeading}>Request Summary</h4>
       <p className={classes.summary}>{props.requestSummary}</p>
       <h4 className={classes.subHeading}>Proposal Details</h4>
