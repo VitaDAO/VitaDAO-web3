@@ -37,7 +37,6 @@ export const getProposalData = async(payload: any) => {
     if(proposalData.cid !== undefined || proposalData.cid !==null)
      data = JSON.parse(await getProposalDataFromIPFS(proposalData.cid));
     const id = proposalIndex;
-    debugger;
     var timeNow = new Date();
     const startDateBlock = (blockNumber - startBlock)*15;
     const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock));
