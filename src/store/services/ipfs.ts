@@ -1,13 +1,13 @@
 const ipfs = require("nano-ipfs-store").at("https://ipfs.infura.io:5001");
 
-export async function uploadDataToIpfs(proposalData, proposalIndex) {
+export async function uploadDataToIpfs(proposalData) {
     let votingEnds=new Date();
     votingEnds.setDate(votingEnds.getDate()+ 5);
 
     let votingStarts = new Date();
     votingEnds.setDate(votingEnds.getDate()+ 3);
     
-    const data = JSON.stringify({id: proposalIndex + 1,
+    const data = JSON.stringify({
     proposal_type: proposalData.proposal_type,
     title: proposalData.title,
     summary: proposalData.summary,

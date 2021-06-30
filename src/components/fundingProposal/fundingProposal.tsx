@@ -39,6 +39,7 @@ function FundingProposal(props: Props) {
           {fundingProposal.proposal_type} PROPOSAL
         </div>
         <h1 className={classes.Header}>{fundingProposal.title}</h1>
+        <h2 className={classes.SmallHeader}> Proposal no. {params.id}</h2>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div className={classes.ProposalBlock}>
             <div className={classes.SmallHeader} style={{ width: "40rem" }}>

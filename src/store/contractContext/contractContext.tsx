@@ -9,6 +9,7 @@ import { chainIDToEndpoint } from "../../wallets/connectors";
 
 interface ContextProps {
   contracts: Contracts;
+  initializeWeb3: any;
   updateContractsWeb3: (provider: any) => void;
   updateContractsEthers: (provider: any) => void;
 }
@@ -64,7 +65,12 @@ export function ContractProvider(props: any) {
     // eslint-disable-next-line
   }, []);
 
-  const value = { contracts, updateContractsWeb3, updateContractsEthers };
+  const value = {
+    contracts,
+    updateContractsWeb3,
+    updateContractsEthers,
+    initializeWeb3,
+  };
   return (
     <ContractContext.Provider value={value}>
       {props.children}

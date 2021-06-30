@@ -44,6 +44,7 @@ function ProjectProposal() {
             summary={project.summary}
             projectSummary={project.project_summary}
             aimsAndHypothesis={project.aims_and_hypothesis}
+            id={proposal.id}
           />
         </div>
         <div className={classes.rightContainer}>

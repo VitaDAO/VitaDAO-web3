@@ -40,6 +40,7 @@ function GovernanceProposal(props: Props) {
               {firstProposal.proposal_type} PROPOSAL
             </div>
             <h1 className={classes.title}>{firstProposal.title}</h1>
+            <h2 className={classes.SmallHeader}> Proposal no. {params.id}</h2>
           </div>
           <div className={classes.SmallHeader}>PROPOSAL DETAILS</div>
           <p className={classes.description}>

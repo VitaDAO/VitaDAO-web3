@@ -1,5 +1,5 @@
 
-import { Contract} from "ethers";
+import { Contract, ethers} from "ethers";
 import web3 from "web3";
 import { uploadDataToIpfs, getProposalDataFromIPFS } from './ipfs';
 
@@ -23,19 +23,28 @@ export const getProposalStatus = async (payload: any) => {
 export const getProposalData = async(payload: any) => {
     // function getProposalData(uint256 proposalIndex) returns (string memory,uint256,uint256,uint256,uint256, uint8)
     // details, votesFor, votesAgainst, startBlock, endBlock, status
-    const { contracts, proposalIndex} = payload;
+    const { contracts, proposalIndex, provider} = payload;
     const {raphaelContract} = contracts;
 	const res = (await raphaelContract.methods.getProposalData(proposalIndex).call());
+    const web3Provider = provider();
+    const blockNumber = await web3Provider.eth.getBlockNumber();
     const yesVotes = Number(web3.utils.fromWei(res[1]));
     const noVotes = Number(web3.utils.fromWei(res[2]));
     const startBlock = res[3];
     const endBlock = res[4];
-    const proposalName = res[0];
-    const data = JSON.parse(await getProposalDataFromIPFS(proposalName));
+    const proposalData = res[0];
+    const data = JSON.parse(await getProposalDataFromIPFS(proposalData));
     const id = proposalIndex;
-    return {proposalName, id, yesVotes, noVotes, startBlock, endBlock,
-        link: data.link, proposal_type: data.proposal_type, summary: data.summary, 
-        title: data.title, voting_start_date: data.voting_start_date, voting_end_date: data.voting_end_date,
+
+    var timeNow = new Date();
+    const startDateBlock = (blockNumber - startBlock)*15;
+    const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock));
+    const endDateBlock = (blockNumber - endBlock)*15;
+    const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
+    
+    return {proposalData, id, yesVotes, noVotes, startBlock, endBlock,
+        link: data.link, proposal_type: data.proposal_type, summary: data.summary,  
+        title: data.title, voting_start_date: startVote, voting_end_date: endVote,
         project: data.project === undefined? null: data.project};
   
 }
@@ -104,14 +113,13 @@ export const getProposalCount = async(payload: any) =>{
 }
 
 export const getAllProposals = async(payload: any) =>{
-    const { contracts} = payload;
+    const { contracts, provider} = payload;
     const numberOfProposals = await getProposalCount(payload);
     let data = [];
     for(let i = 0; i<numberOfProposals; i++){
-        const res = await getProposalData({contracts, proposalIndex: i+1});
+        const res = await getProposalData({contracts, proposalIndex: i+1, provider});
         data.push(res);
     }
-    debugger;
     return data;
 }
 
@@ -163,8 +171,7 @@ export const createProposal = async(payload: any) => {
 //     function createProposal(string memory details) external;
     const { contracts, address, proposalData} = payload;
     const {raphaelContract} = contracts;
-    const numberOfProposals = await getProposalCount(payload);
-    const contentHash = await uploadDataToIpfs(proposalData, numberOfProposals);
+    const contentHash = await uploadDataToIpfs(proposalData);
     return await raphaelContract.methods.createProposal(contentHash).send({from:address});
    
 }
