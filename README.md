@@ -4,7 +4,7 @@
 Our interface for VitaDAO -- a decentralized collective funding early stage longevity research
 
 - Website: [vitadao.com](https://vitadao.com)
-- Interface: [dao.vitadao.com](https://dao.vitadao.com)
+- Interface: [dao.vitadao.com](https://dao.vitadao.com) + [rinkeby.vitadao.com](https://rinkeby.vitadao.com)
 - Twitter: [@vita_dao](https://twitter.com/vita_dao)
 - Discord: [VitaDAO](https://discord.gg/3S3ftnmZYD[](url))
 - Whitepaper: [V1](https://github.com/VitaDAO/whitepaper/raw/master/VitaDAO_Whitepaper.pdf)
