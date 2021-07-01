@@ -7,6 +7,8 @@ Our interface for VitaDAO — a decentralized collective (DAO) funding early sta
 - Interface: [dao.vitadao.com](https://dao.vitadao.com) + [rinkeby.vitadao.com](https://rinkeby.vitadao.com)
 - Twitter: [@vita_dao](https://twitter.com/vita_dao)
 - Discord: [VitaDAO](https://discord.gg/3S3ftnmZYD[](url))
+- Discourse: [VitaDAO](https://gov.vitadao.com/[](url))
+
 - Whitepaper: [V1](https://github.com/VitaDAO/whitepaper/raw/master/VitaDAO_Whitepaper.pdf)
 
 # Accessing the VitaDAO Interface
