@@ -1,7 +1,7 @@
 # VitaDAO Web3 Interface
 
 
-Our interface for VitaDAO — a decentralized collective (DAO on Ethereum) funding early stage longevity research
+Our interface for VitaDAO — a decentralized collective (DAO) funding early stage longevity research
 
 - Website: [vitadao.com](https://vitadao.com)
 - Interface: [dao.vitadao.com](https://dao.vitadao.com) + [rinkeby.vitadao.com](https://rinkeby.vitadao.com)
