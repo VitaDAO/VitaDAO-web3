@@ -1,7 +1,5 @@
 # VitaDAO Web3 Interface
 
-[![Unit Tests]
-[![Integration Tests]
 
 Our interface for VitaDAO -- a decentralized collective funding early stage longevity research
 
