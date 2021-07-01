@@ -28,8 +28,11 @@ function GovernanceProposal(props: Props) {
     if (state.data === null) loadProposalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   });
-  const firstProposal = state.data.find(
-    (proposal) => proposal.id === params.id
+  useEffect(() => {
+    console.log(params.id);
+  });
+  const firstProposal = state.data?.find(
+    (proposal) => proposal.id.toString() === params.id
   );
   return (
     state.data !== null && (

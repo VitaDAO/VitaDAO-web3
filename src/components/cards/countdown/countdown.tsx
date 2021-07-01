@@ -4,7 +4,7 @@ import useStyles from "./countdownStyles";
 import { Time } from "../../icons";
 
 export interface Props {
-  daysRemaining: string;
+  daysRemaining: any;
   color: string;
   approved: boolean;
   hasStarted: boolean;

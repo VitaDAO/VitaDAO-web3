@@ -16,9 +16,9 @@ function CardBody(props: Props) {
   const hasStarted = new Date().getTime() < new Date(startDate).getTime();
   const inProgress = new Date().getTime() < new Date(endDate).getTime();
   const daysRemaining = hasStarted
-    ? (new Date(startDate).getTime() - Date.now()) / 86400000
+    ? (new Date(startDate).getTime() - Date.now()) / 864000
     : inProgress
-    ? (new Date(endDate).getTime() - Date.now()) / 864000000
+    ? (new Date(endDate).getTime() - Date.now()) / 864000
     : 0;
 
   const color = daysRemaining < 3 ? "var(--red)" : "var(--grey1)";
