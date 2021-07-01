@@ -11,8 +11,8 @@ import { useParams } from "react-router-dom";
 
 export interface Props {
   id: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
 }
 interface RouteParams {
   id: string;
