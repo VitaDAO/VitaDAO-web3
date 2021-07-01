@@ -9,7 +9,7 @@ Our interface for VitaDAO -- a decentralized collective funding early stage long
 - Discord: [VitaDAO](https://discord.gg/3S3ftnmZYD[](url))
 - Whitepaper: [V1](https://github.com/VitaDAO/whitepaper/raw/master/VitaDAO_Whitepaper.pdf)
 
-# Accessing the Uniswap Interface
+# Accessing the VitaDAO Interface
 To access the VitaDAO visit [dao.vitadao.com](https://dao.vitadao.com) and for our testnet deployment [rinkeby.vitadao.com](https://rinkeby.vitadao.com).
 
 —
