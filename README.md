@@ -1,3 +1,21 @@
+# VitaDAO Web3 Interface
+
+[![Unit Tests]
+[![Integration Tests]
+
+Our interface for VitaDAO -- a decentralized collective funding early stage longevity research
+
+- Website: [vitadao.com](https://vitadao.com)
+- Interface: [dao.vitadao.com](https://dao.vitadao.com)
+- Twitter: [@vita_dao](https://twitter.com/vita_dao)
+- Discord: [VitaDAO](https://discord.gg/3S3ftnmZYD[](url))
+- Whitepaper: [V1](https://github.com/VitaDAO/whitepaper/raw/master/VitaDAO_Whitepaper.pdf)
+
+# Accessing the Uniswap Interface
+To access the VitaDAO visit [dao.vitadao.com](https://dao.vitadao.com) and for our testnet deployment [rinkeby.vitadao.com](https://rinkeby.vitadao.com).
+
+—
+
 # Contributing
 
 When you want to contribute here, open a discussion or issue on your proposed change with the owners of this repository before making a change. 
@@ -19,7 +37,6 @@ Behave well.
 2. Get a review
 3. Accept and address feedback
 4. Be production ready before merging
-
  
 
 ## Expectations
