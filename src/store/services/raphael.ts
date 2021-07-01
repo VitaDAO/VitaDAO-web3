@@ -39,10 +39,12 @@ export const getProposalData = async(payload: any) => {
     const id = proposalIndex;
     var timeNow = new Date();
     const startDateBlock = (blockNumber - startBlock)*15;
-    const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock));
+    const startVote = startDateBlock > 0 ? new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock)):
+        new Date(timeNow.setDate(timeNow.getDate() - 1));
     const endDateBlock = (endBlock - blockNumber)*15;
-    const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
-    
+    const endVote = endDateBlock > 0? new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock)):
+        new Date(timeNow.setDate(timeNow.getDate() - 1));;
+    debugger;
     return {proposalData, id, yesVotes, noVotes, startBlock, endBlock,
         link: data.link, proposal_type: data.proposal_type, summary: data.summary,  
         title: data.title, voting_start_date: startVote, voting_end_date: endVote,

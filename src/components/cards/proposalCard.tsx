@@ -12,8 +12,8 @@ export interface Props {
   id: string;
   proposalTitle: string;
   proposalType: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   votesYes: number;
   votesNo: number;
 }

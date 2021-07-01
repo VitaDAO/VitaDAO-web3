@@ -27,8 +27,8 @@ function FundingProposal(props: Props) {
     if (state.data === null) loadProposalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   });
-  const fundingProposal = state.data.find(
-    (proposal) => proposal.id === params.id
+  const fundingProposal = state.data?.find(
+    (proposal) => proposal.id.toString() === params.id
   );
   const project = fundingProposal.project;
 
