@@ -28,9 +28,7 @@ function GovernanceProposal(props: Props) {
     if (state.data === null) loadProposalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   });
-  useEffect(() => {
-    console.log(params.id);
-  });
+
   const firstProposal = state.data?.find(
     (proposal) => proposal.id.toString() === params.id
   );
