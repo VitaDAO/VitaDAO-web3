@@ -38,7 +38,7 @@ We maintainers need to remember that VitaDAO is an organization focused on scien
 
 This is crypto, but for a meaningful cause. The tech is not the point, let's keep it out of the way.
 
-## # Inclusion 
+## Inclusion 
 
 We contributors and maintainers pledge to make participation in [VitaDao's](https://vitadao.com) project and community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
