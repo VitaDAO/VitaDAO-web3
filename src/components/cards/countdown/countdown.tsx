@@ -8,7 +8,6 @@ export interface Props {
   color: string;
   approved: boolean;
   hasStarted: boolean;
-  status: string;
 }
 
 function Countdown(props: Props) {
@@ -31,12 +30,11 @@ function Countdown(props: Props) {
       ) : (
         // TODO: label below ("approved" or "rejected") must come from API
         <p className={classes.outcome}>
-          {/* {props.approved ? (
+          {props.approved ? (
             <div>Approved</div>
           ) : (
             <div style={{ color: "#ff7272" }}>Failed</div>
-          )} */}
-          {props.status}
+          )}
         </p>
       )}
     </div>

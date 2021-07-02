@@ -8,7 +8,6 @@ export interface Props {
   endDate: Date;
   votesYes: number;
   votesNo: number;
-  status: string;
 }
 
 function CardBody(props: Props) {
@@ -32,7 +31,6 @@ function CardBody(props: Props) {
         approved={approved}
         hasStarted={hasStarted}
         daysRemaining={daysRemaining.toFixed()}
-        status={props.status}
       />
       <VoteCount
         size={props.size}
