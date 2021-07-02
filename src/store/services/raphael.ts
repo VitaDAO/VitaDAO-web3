@@ -10,6 +10,14 @@ export interface RaphaelPayload {
     address?: string;
     proposalIndex?: string;
 }
+export const proposalStatus = {
+    0:"Voting not started",
+    1:"Voting",
+    2:"Voting finished",
+    3:"Resolved",
+    4:"Cancelled",
+    5:"Quorum failed"
+}
 //Getter functions
 export const getProposalStatus = async (payload: any) => {
 // function getProposalStatus(uint256 proposalIndex) external view returns(uint256);
@@ -34,6 +42,7 @@ export const getProposalData = async(payload: any) => {
     const endBlock = res[4];
     const proposalData = JSON.parse(res[0]);
     let data;
+    const status = proposalStatus[res[5]];
     if(proposalData.cid !== undefined || proposalData.cid !==null)
      data = JSON.parse(await getProposalDataFromIPFS(proposalData.cid));
     const id = proposalIndex;
@@ -45,7 +54,7 @@ export const getProposalData = async(payload: any) => {
     const endVote = endDateBlock > 0? new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock)):
         new Date(timeNow.setDate(timeNow.getDate() - 1));;
     //debugger;
-    return {proposalData, id, yesVotes, noVotes, startBlock, endBlock,
+    return {proposalData, id, yesVotes, noVotes, startBlock, endBlock, status, 
         link: data.link, proposal_type: data.proposal_type, summary: data.summary,  
         title: data.title, voting_start_date: startVote, voting_end_date: endVote,
         project: data.project === undefined? null: data.project};
@@ -188,7 +197,7 @@ export const updateProposalStatus = async(payload: any) => {
 }
 export const setProposalToResolved = async(payload: any) => {
 //     function setProposalToResolved(uint256 proposalIndex) external;
-        const { contracts, address, proposalIndex} = payload;
+    const { contracts, address, proposalIndex} = payload;
     const {raphaelContract} = contracts;
     return await raphaelContract.methods.setProposalToResolved(proposalIndex)
     .call({ from: address });

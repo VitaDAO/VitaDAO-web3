@@ -13,6 +13,7 @@ export interface Props {
   id: string;
   startDate: Date;
   endDate: Date;
+  status: string;
 }
 interface RouteParams {
   id: string;
@@ -76,6 +77,7 @@ function VotingCard(props: Props) {
     <CardWrapper size={size}>
       <CardHeader heading={headerTitle} />
       <CardBody
+        status={props.status}
         size={size}
         startDate={props.startDate}
         endDate={props.endDate}

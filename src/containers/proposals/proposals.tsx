@@ -30,6 +30,7 @@ function Proposals() {
           endDate={proposal.voting_end_date}
           votesYes={proposal.yesVotes}
           votesNo={proposal.noVotes}
+          status={proposal.status}
         />
       ))}
     </CardGrid>
