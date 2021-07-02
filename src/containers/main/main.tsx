@@ -36,7 +36,7 @@ export default function Main(props: Props) {
   };
   useEffect(() => {
     if (state.data === null && contracts !== null && library !== undefined) {
-      debugger;
+      //debugger;
       loadProposalData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

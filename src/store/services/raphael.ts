@@ -44,7 +44,7 @@ export const getProposalData = async(payload: any) => {
     const endDateBlock = (endBlock - blockNumber)*15;
     const endVote = endDateBlock > 0? new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock)):
         new Date(timeNow.setDate(timeNow.getDate() - 1));;
-    debugger;
+    //debugger;
     return {proposalData, id, yesVotes, noVotes, startBlock, endBlock,
         link: data.link, proposal_type: data.proposal_type, summary: data.summary,  
         title: data.title, voting_start_date: startVote, voting_end_date: endVote,
@@ -119,10 +119,9 @@ export const getAllProposals = async(payload: any) =>{
     const { contracts, provider} = payload;
     const numberOfProposals = await getProposalCount(payload);
 
-
     let data = [];
-    for(let i = 3; i<numberOfProposals; i++){
-        const res = await getProposalData({contracts, proposalIndex: i+1, provider});
+    for(let i = numberOfProposals; i>3 ; i--){
+        const res = await getProposalData({contracts, proposalIndex: i, provider});
         data.push(res);
     }
     return data;
