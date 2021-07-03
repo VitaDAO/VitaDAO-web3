@@ -14,6 +14,16 @@ const useStyles = makeStyles(() =>
       top: 0,
       padding: "0 1rem",
     },
+
+    leftContainer: {
+      display: "flex",
+      alignItems: "left",
+      justifyContent: "flex-end",
+      margin: "auto 0 0 0",
+      width: "auto",
+      height: "100%",
+    },
+
     rightContainer: {
       display: "flex",
       alignItems: "center",

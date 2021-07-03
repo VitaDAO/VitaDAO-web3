@@ -7,6 +7,7 @@ import Hamburger from "../hamburger/hamburger";
 import Menu from "../menu/menu";
 import { useWeb3React } from "@web3-react/core";
 
+
 export interface Props {
   setShowWalletModal: React.Dispatch<React.SetStateAction<boolean>>;
   disconnectWallet: (wallet: any) => void;
@@ -42,12 +43,36 @@ function Navbar(props: Props) {
 
   return (
     <div className={classes.Navbar}>
-      <div className={classes.rightContainer}>
-        {/* <div className={classes.navItem}>
-          <NavLink className={classes.navLink} to="/about">
-            about
+      <div className={classes.leftContainer}>
+        {<div className={classes.navItem}>
+          <NavLink className={classes.navLink} to="/">
+          <img src="/media/images/vitadao-logo.png" width="auto" height="30px" />
           </NavLink>
-        </div> */}
+        </div>}
+
+      </div>
+      <div className={classes.rightContainer}>
+        { <div className={classes.navItem}>
+          <NavLink className={classes.navLink} to="/proposals">
+            Proposals
+          </NavLink>
+        
+        </div> }
+{/*         
+        { <div className={classes.navItem}>
+          <NavLink className={classes.navLink} to="/">
+            Projects
+          </NavLink>
+        
+        </div> }
+
+        { <div className={classes.navItem}>
+          <NavLink className={classes.navLink} to="/proposals">
+            Treasury
+          </NavLink>
+        
+        </div> } */}
+
 
         {walletModal}
 
