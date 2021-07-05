@@ -131,23 +131,50 @@ function StakeToken(props: any) {
         ) : (
           <>
             {!state.flags.approvedTokens ? (
-              <div className={classes.buttonContainer}>
-                <PillButton
-                  color="green"
-                  label="Approve tokens"
-                  pending={state.flags.approvedTokensPending}
-                  clickFunction={() => approveTokens()}
-                />
-              </div>
+              <>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="green"
+                    label="Approve tokens"
+                    pending={state.flags.approvedTokensPending}
+                    clickFunction={() => approveTokens()}
+                  />
+                </div>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="grey"
+                    label="Stake tokens"
+                    clickFunction={lockTokens}
+                    disabled={true}
+                    pending={false}
+                    success={false}
+                    fail={false}
+                  />
+                </div>
+              </>
             ) : (
-              <div className={classes.buttonContainer}>
-                <PillButton
-                  color="green"
-                  label="Stake tokens"
-                  clickFunction={() => lockTokens()}
-                  pending={state.flags.stakeTokensPending}
-                />
-              </div>
+              <>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="grey"
+                    label="Approve tokens"
+                    clickFunction={lockTokens}
+                    iconColor="green"
+                    disabled={true}
+                    pending={false}
+                    success={true}
+                    fail={false}
+                  />
+                </div>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="green"
+                    label="Stake tokens"
+                    clickFunction={() => lockTokens()}
+                    pending={state.flags.stakeTokensPending}
+                  />
+                </div>
+              </>
             )}
           </>
         )}
