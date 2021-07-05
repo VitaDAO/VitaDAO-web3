@@ -45,6 +45,8 @@ export default function IPProposal() {
             id={params.id}
             startDate={proposal.voting_start_date}
             endDate={proposal.voting_end_date}
+            yesVotes={proposal.yesVotes}
+            noVotes={proposal.noVotes}
           />
         </div>
       </div>
