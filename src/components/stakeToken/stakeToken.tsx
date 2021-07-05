@@ -15,7 +15,7 @@ export interface Props {
 function StakeToken(props: any) {
   const { theme } = useContext(ThemeContext);
   const { state, actions } = useContext(StoreContext);
-  const { contracts } = useContext(ContractContext);
+  const { contracts, initializeWeb3 } = useContext(ContractContext);
   const [showBuySpinner] = useState(false);
   const [disableMessage, setDisableMessage] = useState("Enter Staking Amount");
   const [token, setToken] = useState<string>("VITA");
@@ -34,6 +34,11 @@ function StakeToken(props: any) {
       address: account,
       contracts,
       provider: library,
+    });
+    actions.getUnlockTime({
+      address: account,
+      contracts,
+      provider: initializeWeb3,
     });
     if (state.flags.stakedTokens) setStakeAmount(0.0);
   }
@@ -98,7 +103,10 @@ function StakeToken(props: any) {
   return (
     <div className={classes.Main}>
       <div className={classes.balances}>
-        <p>Staked tokens: {state.stakedBalance}</p>
+        <label>Staked tokens: {state.stakedBalance} </label>
+
+        <p>Unlock time: {state.unlockTime}</p>
+
         <p>Vita tokens: {state.balances["vitaBalance"]}</p>
       </div>
       <div className={classes.index}>
