@@ -17,7 +17,7 @@ function Countdown(props: Props) {
   const classes = useStyles({ ...props, ...theme });
   return (
     <div className={classes.Countdown}>
-      {parseInt(props.daysRemaining) > 0 ? (
+      {/* {parseInt(props.daysRemaining) > 0 ? (
         <>
           <Time className={classes.TimeIcon} />
           {props.hasStarted
@@ -28,17 +28,17 @@ function Countdown(props: Props) {
                 props.daysRemaining === "1" ? "" : "s"
               }`}
         </>
-      ) : (
-        // TODO: label below ("approved" or "rejected") must come from API
-        <p className={classes.outcome}>
-          {/* {props.approved ? (
+      ) : ( */}
+      {/* // TODO: label below ("approved" or "rejected") must come from API */}
+      <p className={classes.outcome}>
+        {/* {props.approved ? (
             <div>Approved</div>
           ) : (
             <div style={{ color: "#ff7272" }}>Failed</div>
           )} */}
-          {props.status}
-        </p>
-      )}
+        {props.status}
+      </p>
+      {/* )} */}
     </div>
   );
 }
