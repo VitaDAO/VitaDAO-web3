@@ -13,6 +13,8 @@ export interface Props {
   id: string;
   startDate: Date;
   endDate: Date;
+  yesVotes: number;
+  noVotes: number;
 }
 interface RouteParams {
   id: string;
@@ -24,7 +26,6 @@ function VotingCard(props: Props) {
   const { account, library } = useWeb3React();
   const headerTitle = "Voting Progress";
   const params = useParams<RouteParams>();
-  const [proposal, setProposal] = useState(null);
 
   const size =
     new Date().getTime() >= new Date(props.endDate).getTime() ||
@@ -32,28 +33,11 @@ function VotingCard(props: Props) {
       ? "smallest"
       : "small";
   useEffect(() => {
-    loadProposalData();
     if (state.isWalletConnected && state.stakedBalance === null) {
       setStakedBalance();
     }
   });
 
-  useEffect(() => {});
-
-  const loadProposalData = async () => {
-    const filterProposals = state.proposals.filter(
-      (proposal) => proposal.id === props.id
-    );
-    if (filterProposals.length > 0) {
-      setProposal(filterProposals[0]);
-    } else {
-      actions.getProposalData({
-        contracts,
-        provider: library,
-        proposalIndex: props.id,
-      });
-    }
-  };
   const setStakedBalance = async () => {
     actions.getStakedBalance({
       address: state.userAddress,
@@ -79,12 +63,8 @@ function VotingCard(props: Props) {
         size={size}
         startDate={props.startDate}
         endDate={props.endDate}
-        votesYes={
-          proposal !== null && proposal !== undefined ? proposal.yesVotes : 0
-        }
-        votesNo={
-          proposal !== null && proposal !== undefined ? proposal.yesVotes : 0
-        }
+        votesYes={props.yesVotes}
+        votesNo={props.noVotes}
       />
       {/* // TODO: path must be dynamic, leading to governance :id */}
 
