@@ -93,6 +93,19 @@ function StakeToken(props: any) {
     }
   };
 
+  const withdrawTokens = async () => {
+    if (state.isWalletConnected) {
+      actions.withdraw({
+        address: account,
+        contracts,
+        provider: library,
+        withdrawalAmount: stakeAmount,
+      });
+    }
+  };
+
+  
+
   const classes = useStyles({ ...props, ...theme });
 
   return (
@@ -151,6 +164,14 @@ function StakeToken(props: any) {
                     fail={false}
                   />
                 </div>
+                 <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="grey"
+                    label="Withdraw tokens"
+                    pending={state.flags.approvedTokensPending}
+                    clickFunction={() => withdrawTokens()}
+                  />
+                </div>
               </>
             ) : (
               <>
@@ -172,6 +193,16 @@ function StakeToken(props: any) {
                     label="Stake tokens"
                     clickFunction={() => lockTokens()}
                     pending={state.flags.stakeTokensPending}
+                  />
+                </div>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="grey"
+                    label="Withdraw tokens"
+                    clickFunction={lockTokens}
+                    disabled={true}
+                    pending={false}
+                    fail={false}
                   />
                 </div>
               </>

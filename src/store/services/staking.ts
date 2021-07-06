@@ -73,7 +73,7 @@ export const withdraw = async (payload: any) => {
 // function withdraw(uint256 amount) external override
     const { contracts, address, withdrawalAmount} = payload;
     const {stakingContract} = contracts;
-    const amountParsed = web3.utils.toBN((withdrawalAmount).toString());
+    const amountParsed = web3.utils.toWei(withdrawalAmount.toString());
     
     return await stakingContract.methods.withdraw(amountParsed)
     .send({ from: address });
