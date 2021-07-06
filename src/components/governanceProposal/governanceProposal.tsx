@@ -62,6 +62,8 @@ function GovernanceProposal(props: Props) {
             id={params.id}
             startDate={firstProposal.voting_start_date}
             endDate={firstProposal.voting_end_date}
+            yesVotes={firstProposal.yesVotes}
+            noVotes={firstProposal.noVotes}
           ></VotingCard>
         </div>
       </div>

@@ -79,6 +79,8 @@ function FundingProposal(props: Props) {
         id={fundingProposal.id}
         startDate={fundingProposal.voting_start_date}
         endDate={fundingProposal.voting_end_date}
+        yesVotes={fundingProposal.yesVotes}
+        noVotes={fundingProposal.noVotes}
       ></VotingCard>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import VotingCard from "../../components/cards/votingCard";
 import ProjectProposalDetails from "../../components/projectProposalDetails/projectProposalDetails";
@@ -52,6 +52,8 @@ function ProjectProposal() {
             id={params.id}
             startDate={proposal.voting_start_date}
             endDate={proposal.voting_end_date}
+            yesVotes={proposal.yesVotes}
+            noVotes={proposal.noVotes}
           />
         </div>
       </div>
