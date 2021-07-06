@@ -23,6 +23,7 @@ const useStyles = makeStyles(() =>
     },
     balances:{
       font: (style: Theme & Props) => style.typography.h2,
+      justifyContent:"space-evenly",
       color: (style: Theme & Props) => style.textColor,
     },
     index: {

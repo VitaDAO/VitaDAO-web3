@@ -15,7 +15,7 @@ export interface Props {
 function StakeToken(props: any) {
   const { theme } = useContext(ThemeContext);
   const { state, actions } = useContext(StoreContext);
-  const { contracts } = useContext(ContractContext);
+  const { contracts, initializeWeb3 } = useContext(ContractContext);
   const [showBuySpinner] = useState(false);
   const [disableMessage, setDisableMessage] = useState("Enter Staking Amount");
   const [token, setToken] = useState<string>("VITA");
@@ -34,6 +34,11 @@ function StakeToken(props: any) {
       address: account,
       contracts,
       provider: library,
+    });
+    actions.getUnlockTime({
+      address: account,
+      contracts,
+      provider: initializeWeb3,
     });
     if (state.flags.stakedTokens) setStakeAmount(0.0);
   }
@@ -93,12 +98,28 @@ function StakeToken(props: any) {
     }
   };
 
+  const withdrawTokens = async () => {
+    if (state.isWalletConnected) {
+      actions.withdraw({
+        address: account,
+        contracts,
+        provider: library,
+        withdrawalAmount: stakeAmount,
+      });
+    }
+  };
+
+  
+
   const classes = useStyles({ ...props, ...theme });
 
   return (
     <div className={classes.Main}>
       <div className={classes.balances}>
-        <p>Staked tokens: {state.stakedBalance}</p>
+        <label>Staked tokens: {state.stakedBalance} </label>
+
+        <p>Unlock time: {state.unlockTime}</p>
+
         <p>Vita tokens: {state.balances["vitaBalance"]}</p>
       </div>
       <div className={classes.index}>
@@ -131,23 +152,68 @@ function StakeToken(props: any) {
         ) : (
           <>
             {!state.flags.approvedTokens ? (
-              <div className={classes.buttonContainer}>
-                <PillButton
-                  color="green"
-                  label="Approve tokens"
-                  pending={state.flags.approvedTokensPending}
-                  clickFunction={() => approveTokens()}
-                />
-              </div>
+              <>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="green"
+                    label="Approve tokens"
+                    pending={state.flags.approvedTokensPending}
+                    clickFunction={() => approveTokens()}
+                  />
+                </div>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="grey"
+                    label="Stake tokens"
+                    clickFunction={lockTokens}
+                    disabled={true}
+                    pending={false}
+                    success={false}
+                    fail={false}
+                  />
+                </div>
+                 <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="grey"
+                    label="Withdraw tokens"
+                    pending={state.flags.approvedTokensPending}
+                    clickFunction={() => withdrawTokens()}
+                  />
+                </div>
+              </>
             ) : (
-              <div className={classes.buttonContainer}>
-                <PillButton
-                  color="green"
-                  label="Stake tokens"
-                  clickFunction={() => lockTokens()}
-                  pending={state.flags.stakeTokensPending}
-                />
-              </div>
+              <>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="grey"
+                    label="Approve tokens"
+                    clickFunction={lockTokens}
+                    iconColor="green"
+                    disabled={true}
+                    pending={false}
+                    success={true}
+                    fail={false}
+                  />
+                </div>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="green"
+                    label="Stake tokens"
+                    clickFunction={() => lockTokens()}
+                    pending={state.flags.stakeTokensPending}
+                  />
+                </div>
+                <div className={classes.buttonContainer}>
+                  <PillButton
+                    color="grey"
+                    label="Withdraw tokens"
+                    clickFunction={lockTokens}
+                    disabled={true}
+                    pending={false}
+                    fail={false}
+                  />
+                </div>
+              </>
             )}
           </>
         )}
