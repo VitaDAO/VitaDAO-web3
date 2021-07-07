@@ -60,3 +60,4 @@ This is crypto, but for a meaningful cause. The tech is not the point, let's kee
 We contributors and maintainers pledge to make participation in [VitaDao's](https://vitadao.com) project and community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 Please familiarize yourself with the [paradox of tolerance](https://en.wikipedia.org/wiki/Paradox_of_tolerance).
+
