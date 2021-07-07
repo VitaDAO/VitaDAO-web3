@@ -15,11 +15,12 @@ import {
   Wallet,
   Molecule,
 } from "./vita_dao";
-import { Metamask, Portis, WalletConnect } from "./wallets";
+import { Metamask, Portis, WalletConnect, TorusLight } from "./wallets";
 
 export {
   Metamask,
   Portis,
+  TorusLight,
   DAI,
   ETH,
   USDC,
