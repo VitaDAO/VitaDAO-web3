@@ -16,8 +16,14 @@ const useStyles = makeStyles(() =>
       margin: "0rem 1rem",
       stroke: (style: Theme & Props) => style.color,
     },
-    outcome: {
+    neutralOutcome: {
       color: "var(--blue)",
+    },
+    passedOutcome: {
+      color: "var(--green)",
+    },
+    failedOutcome: {
+      color: "var(--red)",
     },
   })
 );

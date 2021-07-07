@@ -11,12 +11,12 @@ export interface RaphaelPayload {
     proposalIndex?: string;
 }
 export const proposalStatus = {
-    0:"Voting not started",
+    0:"Voting Not Started",
     1:"Voting",
-    2:"Voting finished",
+    2:"Voting Finished",
     3:"Resolved",
     4:"Cancelled",
-    5:"Quorum failed"
+    5:"Quorum Failed"
 }
 //Getter functions
 export const getProposalStatus = async (payload: any) => {
@@ -47,12 +47,11 @@ export const getProposalData = async(payload: any) => {
      data = JSON.parse(await getProposalDataFromIPFS(proposalData.cid));
     const id = proposalIndex;
     var timeNow = new Date();
-    const startDateBlock = (blockNumber - startBlock)*15;
-    const startVote = startDateBlock > 0 ? new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock)):
-        new Date(timeNow.setDate(timeNow.getDate() - 1));
-    const endDateBlock = (endBlock - blockNumber)*15;
-    const endVote = endDateBlock > 0? new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock)):
-        new Date(timeNow.setDate(timeNow.getDate() - 1));;
+    //debugger;
+    const startDateBlock = (startBlock - blockNumber)*13.2; //current avg block time
+    const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock))
+    const endDateBlock = (endBlock - blockNumber)*13.2; //current avg block time
+    const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
     //debugger;
     return {proposalData, id, yesVotes, noVotes, startBlock, endBlock, status, 
         link: data.link, proposal_type: data.proposal_type, summary: data.summary,  
