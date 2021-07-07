@@ -24,7 +24,7 @@ function getStatusText(props: Props, classes){
       if (props.approved) {return "Passed";}
       else {return 'Failed';}
     case proposalStatus[1]: //voting        
-        return props.status + " until \n" + props.endDate.toLocaleString()
+        return props.status + " until " + props.endDate.toLocaleString()
     default:                //all other statuses
       return status;
   }
@@ -36,7 +36,6 @@ function getStatusStyle(props: Props, classes){
     case proposalStatus[3]: //resolved is passed and implemented - should be green
       return classes.passedOutcome;
     case proposalStatus[2]://voting finished
-      // Don't show voting finished status, interpret result
       if (props.approved) {return classes.passedOutcome;}
       else {return classes.failedOutcome;}
     case proposalStatus[5]: 
