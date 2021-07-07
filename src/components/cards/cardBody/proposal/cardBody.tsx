@@ -31,7 +31,8 @@ function CardBody(props: Props) {
         color={color}
         approved={approved}
         hasStarted={hasStarted}
-        hoursRemaining={hoursRemaining.toFixed()}
+        startDate={startDate}
+        endDate={endDate}
         status={props.status}
       />
       <VoteCount

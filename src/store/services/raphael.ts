@@ -49,7 +49,7 @@ export const getProposalData = async(payload: any) => {
     var timeNow = new Date();
     //debugger;
     const startDateBlock = (startBlock - blockNumber)*13.2; //current avg block time
-    const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock))
+    const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock));
     const endDateBlock = (endBlock - blockNumber)*13.2; //current avg block time
     const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
     //debugger;

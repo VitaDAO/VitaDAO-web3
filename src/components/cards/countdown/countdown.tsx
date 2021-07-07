@@ -4,9 +4,11 @@ import useStyles from "./countdownStyles";
 import { Time } from "../../icons";
 import { proposalStatus } from "../../../store/services/raphael";
 import { getHeapSpaceStatistics } from "v8";
+import { createEmitAndSemanticDiagnosticsBuilderProgram } from "typescript";
 
 export interface Props {
-  hoursRemaining: any;
+  startDate: Date;
+  endDate: Date;
   color: string;
   approved: boolean;
   hasStarted: boolean;
@@ -21,15 +23,8 @@ function getStatusText(props: Props, classes){
       // Don't show voting finished status, interpret result
       if (props.approved) {return "Passed";}
       else {return 'Failed';}
-    case proposalStatus[1]: //voting
-        let hoursRemaining = parseInt(props.hoursRemaining);
-        let daysRemaining = Math.floor(hoursRemaining/24);
-        let hoursModulus = hoursRemaining%24;
-        //show days remaining until only hours left
-        if (daysRemaining > 0){ return daysRemaining + " Days Left to Vote"}
-        else if (hoursModulus > 0) { return hoursRemaining + " Hours Left To Vote"}
-        //remind that the status needs updated
-        else {return props.status}
+    case proposalStatus[1]: //voting        
+        return props.status + " until \n" + props.endDate.toLocaleString()
     default:                //all other statuses
       return status;
   }
@@ -38,7 +33,7 @@ function getStatusText(props: Props, classes){
 function getStatusStyle(props: Props, classes){
   let status = props.status;
   switch(status) {
-    case proposalStatus[3]:
+    case proposalStatus[3]: //resolved is passed and implemented - should be green
       return classes.passedOutcome;
     case proposalStatus[2]://voting finished
       // Don't show voting finished status, interpret result
