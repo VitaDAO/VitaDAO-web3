@@ -13,6 +13,7 @@ export interface Props {
   id: string;
   startDate: Date;
   endDate: Date;
+  status: string;
   yesVotes: number;
   noVotes: number;
 }

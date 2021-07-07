@@ -28,6 +28,7 @@ function ProposalCard(props: Props) {
         subHeading={`${proposalType} proposal`}
       />
       <CardBody
+        status={props.status}
         startDate={props.startDate}
         endDate={props.endDate}
         votesYes={props.votesYes}
