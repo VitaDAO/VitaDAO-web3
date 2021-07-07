@@ -63,6 +63,8 @@ function GovernanceProposal(props: Props) {
             startDate={firstProposal.voting_start_date}
             endDate={firstProposal.voting_end_date}
             status={firstProposal.status}
+            yesVotes={firstProposal.yesVotes}
+            noVotes={firstProposal.noVotes}
           ></VotingCard>
         </div>
       </div>

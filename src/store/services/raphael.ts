@@ -129,7 +129,7 @@ export const getAllProposals = async(payload: any) =>{
     const numberOfProposals = await getProposalCount(payload);
 
     let data = [];
-    for(let i = numberOfProposals; i>3 ; i--){
+    for(let i = numberOfProposals; i>0 ; i--){
         const res = await getProposalData({contracts, proposalIndex: i, provider});
         data.push(res);
     }

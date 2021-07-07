@@ -80,6 +80,8 @@ function FundingProposal(props: Props) {
         startDate={fundingProposal.voting_start_date}
         endDate={fundingProposal.voting_end_date}
         status={fundingProposal.status}
+        yesVotes={fundingProposal.yesVotes}
+        noVotes={fundingProposal.noVotes}
       ></VotingCard>
     </div>
   );

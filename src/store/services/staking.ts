@@ -38,11 +38,21 @@ export const getStakedBalance = async (payload: any) => {
 }
 export const getUnlockTime = async (payload: any) => {
 // function getUnlockTime(address staker) external view override returns(uint256) 
-    const { contracts, address} = payload;
+    const { contracts, address, provider} = payload;
     const {stakingContract} = contracts;
 
-    return await stakingContract.methods.getUnlockTime(address)
+    const unlockBlock =  await stakingContract.methods.getUnlockTime(address)
     .call();
+    const web3Provider = provider();
+    const blockNumber = await web3Provider.eth.getBlockNumber();
+    var timeNow = new Date();
+    const endBlock = (blockNumber - unlockBlock)*15;
+    const unlockDate = endBlock > 0 ? new Date(timeNow.setSeconds(timeNow.getSeconds()+endBlock)):
+        new Date(timeNow.setDate(timeNow.getDate() - 1));
+
+    return unlockDate.toDateString();
+
+
 }
 export const isShutdown = async (payload: any) => {
 // function isShutdown() public view override returns(bool) 
@@ -73,7 +83,7 @@ export const withdraw = async (payload: any) => {
 // function withdraw(uint256 amount) external override
     const { contracts, address, withdrawalAmount} = payload;
     const {stakingContract} = contracts;
-    const amountParsed = web3.utils.toBN((withdrawalAmount).toString());
+    const amountParsed = web3.utils.toWei(withdrawalAmount.toString());
     
     return await stakingContract.methods.withdraw(amountParsed)
     .send({ from: address });

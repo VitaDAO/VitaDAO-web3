@@ -1,7 +1,7 @@
 import types from "./actionTypes";
 import { getBalances } from './services/balances';
 import { createProposal, getAllProposals, getProposalCount, getProposalData, getProposalResult, getProposalStatus, getProposalVotes, vote } from './services/raphael';
-import { getStakedBalance, stake, withdraw } from './services/staking';
+import { getStakedBalance, getUnlockTime, stake, withdraw } from './services/staking';
 import { approveTokens } from './services/token';
 
 export const applyMiddleware = (dispatch) => (action) => {
@@ -185,6 +185,20 @@ export const applyMiddleware = (dispatch) => (action) => {
       .catch((err) =>
         dispatch({
           type: types.CreateProposal.CREATE_PROPOSAL_FAIL,
+          payload: err.response,
+        })
+      );
+    case types.GetUnlockTime.GET_UNLOCK_TIME_REQUEST:
+      return getUnlockTime(action.payload)
+      .then((res) => {
+        dispatch({
+          type: types.GetUnlockTime.GET_UNLOCK_TIME_SUCCESS,
+          payload: res,
+        });
+      })
+      .catch((err) =>
+        dispatch({
+          type: types.GetUnlockTime.GET_UNLOCK_TIME_FAIL,
           payload: err.response,
         })
       );
