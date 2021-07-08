@@ -28,8 +28,9 @@ function GovernanceProposal(props: Props) {
     if (state.data === null) loadProposalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   });
-  const firstProposal = state.data.find(
-    (proposal) => proposal.id === params.id
+
+  const firstProposal = state.data?.find(
+    (proposal) => proposal.id.toString() === params.id
   );
   return (
     state.data !== null && (
@@ -61,6 +62,9 @@ function GovernanceProposal(props: Props) {
             id={params.id}
             startDate={firstProposal.voting_start_date}
             endDate={firstProposal.voting_end_date}
+            status={firstProposal.status}
+            yesVotes={firstProposal.yesVotes}
+            noVotes={firstProposal.noVotes}
           ></VotingCard>
         </div>
       </div>

@@ -7,6 +7,7 @@ export interface Props {
   color: string;
   label: string;
   clickFunction: any;
+  iconColor?: string;
   small?: boolean;
   disabled?: boolean;
   pending?: boolean;

@@ -27,8 +27,8 @@ function FundingProposal(props: Props) {
     if (state.data === null) loadProposalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   });
-  const fundingProposal = state.data.find(
-    (proposal) => proposal.id === params.id
+  const fundingProposal = state.data?.find(
+    (proposal) => proposal.id.toString() === params.id
   );
   const project = fundingProposal.project;
 
@@ -79,6 +79,9 @@ function FundingProposal(props: Props) {
         id={fundingProposal.id}
         startDate={fundingProposal.voting_start_date}
         endDate={fundingProposal.voting_end_date}
+        status={fundingProposal.status}
+        yesVotes={fundingProposal.yesVotes}
+        noVotes={fundingProposal.noVotes}
       ></VotingCard>
     </div>
   );

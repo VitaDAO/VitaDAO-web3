@@ -120,6 +120,13 @@ export const useActions = (state, dispatch) => ({
       type: types.GetAllProposals.GET_ALL_PROPOSAL_DATA_REQUEST,
       payload: data,
     });
+  },
+  getUnlockTime:(data)=>{
+    dispatch({ type: types.GetUnlockTime.GET_UNLOCK_TIME_PENDING });
+    dispatch({
+      type: types.GetUnlockTime.GET_UNLOCK_TIME_REQUEST,
+      payload: data,
+    });
   }
 });
 
@@ -135,6 +142,7 @@ export interface Actions {
   withdraw:(data:any) => void;
   approveTokens:(data: any) => void;
   getStakedBalance:(data: any) => void;
+  getUnlockTime:(data: any) => void;
   getProposalData:(data: any) => void;
   getProposalVotes:(data: any) => void;
   getProposalResult:(data: any) => void;

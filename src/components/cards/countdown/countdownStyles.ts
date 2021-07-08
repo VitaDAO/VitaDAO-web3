@@ -7,6 +7,7 @@ const useStyles = makeStyles(() =>
     Countdown: {
       font: (style: Theme & Props) => style.typography.c2,
       color: (style: Theme & Props) => style.color,
+      padding: "5px 5px 5px 5px",
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
@@ -16,8 +17,14 @@ const useStyles = makeStyles(() =>
       margin: "0rem 1rem",
       stroke: (style: Theme & Props) => style.color,
     },
-    outcome: {
+    neutralOutcome: {
       color: "var(--blue)",
+    },
+    passedOutcome: {
+      color: "var(--green)",
+    },
+    failedOutcome: {
+      color: "var(--red)",
     },
   })
 );

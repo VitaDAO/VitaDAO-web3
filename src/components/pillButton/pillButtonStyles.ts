@@ -28,9 +28,10 @@ const useStyles = makeStyles(() =>
 
     },
     icon: {
-      color: "inherit",
-      margin: "auto auto auto 1rem",
-      width: "2rem",
+      color: (style: Theme & Props) =>
+        style.iconColor ? style.iconColor : "inherit",
+      marginLeft: "5px",
+      width: "20px",
     },
     rotate: {
       animation: `rotate 1s infinite`,

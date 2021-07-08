@@ -3,8 +3,18 @@ import { StoreContext } from "../store";
 import { isMetamaskEnabled } from "../../wallets/utils";
 import { useWeb3React } from "@web3-react/core";
 import { useToggle } from "../../hooks";
-import { injectedConnector } from "../../wallets/connectors";
-import { Metamask } from "../../components/icons";
+import {
+  injectedConnector,
+  torus,
+  portis,
+  walletConnect,
+} from "../../wallets/connectors";
+import {
+  Metamask,
+  Portis,
+  TorusLight,
+  WalletConnect,
+} from "../../components/icons";
 import Web3 from "web3";
 import { ContractContext } from "../contractContext/contractContext";
 
@@ -68,11 +78,18 @@ export default function WalletProvider(props: Props) {
     handleConnect(injectedConnector);
   };
 
-  // const selectPortis = () => {
-  // 	setWallet(portis);
-  // 	// handleConnect(portis);
-  // };
-
+  const selectPortis = () => {
+    setWallet(portis);
+    handleConnect(portis);
+  };
+  const selectTorus = () => {
+    setWallet(torus);
+    handleConnect(torus);
+  };
+  const selectWalletConnect = () => {
+    setWallet(walletConnect);
+    handleConnect(walletConnect);
+  };
   const disconnectWallet = async (activeWallet: any) => {
     deactivate();
     setActivatingConnector(undefined);
@@ -105,6 +122,30 @@ export default function WalletProvider(props: Props) {
       activating: activatingConnector === injectedConnector,
       active: connector === injectedConnector,
       icon: Metamask,
+    },
+    {
+      name: "portis",
+      connectFunction: selectPortis,
+      selected: wallet === portis,
+      activating: activatingConnector === portis,
+      active: connector === portis,
+      icon: Portis,
+    },
+    {
+      name: "torus",
+      connectFunction: selectTorus,
+      selected: wallet === torus,
+      activating: activatingConnector === torus,
+      active: connector === torus,
+      icon: TorusLight,
+    },
+    {
+      name: "walletConnect",
+      connectFunction: selectWalletConnect,
+      selected: wallet === walletConnect,
+      activating: activatingConnector === walletConnect,
+      active: connector === walletConnect,
+      icon: WalletConnect,
     },
   ];
 

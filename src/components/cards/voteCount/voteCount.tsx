@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { ThemeContext } from "../../../store/themeContext/themeContext";
 import useStyles from "./voteCountStyles";
 
@@ -13,6 +13,7 @@ function VoteCount(props: Props) {
   const { theme } = useContext(ThemeContext);
 
   const classes = useStyles({ ...props, ...theme });
+
   const totalVotes = props.votesYes + props.votesNo;
   const yesPercentage =
     totalVotes !== 0 ? ((props.votesYes / totalVotes) * 100).toFixed() : 0;

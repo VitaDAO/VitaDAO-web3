@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect} from "react";
 import CardWrapper from "./cardWrapper/cardWrapper";
 import CardHeader from "./cardHeader/cardHeader";
 import CardBody from "./cardBody/proposal/cardBody";
@@ -11,8 +11,11 @@ import { useParams } from "react-router-dom";
 
 export interface Props {
   id: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
+  status: string;
+  yesVotes: number;
+  noVotes: number;
 }
 interface RouteParams {
   id: string;
@@ -24,36 +27,18 @@ function VotingCard(props: Props) {
   const { account, library } = useWeb3React();
   const headerTitle = "Voting Progress";
   const params = useParams<RouteParams>();
-  const [proposal, setProposal] = useState(null);
 
   const size =
     new Date().getTime() >= new Date(props.endDate).getTime() ||
-    new Date().getTime() >= new Date(props.startDate).getTime()
+    new Date().getTime() <= new Date(props.startDate).getTime()
       ? "smallest"
       : "small";
   useEffect(() => {
-    loadProposalData();
     if (state.isWalletConnected && state.stakedBalance === null) {
       setStakedBalance();
     }
   });
 
-  useEffect(() => {});
-
-  const loadProposalData = async () => {
-    const filterProposals = state.proposals.filter(
-      (proposal) => proposal.id === props.id
-    );
-    if (filterProposals.length > 0) {
-      setProposal(filterProposals[0]);
-    } else {
-      actions.getProposalData({
-        contracts,
-        provider: library,
-        proposalIndex: props.id,
-      });
-    }
-  };
   const setStakedBalance = async () => {
     actions.getStakedBalance({
       address: state.userAddress,
@@ -76,15 +61,12 @@ function VotingCard(props: Props) {
     <CardWrapper size={size}>
       <CardHeader heading={headerTitle} />
       <CardBody
+        status={props.status}
         size={size}
         startDate={props.startDate}
         endDate={props.endDate}
-        votesYes={
-          proposal !== null && proposal !== undefined ? proposal.yesVotes : 0
-        }
-        votesNo={
-          proposal !== null && proposal !== undefined ? proposal.yesVotes : 0
-        }
+        votesYes={props.yesVotes}
+        votesNo={props.noVotes}
       />
       {/* // TODO: path must be dynamic, leading to governance :id */}
 

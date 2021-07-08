@@ -22,6 +22,14 @@ const useStyles = makeStyles(() =>
       width: "70%",
       height: "100%",
     },
+    leftContainer: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      margin: "0 0 0 0",
+      width: "70%",
+      height: "100%",
+    },
     navLink: {
       font: (style: Theme & Props) => style.typography.button1,
       color: (style: Theme & Props) => style.textColor,
