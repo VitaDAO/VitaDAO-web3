@@ -18,6 +18,10 @@ function Proposals() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contracts]);
 
+  useEffect(() => {
+    setInterval(() => actions.getAllProposals({ contracts: contracts, provider: initializeWeb3 }), 1000); 
+  }, []);
+
   return (
     <CardGrid title="proposals">
       {state.data?.map((proposal) => (
