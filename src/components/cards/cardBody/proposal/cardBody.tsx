@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import VoteCount from "../../voteCount/voteCount";
 import Countdown from "../../countdown/countdown";
 

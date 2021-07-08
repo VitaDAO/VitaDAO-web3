@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect} from "react";
 import CardWrapper from "./cardWrapper/cardWrapper";
 import CardHeader from "./cardHeader/cardHeader";
 import CardBody from "./cardBody/proposal/cardBody";

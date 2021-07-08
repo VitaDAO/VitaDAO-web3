@@ -1,5 +1,5 @@
 
-import { Contract, ethers} from "ethers";
+import { Contract} from "ethers";
 import web3 from "web3";
 import { uploadDataToIpfs, getProposalDataFromIPFS } from './ipfs';
 
