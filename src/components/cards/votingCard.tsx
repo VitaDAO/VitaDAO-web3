@@ -1,4 +1,4 @@
-import React, { useContext, useEffect} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CardWrapper from "./cardWrapper/cardWrapper";
 import CardHeader from "./cardHeader/cardHeader";
 import CardBody from "./cardBody/proposal/cardBody";
@@ -27,6 +27,7 @@ function VotingCard(props: Props) {
   const { account, library } = useWeb3React();
   const headerTitle = "Voting Progress";
   const params = useParams<RouteParams>();
+  const [checkedDidVote, setCheckDidVote] = useState(false);
 
   const size =
     new Date().getTime() >= new Date(props.endDate).getTime() ||
@@ -39,24 +40,30 @@ function VotingCard(props: Props) {
     }
   });
   useEffect(() => {
-    if (state.isWalletConnected) {
+    console.log(state.didVote);
+    if (state.isWalletConnected && !checkedDidVote) {
       getDidVote();
+      setCheckDidVote(true);
+      console.log(state.didVote);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.isWalletConnected, state.voted]);
 
   const getDidVote = async () => {
     actions.getDidVote({
       address: state.userAddress,
+      proposalIndex: params.id,
       contracts,
-      provider: library
+      provider: library,
     });
-  }
+  };
 
   const setStakedBalance = async () => {
     actions.getStakedBalance({
+      address: account,
       proposalIndex: params.id,
       contracts,
-      provider: library
+      provider: library,
     });
   };
 
@@ -84,7 +91,7 @@ function VotingCard(props: Props) {
       {/* // TODO: path must be dynamic, leading to governance :id */}
       {state.didVote === true && <p>You already voted on this proposal.</p>}
 
-      {size !== "smallest" && state.stakedBalance > 0 ? (
+      {size !== "smallest" && state.stakedBalance > 0 && !state.didVote ? (
         <>
           <PillButton
             label="vote yes"

@@ -1,6 +1,6 @@
 import types from "./actionTypes";
 import { getBalances } from './services/balances';
-import { createProposal, getAllProposals, getProposalCount, getProposalData, getProposalResult, getProposalStatus, getProposalVotes, vote } from './services/raphael';
+import { createProposal, getAllProposals, getDidVote, getProposalCount, getProposalData, getProposalResult, getProposalStatus, getProposalVotes, vote } from './services/raphael';
 import { getStakedBalance, getUnlockTime, stake, withdraw } from './services/staking';
 import { approveTokens } from './services/token';
 
@@ -21,7 +21,7 @@ export const applyMiddleware = (dispatch) => (action) => {
             })
           );
     case types.GetDidVote.GET_DID_VOTE_REQUEST:
-      return vote(action.payload)
+      return getDidVote(action.payload)
       .then((res) => {
         dispatch({
           type: types.GetDidVote.GET_DID_VOTE_SUCCESS,

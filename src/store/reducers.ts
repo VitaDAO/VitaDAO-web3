@@ -113,7 +113,7 @@ const initialFlags: IFlags = {
   stakeTokensPending: false,
   loadingProposalNumbers: false,
   proposalCreated: false,
-  creatingProposal: false
+  creatingProposal: false,
 };
 const initialPrices = {
   ethPrice: "0.00",
@@ -206,8 +206,11 @@ const reducer = (state = initialState, action) => {
       return { ...state, error: action.payload, loadingProposal: false};
     case types.ProposalData.GET_PROPOSAL_DATA_SUCCESS:
       return { ...state,  proposals: [...state.proposals, action.payload], loadingProposal: false };
+
     case types.GetDidVote.GET_DID_VOTE_FAIL:
       return { ...state, error: action.payload, loadingProposal: false };
+    case types.GetDidVote.GET_DID_VOTE_SUCCESS:
+        return { ...state, didVote: action.payload};
     case types.ProposalVotes.GET_PROPOSAL_VOTES_FAIL:
       return { ...state, error: action.payload, loadingProposal: false };
     case types.ProposalVotes.GET_PROPOSAL_VOTES_SUCCESS:
