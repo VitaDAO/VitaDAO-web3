@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect} from "react";
 import CardWrapper from "./cardWrapper/cardWrapper";
 import CardHeader from "./cardHeader/cardHeader";
 import CardBody from "./cardBody/proposal/cardBody";
@@ -13,6 +13,7 @@ export interface Props {
   id: string;
   startDate: Date;
   endDate: Date;
+  status: string;
   yesVotes: number;
   noVotes: number;
 }
@@ -29,7 +30,7 @@ function VotingCard(props: Props) {
 
   const size =
     new Date().getTime() >= new Date(props.endDate).getTime() ||
-    new Date().getTime() >= new Date(props.startDate).getTime()
+    new Date().getTime() <= new Date(props.startDate).getTime()
       ? "smallest"
       : "small";
   useEffect(() => {
@@ -60,6 +61,7 @@ function VotingCard(props: Props) {
     <CardWrapper size={size}>
       <CardHeader heading={headerTitle} />
       <CardBody
+        status={props.status}
         size={size}
         startDate={props.startDate}
         endDate={props.endDate}

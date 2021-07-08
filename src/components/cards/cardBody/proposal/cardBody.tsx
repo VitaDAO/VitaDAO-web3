@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import VoteCount from "../../voteCount/voteCount";
 import Countdown from "../../countdown/countdown";
 
@@ -8,6 +8,7 @@ export interface Props {
   endDate: Date;
   votesYes: number;
   votesNo: number;
+  status: string;
 }
 
 function CardBody(props: Props) {
@@ -16,13 +17,7 @@ function CardBody(props: Props) {
   const hasStarted = new Date().getTime() < startDate.getTime();
   const inProgress = new Date().getTime() < endDate.getTime();
 
-  const daysRemaining = !hasStarted
-    ? (new Date(startDate).getTime() - Date.now()) / 864000
-    : inProgress
-    ? (new Date(endDate).getTime() - Date.now()) / 864000
-    : 0;
-
-  const color = daysRemaining < 3 ? "var(--red)" : "var(--grey1)";
+  const color = "var(--grey1)";
   const approved = votesYes > votesNo;
   return (
     <>
@@ -30,7 +25,9 @@ function CardBody(props: Props) {
         color={color}
         approved={approved}
         hasStarted={hasStarted}
-        daysRemaining={daysRemaining.toFixed()}
+        startDate={startDate}
+        endDate={endDate}
+        status={props.status}
       />
       <VoteCount
         size={props.size}

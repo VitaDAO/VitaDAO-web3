@@ -52,6 +52,7 @@ function ProjectProposal() {
             id={params.id}
             startDate={proposal.voting_start_date}
             endDate={proposal.voting_end_date}
+            status={proposal.status}
             yesVotes={proposal.yesVotes}
             noVotes={proposal.noVotes}
           />

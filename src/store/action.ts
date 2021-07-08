@@ -1,7 +1,6 @@
 
 import types from "./actionTypes";
 import { getWeb3Contracts } from "./helpers/contractBooter";
-import { getUnlockTime } from './services/staking';
 
 export const useActions = (state, dispatch) => ({
   setWalletConnected: () => {

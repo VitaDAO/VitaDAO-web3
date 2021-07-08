@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import CardWrapper from "./cardWrapper/cardWrapper";
 import CardHeader from "./cardHeader/cardHeader";
 import CardBody from "./cardBody/proposal/cardBody";
@@ -13,6 +13,7 @@ export interface Props {
   endDate: Date;
   votesYes: number;
   votesNo: number;
+  status: string;
 }
 
 function ProposalCard(props: Props) {
@@ -27,6 +28,7 @@ function ProposalCard(props: Props) {
         subHeading={`${proposalType} proposal`}
       />
       <CardBody
+        status={props.status}
         startDate={props.startDate}
         endDate={props.endDate}
         votesYes={props.votesYes}

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "../../store/themeContext/themeContext";
 import useStyles from "./proposeModalStyles";
-import PillButton from "../../components/pillButton/pillButton";
+//import PillButton from "../../components/pillButton/pillButton";
 export interface Props {}
 
 function ProposeModal(props: Props) {
