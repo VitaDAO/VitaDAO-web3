@@ -7,6 +7,7 @@ const useStyles = makeStyles(() =>
     Countdown: {
       font: (style: Theme & Props) => style.typography.c2,
       color: (style: Theme & Props) => style.color,
+      padding: "5px 5px 5px 5px",
       display: "flex",
       flexDirection: "row",
       alignItems: "center",

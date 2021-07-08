@@ -17,13 +17,7 @@ function CardBody(props: Props) {
   const hasStarted = new Date().getTime() < startDate.getTime();
   const inProgress = new Date().getTime() < endDate.getTime();
 
-  const hoursRemaining = !hasStarted
-    ? (new Date(startDate).getTime() - Date.now()) / 3600
-    : inProgress
-    ? (new Date(endDate).getTime() - Date.now()) / 3600
-    : 0;
-
-  const color = hoursRemaining < 72 ? "var(--red)" : "var(--grey1)";
+  const color = "var(--grey1)";
   const approved = votesYes > votesNo;
   return (
     <>
