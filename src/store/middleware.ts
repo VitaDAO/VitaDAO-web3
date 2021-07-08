@@ -20,6 +20,20 @@ export const applyMiddleware = (dispatch) => (action) => {
               payload: err.response,
             })
           );
+    case types.GetDidVote.GET_DID_VOTE_REQUEST:
+      return vote(action.payload)
+      .then((res) => {
+        dispatch({
+          type: types.GetDidVote.GET_DID_VOTE_SUCCESS,
+          payload: res,
+        });
+      })
+      .catch((err) =>
+        dispatch({
+          type: types.GetDidVote.GET_DID_VOTE_FAIL,
+          payload: err.response,
+        })
+      );
     case types.Vote.PROPOSAL_VOTE_REQUEST:
       return vote(action.payload)
       .then((res) => {

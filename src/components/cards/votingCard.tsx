@@ -38,12 +38,25 @@ function VotingCard(props: Props) {
       setStakedBalance();
     }
   });
+  useEffect(() => {
+    if (state.isWalletConnected) {
+      getDidVote();
+    }
+  });
+
+  const getDidVote = async () => {
+    actions.getDidVote({
+      address: state.userAddress,
+      contracts,
+      provider: library
+    });
+  }
 
   const setStakedBalance = async () => {
     actions.getStakedBalance({
-      address: state.userAddress,
+      proposalIndex: params.id,
       contracts,
-      provider: library,
+      provider: library
     });
   };
 
@@ -69,6 +82,7 @@ function VotingCard(props: Props) {
         votesNo={props.noVotes}
       />
       {/* // TODO: path must be dynamic, leading to governance :id */}
+      {state.didVote === true && <p>You already voted on this proposal.</p>}
 
       {size !== "smallest" && state.stakedBalance > 0 ? (
         <>

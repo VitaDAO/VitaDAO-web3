@@ -15,6 +15,13 @@ export const useActions = (state, dispatch) => ({
       payload: "",
     });
   },
+  getDidVote:(data:any) =>{
+    dispatch({ type: types.GetDidVote.GET_DID_VOTE_PENDING });
+    dispatch({
+      type: types.GetDidVote.GET_DID_VOTE_REQUEST,
+      payload: data,
+    });
+  },
   setProvider: (data: any) => {
     dispatch({ type: types.SetProvider.SET_PROVIDER_SUCCESS, payload: data });
   },
@@ -149,5 +156,6 @@ export interface Actions {
   getProposalStatus:(data: any) => void;
   getProposalNumber:(data: any) => void;
   getAllProposals:(data: any) => void;
+  getDidVote:(data:any) => void;
   createProposal:(data: any) => void;
 }

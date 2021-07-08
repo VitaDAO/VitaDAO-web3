@@ -60,6 +60,13 @@ export const getProposalData = async(payload: any) => {
   
 }
 
+export const getDidVote = async (payload: any) => {
+    //     function getProposalVotes(uint256 proposalIndex) external view returns(uint256, uint256);
+        const { contracts, proposalIndex} = payload;
+        const {raphaelContract} = contracts;
+        return  await raphaelContract.methods.getDidVote(proposalIndex).call();
+    } 
+
 export const getProposalVotes = async (payload: any) => {
 //     function getProposalVotes(uint256 proposalIndex) external view returns(uint256, uint256);
     const { contracts, proposalIndex} = payload;
