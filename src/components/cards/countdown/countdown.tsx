@@ -23,8 +23,17 @@ function getStatusText(props: Props, classes){
       // Don't show voting finished status, interpret result
       if (props.approved) {return "Passed";}
       else {return 'Failed';}
-    case proposalStatus[1]: //voting        
-        return props.status + " until " + props.endDate.toLocaleString()
+    case proposalStatus[1]: //voting
+        let timeDiffMilliseconds = props.endDate.getTime() - new Date().getTime();
+        let timeDiffSeconds = timeDiffMilliseconds / 1000;
+        var numdays = Math.floor(timeDiffSeconds / 86400); 
+        var numhours = Math.floor((timeDiffSeconds % 86400) / 3600); 
+        var numminutes = Math.floor(((timeDiffSeconds % 86400) % 3600) /60);
+        let dayString = (numdays > 0) ? numdays + " day(s) " : "";
+        let hourString = (numhours > 0) ? numhours +" hours " : "";
+        let minutesString = (numminutes > 0) ? numminutes +" mins" : "";
+        let countdown = dayString + hourString + minutesString;
+        return props.status + " until " + props.endDate.toLocaleString() + " " + countdown
     default:                //all other statuses
       return status;
   }
