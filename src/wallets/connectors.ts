@@ -31,9 +31,9 @@ export const chainIDToNetwork = {
 
 export const chainIDToEndpoint = {
   "0": "",
-  "1": process.env.REACT_APP_INFURA_ENDPOINT, // ethereum Mainnet
-  "4": process.env.REACT_APP_INFURA_ENDPOINT, // ethereum Rinkeby
-  "5": process.env.REACT_APP_INFURA_ENDPOINT, // ethereum Goerli
+  "1": process.env.REACT_APP_INFURA_ENDPOINT_MAINNET, // ethereum Mainnet
+  "4": process.env.REACT_APP_INFURA_ENDPOINT_RINKEBY, // ethereum Rinkeby
+  "5": process.env.REACT_APP_INFURA_ENDPOINT_GOERLI, // ethereum Goerli
   "77": "https://sokol.poa.network",
   "100": "https://rpc.xdaichain.com/"
 }
