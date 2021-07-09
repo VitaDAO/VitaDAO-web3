@@ -4,7 +4,7 @@ import { PortisConnector } from "@web3-react/portis-connector";
 import { TorusConnector } from '@web3-react/torus-connector';
 export const supportedChains = {
   0: "Not connected",
-  //1: "mainnet",
+  1: "mainnet",
   4: "rinkeby",
   1337: "development",
   31337: "hardhat",
@@ -83,7 +83,7 @@ export const portis = new PortisConnector({
 
 // For mainnet change to 1
 export const walletConnect = new WalletConnectConnector({
-  rpc: { 1: RPC_URLS[4] },
+  rpc: { 1: RPC_URLS[process.env.REACT_APP_CHAIN_ID] },
   qrcode: true,
   pollingInterval: POLLING_INTERVAL
 })
