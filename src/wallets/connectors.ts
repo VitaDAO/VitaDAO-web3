@@ -83,7 +83,10 @@ export const portis = new PortisConnector({
 
 // For mainnet change to 1
 export const walletConnect = new WalletConnectConnector({
-  rpc: { 1: RPC_URLS[process.env.REACT_APP_CHAIN_ID] },
+  rpc: {
+    1: RPC_URLS[1],
+    4: RPC_URLS[4]
+  },
   qrcode: true,
   pollingInterval: POLLING_INTERVAL
 })
