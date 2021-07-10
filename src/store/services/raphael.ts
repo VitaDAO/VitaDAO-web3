@@ -3,8 +3,6 @@ import { Contract} from "ethers";
 import web3 from "web3";
 import { uploadDataToIpfs, getProposalDataFromIPFS } from './ipfs';
 
-const blockTime = parseFloat(process.env.BLOCK_TIME);
-
 export interface RaphaelPayload {
     tokenContract?: Contract;
     raphaelContract?: Contract;
@@ -50,9 +48,9 @@ export const getProposalData = async(payload: any) => {
     const id = proposalIndex;
     var timeNow = new Date();
     //debugger;
-    const startDateBlock = (startBlock - blockNumber)*blockTime; //current avg block time
+    const startDateBlock = (startBlock - blockNumber)*13.2; //current avg block time
     const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock));
-    const endDateBlock = (endBlock - blockNumber)*blockTime; //current avg block time
+    const endDateBlock = (endBlock - blockNumber)*13.2 //current avg block time
     const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
     //debugger;
     return {proposalData, id, yesVotes, noVotes, startBlock, endBlock, status, 

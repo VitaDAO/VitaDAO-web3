@@ -29,10 +29,11 @@ function getStatusText(props: Props, classes){
 }
 
 function getCountdownText(props: Props) {
+  //debugger;
   let now = new Date().getTime();
   let timeDiffMilliseconds = new Date().getTime();
   let result = "Time to Update Proposal Status";
-  if (now < props.startDate.getTime() && props.status === proposalStatus[1]){  //voting hasn't started yet
+  if (now < props.startDate.getTime() && props.status === proposalStatus[0]){  //voting hasn't started yet
     timeDiffMilliseconds = props.startDate.getTime() - now;
     result = "Voting starts in " + getCountdown(timeDiffMilliseconds);
   }
@@ -55,7 +56,7 @@ function getCountdown(timeDiffMilliseconds: number) {
   let numHours = Math.floor((timeDiffSeconds % 86400) / 3600);
   let numMinutes = Math.floor(((timeDiffSeconds % 86400) % 3600) / 60);
   let s = (numDays > 1) ? "s" : "";
-  let dayString = (numDays > 0) ? numDays + " day" + s : "";
+  let dayString = (numDays > 0) ? numDays + " day" + s + " " : "";
   let hourString = (numHours > 0) ? numHours + " hours " : "";
   let minutesString = (numMinutes > 0) ? numMinutes + " mins" : "";
   let countdown = dayString + hourString + minutesString;
