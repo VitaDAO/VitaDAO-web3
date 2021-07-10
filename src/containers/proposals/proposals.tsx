@@ -19,7 +19,7 @@ function Proposals() {
   }, [contracts]);
 
   useEffect(() => {
-    setInterval(() => actions.getAllProposals({ contracts: contracts, provider: initializeWeb3 }), 1000); 
+    setInterval(() => actions.getAllProposals({ contracts: contracts, provider: initializeWeb3 }), parseInt(process.env.REACT_APP_REFRESH_INTERVAL)); 
   }, []);
 
   return (
