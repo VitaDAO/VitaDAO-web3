@@ -88,7 +88,7 @@ function Countdown(props: Props) {
           {getStatusText(props, classes)}
         </p>
       </div>
-        {(props.status === proposalStatus[1] || props.status === proposalStatus[2]) &&
+        {(props.status === proposalStatus[0] || props.status === proposalStatus[1]) &&
           <div className={classes.Countdown}>
             <Time className={classes.TimeIcon} />
               {getCountdownText(props)}
