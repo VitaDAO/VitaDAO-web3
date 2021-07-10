@@ -50,7 +50,7 @@ export const getProposalData = async(payload: any) => {
     //debugger;
     const startDateBlock = (startBlock - blockNumber)*13.2; //current avg block time
     const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock));
-    const endDateBlock = (endBlock - blockNumber)*13.2; //current avg block time
+    const endDateBlock = (endBlock - blockNumber)*13.2 //current avg block time
     const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
     //debugger;
     return {proposalData, id, yesVotes, noVotes, startBlock, endBlock, status, 
@@ -58,6 +58,14 @@ export const getProposalData = async(payload: any) => {
         title: data.title, voting_start_date: startVote, voting_end_date: endVote,
         project: data.project === undefined? null: data.project};
   
+}
+
+export const proposalValid = async(payload: any) => {
+    //debugger;
+    if (payload.status === proposalStatus[4]) { 
+        return false;
+    }
+    return true;
 }
 
 export const getProposalVotes = async (payload: any) => {
@@ -130,7 +138,9 @@ export const getAllProposals = async(payload: any) =>{
     let data = [];
     for(let i = numberOfProposals; i>0 ; i--){
         const res = await getProposalData({contracts, proposalIndex: i, provider});
-        data.push(res);
+        if (await proposalValid(res) === true){
+            data.push(res);
+        }
     }
     return data;
 }
