@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import VotingCard from "../../components/cards/votingCard";
 import ProjectProposalDetails from "../../components/projectProposalDetails/projectProposalDetails";
 import { ContractContext } from "../../store/contractContext/contractContext";
+import { proposalStatus } from "../../store/services/raphael";
 import { StoreContext } from "../../store/store";
 import useStyles from "./projectProposalStyles";
 
@@ -35,15 +36,17 @@ function ProjectProposal() {
         <div className={classes.leftContainer}>
           <ProjectProposalDetails
             budget={project.budget}
-            heading={project.title}
+            heading={proposal.title}
             subHeading={"project proposal"}
             institution={project.institution}
             researchLead={project.research_lead}
             ipStatus={project.ip_status}
             clinicalStage={project.clinical_stage}
-            summary={project.summary}
+            summary={proposal.summary}
+            details={proposal.details}
             projectSummary={project.project_summary}
             aimsAndHypothesis={project.aims_and_hypothesis}
+            projectTitle={project.title}
             id={proposal.id}
           />
         </div>
