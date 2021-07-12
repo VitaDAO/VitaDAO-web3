@@ -13,10 +13,7 @@ export const supportedChains = {
 const POLLING_INTERVAL = 12000;
 
 // TODO: setup rpc urls
-const RPC_URLS: { [chainId: number]: string } = {
-  1: process.env.REACT_APP_RPC_URL_1 as string,
-  4: process.env.REACT_APP_RPC_URL_4 as string,
-};
+const RPC_URL = process.env.REACT_APP_INFURA_ENDPOINT as string;
 
 
 export const chainIDToNetwork = {
@@ -83,7 +80,7 @@ export const portis = new PortisConnector({
 
 // For mainnet change to 1
 export const walletConnect = new WalletConnectConnector({
-  rpc: { 1: RPC_URLS[4] },
+  rpc: RPC_URL,
   qrcode: true,
   pollingInterval: POLLING_INTERVAL
 })
