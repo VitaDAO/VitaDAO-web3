@@ -16,7 +16,6 @@ interface RouteParams {
 }
 
 function GovernanceProposal(props: Props) {
-  debugger;
   const { theme } = useContext(ThemeContext);
   const classes = useStyles({ ...props, ...theme });
   const params = useParams<RouteParams>();
