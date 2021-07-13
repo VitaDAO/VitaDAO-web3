@@ -54,7 +54,7 @@ export const getProposalData = async(payload: any) => {
     const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
     //debugger;
     return {proposalData, id, yesVotes, noVotes, startBlock, endBlock, status, 
-        link: data.link, proposal_type: data.proposal_type, summary: data.summary,  
+        link: data.link, proposal_type: data.proposal_type, details: data.details, summary: data.summary,  
         title: data.title, voting_start_date: startVote, voting_end_date: endVote,
         project: data.project === undefined? null: data.project};
   
