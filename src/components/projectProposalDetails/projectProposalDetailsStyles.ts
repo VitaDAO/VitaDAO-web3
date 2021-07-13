@@ -30,7 +30,6 @@ const useStyles = makeStyles(() =>
     small: {
       font: (style: Theme & Props) => style.typography.p3,
     },
-
   })
 );
 
