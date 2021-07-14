@@ -6,6 +6,7 @@ import { StoreContext } from "../../store/store";
 import { ThemeContext } from "../../store/themeContext/themeContext";
 import VotingCard from "../cards/votingCard";
 import useStyles from "./governanceProposalStyles";
+import ReactMarkdown from 'react-markdown'
 
 export interface Props {
   color: string;
@@ -43,9 +44,11 @@ function GovernanceProposal(props: Props) {
             <h1 className={classes.title}>{firstProposal.title}</h1>
             <h2 className={classes.SmallHeader}> Proposal no. {params.id}</h2>
           </div>
+          <div className={classes.SmallHeader}>PROPOSAL SUMMARY</div>         
+            <ReactMarkdown className={classes.description} children={firstProposal.summary} linkTarget="_blank" />                  
           <div className={classes.SmallHeader}>PROPOSAL DETAILS</div>
-          <p className={classes.description}>
-            {firstProposal.details}
+            <ReactMarkdown className={classes.description} children={firstProposal.details} linkTarget="_blank" />
+            <br></br>
             <br></br>
             <a
               target="_blank"
@@ -54,8 +57,7 @@ function GovernanceProposal(props: Props) {
             >
               {firstProposal.link}
             </a>
-          </p>
-        </div>
+          </div>
         <div className={classes.right}>
           <VotingCard
             key={1}
