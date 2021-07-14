@@ -8,7 +8,7 @@ const useStyles = makeStyles(() =>
       backgroundColor: "transparent",
       border: "1px solid var(--grey3)",
       width: "43.5rem",
-      height: "32.7rem",
+      height: "20rem",
       display: "flex",
       flexDirection: "column",
       borderRadius: "1.2rem",
@@ -43,14 +43,16 @@ const useStyles = makeStyles(() =>
     button: {
       height: "55%",
       justifyContent: "flex-start",
-      padding: "0 0 2rem 0",
+      paddingTop: "2rem",
     },
     title: {
       font: (style: Theme & Props) => style.typography.h2,
+      paddingTop: "2rem",
     },
     secondaryTitle: {
       font: (style: Theme & Props) => style.typography.p3,
       color: (style: Theme & Props) => style.secondaryTextColor,
+      paddingTop: "2rem",
     },
   })
 );
