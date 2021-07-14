@@ -36,7 +36,7 @@ function WalletModal(props: Props) {
 					<div className={`${classes.container} ${classes.text}`}>
 						<h2 className={classes.title}>Connect Wallet</h2>
 						<h4 className={classes.secondaryTitle}>
-							Please choose your wallet to continue.
+							Please connect your wallet to continue.
 						</h4>
 					</div>
 					<div className={`${classes.container} ${classes.button}`}>
