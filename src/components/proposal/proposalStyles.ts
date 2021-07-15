@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@material-ui/core";
 import { Theme } from "../../store/themeContext/themes";
-import { Props } from "./governanceProposal";
+import { Props } from "./proposal";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -17,6 +17,23 @@ const useStyles = makeStyles((theme) =>
         flexDirection: "row",
         width: "100%",
         zIndex: 5,
+      },
+    },
+    left: {
+      background: (style: Theme & Props) => style.background1,
+      [theme.breakpoints.up('md')]: {
+        width: "60%",
+        maxWidth: "1200px",
+        marginLeft: "35rem",
+        paddingRight: "2rem",
+        paddingBottom: "10rem"
+      },
+    },
+    right: {
+      background: (style: Theme & Props) => style.background1,
+      [theme.breakpoints.up('md')]: {
+        marginRight: "35rem",
+        minWith: "480px"
       },
     },
     header: {
@@ -60,22 +77,14 @@ const useStyles = makeStyles((theme) =>
       font: (style: Theme & Props) => style.typography.p3,
       textAlign: "left",
     },
-    left: {
-      background: (style: Theme & Props) => style.background1,
-      [theme.breakpoints.up('md')]: {
-        width: "60%",
-        maxWidth: "1200px",
-        marginLeft: "35rem",
-        paddingRight: "2rem",
-        paddingBottom: "10rem"
-      },
+    ProposalBlock: {
+      font: (style: Theme & Props) => style.typography.p1,
+      color: (style: Theme & Props) => style.textColor,
     },
-    right: {
-      background: (style: Theme & Props) => style.background1,
-      [theme.breakpoints.up('md')]: {
-        marginRight: "35rem",
-        minWith: "480px"
-      },
+    Paragraph: {
+      font: (style: Theme & Props) => style.typography.p3,
+      color: (style: Theme & Props) => style.secondaryTextColor,
+      margin: '3rem 0',
     },
   })
 );

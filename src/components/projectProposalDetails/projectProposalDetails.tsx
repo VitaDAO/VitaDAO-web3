@@ -33,10 +33,6 @@ function ProjectProposalDetails(props: Props) {
 
   return (
     <div className={classes.ProjectProposalDetails}>
-      <h4 className={classes.subHeading}>{props.subHeading}</h4>
-      <h1 className={classes.heading}>{props.heading}</h1>
-      <h2 className={classes.subHeading}> Proposal no. {props.id}</h2>
-
       <InfoBox
         institution={props.institution}
         researchLead={props.researchLead}
