@@ -52,6 +52,9 @@ export const applyMiddleware = (dispatch) => (action) => {
           })
         );
     case types.Withdraw.WITHDRAW_TOKEN_REQUEST:
+      dispatch({
+        type: types.Withdraw.WITHDRAW_TOKEN_REQUEST
+      });
       return withdraw(action.payload)
       .then((res) => {
         dispatch({

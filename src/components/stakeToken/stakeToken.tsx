@@ -176,7 +176,7 @@ function StakeToken(props: any) {
                   <PillButton
                     color="grey"
                     label="Withdraw tokens"
-                    pending={false}
+                    pending={state.flags.withdrawTokensPending}
                     clickFunction={() => withdrawTokens()}
                   />
                 </div>
@@ -209,7 +209,7 @@ function StakeToken(props: any) {
                     label="Withdraw tokens"
                     clickFunction={lockTokens}
                     disabled={true}
-                    pending={false}
+                    pending={state.flags.withdrawTokensPending}
                     fail={false}
                   />
                 </div>
