@@ -10,10 +10,10 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Proposals from "../proposals/proposals";
 //import Projects from "../projects/projects";
 import ProposeModal from "../proposeModal/proposeModal";
-import ProjectProposal from "../projectProposal/projectProposal";
-import FundingProposal from "../../components/fundingProposal/fundingProposal";
-import GovernanceProposal from "../../components/governanceProposal/governanceProposal";
-import IPProposal from "../ipProposal/ipProposal";
+// import ProjectProposal from "../projectProposal/projectProposal";
+// import FundingProposal from "../../components/fundingProposal/fundingProposal";
+import Proposal from "../../components/proposal/proposal";
+// import IPProposal from "../ipProposal/ipProposal";
 //import BuyTokenModal from "../buyTokenModal/buyTokenModal";
 import StakeToken from "../../components/stakeToken/stakeToken";
 import { useWallets } from "../../store/walletContext/WalletContext";
@@ -50,44 +50,40 @@ export default function Main(props: Props) {
         />
         <div className={classes.MainContainers}>
           <Switch>
-            {/* <Route exact path='/about' /> */}
             <Route exact path="/my_wallet" component={StakeToken} />
-            {/* <Route exact path='/join_the_dao' /> */}
+
             <Route
               exact
               path="/proposals/project/:id"
-              component={ProjectProposal}
+              component={Proposal}
             />
-            <Route exact path="/proposals/ip/:id" component={IPProposal} />
             <Route
               exact
               path="/proposals/governance/:id"
-              component={GovernanceProposal}
+              component={Proposal}
             />
             <Route
               exact
               path="/proposals/funding/:id"
-              component={FundingProposal}
+              component={Proposal}
             />
-            {/* <Route exact path="/projects" component={Projects} />
-            <Route exact path="/projects/:id" component={GovernanceProposal} /> */}
+            <Route
+              exact
+              path="/proposals/ip/:id"
+              component={Proposal}
+            />
+
             <Route exact path="/proposals" component={Proposals} />
             <Route exact path="/propose" component={ProposeModal} />
+            <Route path="/" component={Proposals} />
+
+            {/* <Route exact path='/about' /> */}
+            {/* <Route exact path='/join_the_dao' /> */}
+            {/* <Route exact path="/projects" component={Projects} />
+            <Route exact path="/projects/:id" component={GovernanceProposal} /> */}
             {/* <Route exact path='/buy_vita_token' component={BuyTokenModal} /> */}
-            <Route
-              exact
-              path="/proposals/funding/:id"
-              component={FundingProposal}
-            ></Route>
-            <Route
-              exact
-              path="/proposals/governance/:id"
-              component={GovernanceProposal}
-            />
-            <Route exact path="/proposals/ip/:id" component={IPProposal} />
             {/* <Route exact path='/apply' component={Apply} />
 						<Route exact path='/apply_now' component={Apply} /> */}
-            <Route path="/" component={Proposals} />
           </Switch>
         </div>
 
