@@ -6,7 +6,8 @@ import { StoreContext } from "../../store/store";
 import { ThemeContext } from "../../store/themeContext/themeContext";
 import VotingCard from "../cards/votingCard";
 import useStyles from "./governanceProposalStyles";
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
+var unwrapImages = require('remark-unwrap-images');
 
 export interface Props {
   color: string;
@@ -38,26 +39,39 @@ function GovernanceProposal(props: Props) {
       <div className={classes.GovernanceProposal}>
         <div className={classes.left}>
           <div className={classes.header}>
-            <div className={classes.SmallHeader}>
+            <div className={classes.XSHeading}>
               {firstProposal.proposal_type} PROPOSAL
             </div>
             <h1 className={classes.title}>{firstProposal.title}</h1>
-            <h2 className={classes.SmallHeader}> Proposal no. {params.id}</h2>
+            <h2 className={classes.XSHeading}> Proposal no. {params.id}</h2>
           </div>
-          <div className={classes.SmallHeader}>PROPOSAL SUMMARY</div>         
-            <ReactMarkdown className={classes.description} children={firstProposal.summary} linkTarget="_blank" />                  
+          <div className={classes.SmallHeader}>PROPOSAL SUMMARY</div>
+          <ReactMarkdown
+            remarkPlugins={[unwrapImages]}
+            skipHtml={true}
+            className="customFormattedContent"
+            children={firstProposal.summary}
+            linkTarget="_blank"
+          />
           <div className={classes.SmallHeader}>PROPOSAL DETAILS</div>
-            <ReactMarkdown className={classes.description} children={firstProposal.details} linkTarget="_blank" />
-            <br></br>
-            <br></br>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={firstProposal.link}
-            >
-              {firstProposal.link}
-            </a>
-          </div>
+          <ReactMarkdown
+            remarkPlugins={[unwrapImages]}
+            skipHtml={true}
+            className="customFormattedContent"
+            children={firstProposal.details}
+            linkTarget="_blank"
+          />
+          <br></br>
+          <br></br>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={firstProposal.link}
+            className={classes.link}
+          >
+            {firstProposal.link}
+          </a>
+        </div>
         <div className={classes.right}>
           <VotingCard
             key={1}

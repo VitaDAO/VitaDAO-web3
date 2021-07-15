@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme) =>
     GovernanceProposal: {
       background: "transparent",
       width: "80%",
-      height: "100vh",
       position: "relative",
       display: "flex",
       overflowX: "hidden",
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) =>
       zIndex: 2,
       [theme.breakpoints.up('md')]: {
         flexDirection: "row",
-        width: "100vw",
+        width: "100%",
         zIndex: 5,
       },
     },
@@ -26,10 +25,16 @@ const useStyles = makeStyles((theme) =>
     },
 
     SmallHeader: {
-      font: (style: Theme & Props) => style.typography.h4,
-      color: (style: Theme & Props) => style.secondaryTextColor,
+      font: (style: Theme & Props) => style.typography.h3,
+      color: (style: Theme & Props) => style.colors.yellow,
       textTransform: "uppercase",
       margin: '2rem 0'
+    },
+    XSHeading: {
+      font: (style: Theme & Props) => style.typography.h4,
+      color: (style: Theme & Props) => style.colors.white,
+      textTransform: "uppercase",
+      margin: '1rem 0'
     },
     title: {
       color: (style: Theme & Props) => style.textColor,
@@ -44,9 +49,10 @@ const useStyles = makeStyles((theme) =>
     },
     description: {
       color: (style: Theme & Props) => style.secondaryTextColor,
-      font: (style: Theme & Props) => style.typography.p3,
+      font: (style: Theme & Props) => style.typography.c2,
       textAlign: "left",
-      marginBottom: "2rem"
+      marginBottom: "2rem",
+      lineHeight: "1.4 !important"
     },
     link: {
       marginTop: "1rem",
@@ -57,14 +63,18 @@ const useStyles = makeStyles((theme) =>
     left: {
       background: (style: Theme & Props) => style.background1,
       [theme.breakpoints.up('md')]: {
-        width: "60vw",
+        width: "60%",
+        maxWidth: "1200px",
         marginLeft: "35rem",
+        paddingRight: "2rem",
+        paddingBottom: "10rem"
       },
     },
     right: {
       background: (style: Theme & Props) => style.background1,
       [theme.breakpoints.up('md')]: {
         marginRight: "35rem",
+        minWith: "480px"
       },
     },
   })
