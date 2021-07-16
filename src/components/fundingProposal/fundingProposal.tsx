@@ -7,6 +7,7 @@ import VotingCard from "../cards/votingCard";
 import { ContractContext } from "../../store/contractContext/contractContext";
 import { useWeb3React } from "@web3-react/core";
 import { useParams } from "react-router-dom";
+import ReactMarkdown from 'react-markdown'
 
 export interface Props {}
 interface RouteParams {
@@ -57,14 +58,14 @@ function FundingProposal(props: Props) {
             <div>{project.duration}</div>
           </div>
         </div>
-        <div className={classes.SmallHeader}>REQUEST SUMMARY</div>
-        <div className={classes.SummaryParagraph}>
-          {project.aims_and_hypothesis}
-        </div>
-        <div className={classes.SmallHeader}>REQUEST DETAILS</div>
-        <p className={classes.Paragraph}>{fundingProposal.summary}</p>
-        <div className={classes.SmallHeader}>WHY IS THIS IMPORTANT?</div>
-        <p className={classes.Paragraph}>{fundingProposal.details}</p>
+        <div className={classes.SmallHeader}>Proposal SUMMARY</div>
+        <ReactMarkdown className={classes.SummaryParagraph} children={fundingProposal.summary} linkTarget="_blank" />
+        <div className={classes.SmallHeader}>Proposal DETAILS</div>
+        <ReactMarkdown className={classes.Paragraph} children={fundingProposal.details} linkTarget="_blank" />
+        <div className={classes.SmallHeader}>Project Summary</div>
+        <ReactMarkdown className={classes.Paragraph} children={project.summary} linkTarget="_blank" />
+        <div className={classes.SmallHeader}>Aims and Hypotheses?</div>
+        <ReactMarkdown className={classes.Paragraph} children={project.aims_and_hypothesis} linkTarget="_blank" />
         <div style={{ margin: "1rem 0" }}>
           <PillLink
             label={"View project on"}

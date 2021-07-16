@@ -36,6 +36,8 @@ export interface IFlags {
   approvedTokensPending: boolean;
   stakeTokensPending: boolean;
   stakedTokens: boolean;
+  withdrawTokensPending: boolean;
+  withdrawedTokens:boolean;
   loadingProposalNumbers:boolean;
   proposalCreated: boolean;
   creatingProposal: boolean;
@@ -110,6 +112,8 @@ const initialFlags: IFlags = {
   approvedTokensPending: false,
   stakedTokens: false,
   stakeTokensPending: false,
+  withdrawedTokens: false,
+  withdrawTokensPending: false,
   loadingProposalNumbers: false,
   proposalCreated: false,
   creatingProposal: false
@@ -180,6 +184,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, error: action.payload, loading: false };
     case types.SetBalances.SET_BALANCES_SUCCESS:
       return { ...state, balances: action.payload, loading: false };
+    case types.ApproveTokens.APPROVE_TOKENS_REQUEST:
+      return { ...state, flags: {...state.flags, approvedTokensPending:true}};
     case types.ApproveTokens.APPROVE_TOKENS_SUCCESS:
       return { ...state, flags: {...state.flags, approvedTokens:true, stakedTokens:false, approvedTokensPending:false}};
     case types.Stake.STAKE_TOKENS_REQUEST:
@@ -187,7 +193,13 @@ const reducer = (state = initialState, action) => {
     case types.Stake.STAKE_TOKENS_SUCCESS:
       return { ...state, flags: {...state.flags,approvedTokens:false, stakedTokens:true, stakeTokensPending:false}};
     case types.Stake.STAKE_TOKENS_FAIL:
-        return { ...state, flags: {...state.flags, stakedTokens:false, stakeTokensPending:false}};
+      return { ...state, flags: {...state.flags, stakedTokens:false, stakeTokensPending:false}};
+    case types.Withdraw.WITHDRAW_TOKEN_REQUEST:
+      return { ...state, flags: {...state.flags,withdrawTokensPending:true}};
+    case types.Withdraw.WITHDRAW_TOKEN_SUCCESS:
+      return { ...state, flags: {...state.flags, withdrawedTokens:true, withdrawTokensPending:false}};
+    case types.Withdraw.WITHDRAW_TOKEN_FAIL:
+      return { ...state, flags: {...state.flags, withdrawedTokens:false, withdrawTokensPending:false}}
     case types.ApproveTokens.APPROVE_TOKENS_FAIL:
       return { ...state, flags: {...state.flags, approvedTokens:false
       },error: action.payload,};

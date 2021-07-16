@@ -34,9 +34,11 @@
     "react-hooks-helper": "^1.6.0",
     "react-identicons": "^1.2.4",
     "react-jazzicon": "^0.1.3",
+    "react-markdown": "^6.0.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-transition-group": "^4.4.1",
+    "remark-unwrap-images": "^2.1.0",
     "typescript": "~3.7.2",
     "web3": "^1.2.9"
   },

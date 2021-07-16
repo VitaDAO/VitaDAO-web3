@@ -42,11 +42,13 @@ function Navbar(props: Props) {
   );
 
   return (
-    
+
     <div className={classes.Navbar}>
       <div className={classes.leftContainer}>
         <div className={classes.navItem}>
-          <img src={logo} alt="" />
+          <NavLink to="/proposals">
+            <img src={logo} alt="" />
+          </NavLink>
         </div>
         </div>
       <div className={classes.rightContainer}>

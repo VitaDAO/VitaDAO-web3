@@ -34,8 +34,8 @@ export default function IPProposal() {
           <IPProposalDetails
             heading={proposal.title}
             subHeading={"ip proposal"}
-            requestSummary={proposal.summary}
-            proposalDetails={proposal.details}
+            summary={proposal.summary}
+            details={proposal.details}
             link={proposal.link}
             id={params.id}
           />

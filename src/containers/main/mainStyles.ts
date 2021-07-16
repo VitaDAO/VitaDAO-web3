@@ -9,11 +9,10 @@ const useStyles = makeStyles(() =>
       minHeight: "100vh",
       position: "relative",
       overflowX: "hidden",
-      overflowY: "auto",
       backgroundColor: (style: Theme & Props) => style.background1,
     },
     MainContainers: {
-      width: "100vw",
+      width: "100%",
       minHeight: "calc(100vh - 14rem)",
       display: "flex",
       flexDirection: "column",

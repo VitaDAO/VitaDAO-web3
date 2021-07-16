@@ -53,7 +53,7 @@ We maintainers need to remember that VitaDAO is an organization focused on scien
 
 **We are responsible for our user's confidence using our site and contracts.**
 
-This is crypto, but for a meaningful cause. The tech is not the point, let's keep it out of the way.
+This is crypto, but for a meaningful cause. The tech is not the point, let's keep it out of the way. 
 
 ## Inclusion 
 

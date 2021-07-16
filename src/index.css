@@ -109,6 +109,38 @@ code {
   }
 }
 
+.customFormattedContent {
+  color: var(--white);
+  font-size: 1.8rem;
+  line-height: 1.35;
+}
+
+.customFormattedContent p, ul {
+  margin-bottom: 1.5rem;
+}
+
+.customFormattedContent img {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  float: left;
+  width: 100%;
+}
+
+.customFormattedContent a {
+  color: var(--yellow);
+  text-decoration: underline;
+}
+
+.customFormattedContent h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.5rem;
+}
+
+.customFormattedContent ul li {
+  list-style-type: disc;
+  list-style-position: inside;
+  margin-bottom: 0.5rem;
+}
+
 /* h1 {
   font-size: 3.4rem;
   font-weight: 400;

@@ -35,6 +35,9 @@ export const applyMiddleware = (dispatch) => (action) => {
         })
       );
     case types.Stake.STAKE_TOKENS_REQUEST:
+      dispatch({
+        type: types.Stake.STAKE_TOKENS_REQUEST
+      });
       return stake(action.payload)
         .then((res) => {
           dispatch({
@@ -49,6 +52,9 @@ export const applyMiddleware = (dispatch) => (action) => {
           })
         );
     case types.Withdraw.WITHDRAW_TOKEN_REQUEST:
+      dispatch({
+        type: types.Withdraw.WITHDRAW_TOKEN_REQUEST
+      });
       return withdraw(action.payload)
       .then((res) => {
         dispatch({
@@ -63,6 +69,9 @@ export const applyMiddleware = (dispatch) => (action) => {
         })
       );
     case types.ApproveTokens.APPROVE_TOKENS_REQUEST:
+      dispatch({
+        type: types.ApproveTokens.APPROVE_TOKENS_REQUEST
+      });
       return approveTokens(action.payload)
       .then((res) => {
         dispatch({
