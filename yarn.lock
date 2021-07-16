@@ -7962,6 +7962,11 @@ hash.js@1.1.7, hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.7:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+hast-util-whitespace@^1.0.0:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/hast-util-whitespace/-/hast-util-whitespace-1.0.4.tgz#e4fe77c4a9ae1cb2e6c25e02df0043d0164f6e41"
+  integrity sha512-I5GTdSfhYfAPNztx2xJRQpG8cuDSNt599/7YUn7Gx/WxNMsG+a835k97TDkFgk123cwjfwINaZknkKkphx/f2A==
+
 hdkey@^0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/hdkey/-/hdkey-0.7.1.tgz#caee4be81aa77921e909b8d228dd0f29acaee632"
@@ -13207,6 +13212,14 @@ remark-rehype@^8.0.0:
   integrity sha512-EbCu9kHgAxKmW1yEYjx3QafMyGY3q8noUbNUI5xyKbaFP89wbhDrKxyIQNukNYthzjNHZu6J7hwFg7hRm1svYA==
   dependencies:
     mdast-util-to-hast "^10.2.0"
+
+remark-unwrap-images@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/remark-unwrap-images/-/remark-unwrap-images-2.1.0.tgz#1dda005e8397c6f1792e4c8d38ed29602f9284cc"
+  integrity sha512-DpM7oEIXNjS3aDQpzxWrTWhUJcd5b8LznbSZnSPi1Yc3fJgLYJlx9uzkj5ekyp01PSBbSbPM2jq4959mcIetvA==
+  dependencies:
+    hast-util-whitespace "^1.0.0"
+    unist-util-visit "^2.0.0"
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
