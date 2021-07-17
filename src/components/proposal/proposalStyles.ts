@@ -24,9 +24,8 @@ const useStyles = makeStyles((theme) =>
     left: {
       background: (style: Theme & Props) => style.background1,
       [theme.breakpoints.up('md')]: {
-        width: "60%",
+        width: "70%",
         maxWidth: "1200px",
-        marginLeft: "35rem",
         paddingRight: "2rem",
         paddingBottom: "10rem"
       },
@@ -34,7 +33,6 @@ const useStyles = makeStyles((theme) =>
     right: {
       background: (style: Theme & Props) => style.background1,
       [theme.breakpoints.up('md')]: {
-        marginRight: "35rem",
         minWith: "480px"
       },
     },
