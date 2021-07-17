@@ -6,7 +6,9 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     GovernanceProposal: {
       background: "transparent",
-      width: "80%",
+      width: "100%",
+      paddingLeft: "3rem",
+      paddingRight: "3rem",
       position: "relative",
       display: "flex",
       overflowX: "hidden",

@@ -13,13 +13,13 @@ const useStyles = makeStyles(() =>
     },
     MainContainers: {
       width: "100%",
-      minHeight: "calc(100vh - 14rem)",
+      minHeight: "calc(100vh - 12rem)",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       background:
         "url(../media/images/vita_dao_image.png) bottom center no-repeat",
-      marginTop: "14rem",
+      marginTop: "12rem",
     },
   })
 );

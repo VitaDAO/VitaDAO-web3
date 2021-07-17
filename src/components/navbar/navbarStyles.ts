@@ -18,8 +18,6 @@ const useStyles = makeStyles(() =>
       display: "flex",
       alignItems: "center",
       justifyContent: "flex-end",
-      margin: "0 0 0 auto",
-      width: "70%",
       height: "100%",
     },
     leftContainer: {
@@ -27,7 +25,6 @@ const useStyles = makeStyles(() =>
       alignItems: "center",
       justifyContent: "flex-start",
       margin: "0 0 0 0",
-      width: "70%",
       height: "100%",
     },
     navLink: {
