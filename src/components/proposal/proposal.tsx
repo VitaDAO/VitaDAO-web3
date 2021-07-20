@@ -139,13 +139,6 @@ function Proposal(props: Props) {
             </div>
           }
 
-
-
-
-
-
-
-
           <br></br>
           <br></br>
           <a

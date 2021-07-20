@@ -6,7 +6,9 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     GovernanceProposal: {
       background: "transparent",
-      width: "80%",
+      width: "100%",
+      paddingLeft: "3rem",
+      paddingRight: "3rem",
       position: "relative",
       display: "flex",
       overflowX: "hidden",
@@ -22,9 +24,8 @@ const useStyles = makeStyles((theme) =>
     left: {
       background: (style: Theme & Props) => style.background1,
       [theme.breakpoints.up('md')]: {
-        width: "60%",
+        width: "70%",
         maxWidth: "1200px",
-        marginLeft: "35rem",
         paddingRight: "2rem",
         paddingBottom: "10rem"
       },
@@ -32,7 +33,6 @@ const useStyles = makeStyles((theme) =>
     right: {
       background: (style: Theme & Props) => style.background1,
       [theme.breakpoints.up('md')]: {
-        marginRight: "35rem",
         minWith: "480px"
       },
     },

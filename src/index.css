@@ -141,39 +141,11 @@ code {
   margin-bottom: 0.5rem;
 }
 
-/* h1 {
-  font-size: 3.4rem;
-  font-weight: 400;
-  font-family: var(--font2);
+/* Workarounds */
+.makeStyles-GovernanceProposal-872 .makeStyles-CardWrapper-69 {
+  margin-top: 3rem;
+  margin-bottom: 6rem;
+  margin-left: 0;
+  width: 100%;
+  max-width: 400px;
 }
-h2 {
-  font-size: 2.4rem;
-  font-weight: 400;
-  font-family: var(--font2);
-}
-h3 {
-  font-size: 1.8rem;
-  font-weight: 400;
-  font-family: var(--font2);
-}
-h4 {
-  font-family: var(--font2);
-  font-size: 2rem;
-  font-weight: 400;
-}
-h5 {
-  font-family: var(--font1);
-  font-size: 2.2rem;
-  font-weight: 400;
-}
-
-p {
-  font-family: var(--font1);
-  font-size: 1.4rem;
-  font-weight: 500;
-}
-p2 {
-  font-family: var(--font1);
-  font-size: 3.2rem;
-  font-weight: 400;
-}  */
