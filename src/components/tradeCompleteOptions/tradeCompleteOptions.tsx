@@ -25,6 +25,8 @@ function TradeCompleteOptions(props: Props) {
           color={"white"}
           label="Start Another Trade"
           clickFunction={handleClick}
+          onMouseEnterFunction={null}
+          onMouseLeaveFunction={null}
         />
       </div>
 

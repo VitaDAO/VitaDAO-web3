@@ -20,6 +20,7 @@ function StakeToken(props: any) {
   const [disableMessage, setDisableMessage] = useState("Enter Staking Amount");
   const [token, setToken] = useState<string>("VITA");
   const [stakeAmount, setStakeAmount] = useState<number>(0.0);
+  const [approvedAmount, setApprovedAmount] = useState<number>(0.0);
   const { account, library } = useWeb3React();
 
   const [editedCurrency, setEditedCurrency] = useState("");
@@ -27,6 +28,11 @@ function StakeToken(props: any) {
   async function tokenBalanceAction() {
     actions.setBalances({
       ethAddress: account,
+      contracts,
+      provider: library,
+    });
+    actions.getApprovedAllowance({
+      address: account,
       contracts,
       provider: library,
     });
@@ -41,6 +47,7 @@ function StakeToken(props: any) {
       provider: initializeWeb3,
     });
     if (state.flags.stakedTokens) setStakeAmount(0.0);
+    if (state.flags.approvedTokens) setApprovedAmount(0.0);
   }
   const hasEnoughBalance = () => {
     return stakeAmount > state.balances[`${token.toLowerCase()}Balance`]
@@ -48,9 +55,12 @@ function StakeToken(props: any) {
       : true;
   };
 
+  const [actionText, setActionText] = useState("Approve/Stake/Withdraw")
+
   useEffect(() => {
     if (!state.isWalletConnected) {
       setStakeAmount(0);
+      setApprovedAmount(0);
     }
   }, [state.isWalletConnected]);
 
@@ -116,14 +126,15 @@ function StakeToken(props: any) {
   return (
     <div className={classes.Main}>
       <div className={classes.balances}>
-        <label>Staked tokens: {state.stakedBalance} </label>
+        <label>Staked Tokens: {state.stakedBalance} </label>
 
-        <p>Unlock time: {state.unlockTime}</p>
+        <p>Unlock Date: {state.unlockTime}</p>
 
-        <p>Vita tokens: {state.balances["vitaBalance"]}</p>
+        <p>Vita Tokens: {state.balances["vitaBalance"]}</p>
+        <p>Approved Tokens: {state.balances["allowedBalance"]}</p>
       </div>
       <div className={classes.index}>
-        <h1 className={classes.title}>Stake</h1>
+        <h1 className={classes.title}>{actionText}</h1>
         <div className={classes.buySellContainer}>
           <div className={classes.topTransaction}>
             <BuySellBox
@@ -143,6 +154,8 @@ function StakeToken(props: any) {
               color={"grey"}
               label={"please connect wallet"}
               clickFunction={lockTokens}
+              onMouseEnterFunction={null}
+              onMouseLeaveFunction={null}
               disabled={true}
               pending={false}
               success={false}
@@ -151,72 +164,48 @@ function StakeToken(props: any) {
           </div>
         ) : (
           <>
-            {!state.flags.approvedTokens ? (
-              <>
-                <div className={classes.buttonContainer}>
-                  <PillButton
-                    color="green"
-                    label="Approve tokens"
-                    pending={state.flags.approvedTokensPending}
-                    clickFunction={() => approveTokens()}
-                  />
-                </div>
-                <div className={classes.buttonContainer}>
-                  <PillButton
-                    color="grey"
-                    label="Stake tokens"
-                    clickFunction={lockTokens}
-                    disabled={true}
-                    pending={false}
-                    success={false}
-                    fail={false}
-                  />
-                </div>
-                 <div className={classes.buttonContainer}>
-                  <PillButton
-                    color="grey"
-                    label="Withdraw tokens"
-                    pending={state.flags.withdrawTokensPending}
-                    clickFunction={() => withdrawTokens()}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className={classes.buttonContainer}>
-                  <PillButton
-                    color="grey"
-                    label="Approve tokens"
-                    clickFunction={lockTokens}
-                    iconColor="green"
-                    disabled={true}
-                    pending={false}
-                    success={true}
-                    fail={false}
-                  />
-                </div>
-                <div className={classes.buttonContainer}>
-                  <PillButton
-                    color="green"
-                    label="Stake tokens"
-                    clickFunction={() => lockTokens()}
-                    pending={state.flags.stakeTokensPending}
-                  />
-                </div>
-                <div className={classes.buttonContainer}>
-                  <PillButton
-                    color="grey"
-                    label="Withdraw tokens"
-                    clickFunction={lockTokens}
-                    disabled={true}
-                    pending={state.flags.withdrawTokensPending}
-                    fail={false}
-                  />
-                </div>
-              </>
-            )}
+            <div className={classes.buttonContainer}>
+              <PillButton
+                color="green"
+                label="Approve tokens"
+                pending={state.flags.approvedTokensPending}
+                clickFunction={() => approveTokens()}
+                onMouseEnterFunction={() => setActionText("Approve")}
+                onMouseLeaveFunction={() => setActionText("Approve/Stake/Withdraw")}
+                disabled={false}
+                success={false}
+                fail={false}
+              />
+            </div>
+            <div className={classes.buttonContainer}>
+              <PillButton
+                color="grey"
+                label="Stake tokens"
+                pending={state.flags.stakeTokensPending}
+                clickFunction={() => lockTokens()}
+                onMouseEnterFunction={() => setActionText("Stake")}
+                onMouseLeaveFunction={() => setActionText("Approve/Stake/Withdraw")}
+                disabled={false}
+                success={false}
+                fail={false}
+              />
+            </div>
+            <div className={classes.buttonContainer}>
+              <PillButton
+                color="grey"
+                label="Withdraw tokens"
+                pending={state.flags.withdrawTokensPending}
+                clickFunction={() => withdrawTokens()}
+                onMouseEnterFunction={() => setActionText("Withdraw")}
+                onMouseLeaveFunction={() => setActionText("Approve/Stake/Withdraw")}
+                disabled={Date.parse(state.unlockTime) > Date.now()}
+                success={false}
+                fail={false}
+              />
+            </div>
           </>
-        )}
+          )
+        }
         <div className={classes.buttonContainer}></div>
       </div>
     </div>

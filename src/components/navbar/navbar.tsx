@@ -28,6 +28,8 @@ function Navbar(props: Props) {
         color={"white"}
         label="disconnect"
         clickFunction={props.disconnectWallet}
+        onMouseEnterFunction={null}
+        onMouseLeaveFunction={null}
       />
     </div>
   ) : (
@@ -37,6 +39,8 @@ function Navbar(props: Props) {
         color={"green"}
         label={"connect wallet"}
         clickFunction={props.setShowWalletModal}
+        onMouseEnterFunction={null}
+        onMouseLeaveFunction={null}
       />
     </div>
   );
