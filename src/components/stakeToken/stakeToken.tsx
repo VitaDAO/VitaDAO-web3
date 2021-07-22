@@ -119,7 +119,18 @@ function StakeToken(props: any) {
     }
   };
 
+  const canWithdraw = () => {
+    // Can only withdraw if staked token balance is greater than zero
+    // Can only withdraw if unlock date is in the past. 
+    let unlockDatePassed = Date.now() >= Date.parse(state.unlockTime);
+    return (state.stakedBalance > 0 && unlockDatePassed) ? true : false;
+  }
   
+  const canStake = () => {
+    let hasEnoughAllowed = state.balances.allowedBalance - state.stakedBalance > stakeAmount;
+    console.log("Allowed Tokens: " + state.balances.allowedBalance + " StakeAmount: " + stakeAmount + " Staked Balance: "+ state.stakedBalance);
+    return hasEnoughAllowed;
+  }
 
   const classes = useStyles({ ...props, ...theme });
 
@@ -152,7 +163,7 @@ function StakeToken(props: any) {
           <div className={classes.buttonContainer}>
             <PillButton
               color={"grey"}
-              label={"please connect wallet"}
+              label={!hasEnoughBalance ? "please connect wallet" : disableMessage}
               clickFunction={lockTokens}
               onMouseEnterFunction={null}
               onMouseLeaveFunction={null}
@@ -179,10 +190,10 @@ function StakeToken(props: any) {
             </div>
             <div className={classes.buttonContainer}>
               <PillButton
-                color="grey"
-                label="Stake tokens"
+                color={canStake() ? "green" : "grey"}
+                label={canStake() ? "Stake tokens" : "Cannot Stake Yet"}
                 pending={state.flags.stakeTokensPending}
-                clickFunction={() => lockTokens()}
+                clickFunction={canStake() ? () => lockTokens() : null}
                 onMouseEnterFunction={() => setActionText("Stake")}
                 onMouseLeaveFunction={() => setActionText("Approve/Stake/Withdraw")}
                 disabled={false}
@@ -192,13 +203,13 @@ function StakeToken(props: any) {
             </div>
             <div className={classes.buttonContainer}>
               <PillButton
-                color="grey"
-                label="Withdraw tokens"
+                color={canWithdraw() ? "green" : "grey"}
+                label={canWithdraw()? "Withdraw" : "Cannot Withdraw Yet"}
                 pending={state.flags.withdrawTokensPending}
-                clickFunction={() => withdrawTokens()}
+                clickFunction={canWithdraw()? () => withdrawTokens() : null}
                 onMouseEnterFunction={() => setActionText("Withdraw")}
                 onMouseLeaveFunction={() => setActionText("Approve/Stake/Withdraw")}
-                disabled={Date.parse(state.unlockTime) > Date.now()}
+                disabled={false}
                 success={false}
                 fail={false}
               />
