@@ -10,10 +10,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Proposals from "../proposals/proposals";
 //import Projects from "../projects/projects";
 import ProposeModal from "../proposeModal/proposeModal";
-// import ProjectProposal from "../projectProposal/projectProposal";
-// import FundingProposal from "../../components/fundingProposal/fundingProposal";
 import Proposal from "../../components/proposal/proposal";
-// import IPProposal from "../ipProposal/ipProposal";
 //import BuyTokenModal from "../buyTokenModal/buyTokenModal";
 import StakeToken from "../../components/stakeToken/stakeToken";
 import { useWallets } from "../../store/walletContext/WalletContext";
@@ -79,8 +76,7 @@ export default function Main(props: Props) {
 
             {/* <Route exact path='/about' /> */}
             {/* <Route exact path='/join_the_dao' /> */}
-            {/* <Route exact path="/projects" component={Projects} />
-            <Route exact path="/projects/:id" component={GovernanceProposal} /> */}
+            {/* <Route exact path="/projects" component={Projects} /> */}
             {/* <Route exact path='/buy_vita_token' component={BuyTokenModal} /> */}
             {/* <Route exact path='/apply' component={Apply} />
 						<Route exact path='/apply_now' component={Apply} /> */}

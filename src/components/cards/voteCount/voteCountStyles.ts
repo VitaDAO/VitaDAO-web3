@@ -61,6 +61,12 @@ const useStyles = makeStyles(() =>
       color: "var(--grey1)",
       font: (style: Theme & Props) => style.typography.c2,
     },
+    quorumMet: {
+      color: "var(--green)",
+    },
+    quoromNotMet: {
+      color: "var(--yellow)",
+    }
   })
 );
 

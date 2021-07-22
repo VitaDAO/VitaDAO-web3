@@ -21,7 +21,7 @@ export const proposalStatus = {
 //Getter functions
 export const getProposalStatus = async (payload: any) => {
 // function getProposalStatus(uint256 proposalIndex) external view returns(uint256);
-    
+
     const { contracts, proposalIndex} = payload;
     const {raphaelContract} = contracts;
 	return await raphaelContract.methods.getProposalStatus(proposalIndex).call();
@@ -38,6 +38,9 @@ export const getProposalData = async(payload: any) => {
     const blockNumber = await web3Provider.eth.getBlockNumber();
     const yesVotes = Number(web3.utils.fromWei(res[1]));
     const noVotes = Number(web3.utils.fromWei(res[2]));
+    const votesTotal = yesVotes + noVotes;
+    const minVotesNeeded = Number(web3.utils.fromWei(await raphaelContract.methods.getMinVotesNeeded().call()));
+    const turnoutPercentage = (votesTotal/minVotesNeeded) * 100;
     const startBlock = res[3];
     const endBlock = res[4];
     const proposalData = JSON.parse(res[0]);
@@ -53,16 +56,16 @@ export const getProposalData = async(payload: any) => {
     const endDateBlock = (endBlock - blockNumber)*13.2 //current avg block time
     const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
     //debugger;
-    return {proposalData, id, yesVotes, noVotes, startBlock, endBlock, status, 
-        link: data.link, proposal_type: data.proposal_type, details: data.details, summary: data.summary,  
+    return {proposalData, id, yesVotes, noVotes, startBlock, endBlock, status, turnoutPercentage,
+        link: data.link, proposal_type: data.proposal_type, details: data.details, summary: data.summary,
         title: data.title, voting_start_date: startVote, voting_end_date: endVote,
         project: data.project === undefined? null: data.project};
-  
+
 }
 
 export const proposalValid = async(payload: any) => {
     //debugger;
-    if (payload.status === proposalStatus[4]) { 
+    if (payload.status === proposalStatus[4]) {
         return false;
     }
     return true;
@@ -195,7 +198,7 @@ export const createProposal = async(payload: any) => {
     const {raphaelContract} = contracts;
     const contentHash = await uploadDataToIpfs(proposalData);
     return await raphaelContract.methods.createProposal(contentHash).send({from:address});
-   
+
 }
 
 export const updateProposalStatus = async(payload: any) => {
@@ -236,7 +239,7 @@ export const delegate = async(payload: any) => {
     return await raphaelContract.methods.delegate(delegateAddress)
     .send({ from: address });
 }
-    
+
 export const transferNativeToken = async(payload: any) => {
 //     function transferNativeToken(address to, uint256 amount) external returns(bool);
     const { contracts, address,receiver, amount} = payload;
