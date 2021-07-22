@@ -13,7 +13,7 @@ export const approveTokens = async (payload: any)=>{
   try {
     const { contracts, address, amount} = payload;
     const { tokenContract, stakingContract } = contracts;
-    let changedAmount = parseInt(amount) + 1;
+    let changedAmount = parseInt(amount);
     const amountParsed = ethers.utils.parseUnits(changedAmount.toString());
     
     return await tokenContract.methods.approve(stakingContract._address, amountParsed).send({ from: address });

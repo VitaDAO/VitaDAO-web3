@@ -134,7 +134,7 @@ function StakeToken(props: any) {
   const canStake = () => {
     // can only stake the given amount if there are enough allowed tokens to cover
     // both already staked tokens and the amount user is trying to stake
-    const hasEnoughAllowed = state.balances.allowedBalance - state.stakedBalance > stakeAmount;
+    const hasEnoughAllowed = state.balances.allowedBalance >= stakeAmount;
     // and the stakeAmount has to be greater than zero
     return hasEnoughAllowed && (stakeAmount > 0);
   }
