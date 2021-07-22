@@ -159,6 +159,7 @@ function Proposal(props: Props) {
             status={proposal.status}
             yesVotes={proposal.yesVotes}
             noVotes={proposal.noVotes}
+            turnoutPercentage={proposal.turnoutPercentage}
           ></VotingCard>
         </div>
       </div>

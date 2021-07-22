@@ -9,10 +9,11 @@ export interface Props {
   votesYes: number;
   votesNo: number;
   status: string;
+  turnoutPercentage: number;
 }
 
 function CardBody(props: Props) {
-  const { endDate, startDate, votesYes, votesNo } = props;
+  const { endDate, startDate, votesYes, votesNo, turnoutPercentage } = props;
 
   const hasStarted = new Date().getTime() < startDate.getTime();
   const inProgress = new Date().getTime() < endDate.getTime();
@@ -34,6 +35,7 @@ function CardBody(props: Props) {
         inProgress={inProgress}
         votesYes={votesYes}
         votesNo={votesNo}
+        turnoutPercentage={turnoutPercentage}
       />
     </>
   );
