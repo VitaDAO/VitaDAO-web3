@@ -25,19 +25,37 @@ const getERC20Balance = async (
   }
 };
 
+
+const getAllowedBalance = async (
+  ethAddress: string,
+  contract: Contract,
+  decimals: number
+) => {
+  try {
+    const allowedBalance = await contract.methods.allowance(ethAddress, process.env.REACT_APP_STAKING_ADDRESS).call();
+    return Number(ethers.utils.formatUnits(allowedBalance.toString(), decimals));
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+};
+
 export const getBalances = async (payload: any) => {
   const { ethAddress, contracts, provider } = payload;
 
   const [
     ethBalance,
     vitaBalance,
+    allowedBalance,
   ] = await Promise.all([
     getEthBalance(ethAddress, provider),
     getERC20Balance(ethAddress, contracts.tokenContract, 18),
+    getAllowedBalance(ethAddress, contracts.tokenContract, 18)
   ]);
   return {
     ethBalance,
-    vitaBalance
+    vitaBalance,
+    allowedBalance
   } as IBalances;
 };
 

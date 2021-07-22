@@ -7,6 +7,8 @@ export interface Props {
   color: string;
   label: string;
   clickFunction: any;
+  onMouseEnterFunction: any;
+  onMouseLeaveFunction: any;
   iconColor?: string;
   small?: boolean;
   disabled?: boolean;
@@ -19,11 +21,13 @@ function PillButton(props: Props) {
   const { theme } = useContext(ThemeContext);
 
   const classes = useStyles({ ...props, ...theme });
-  const { label, clickFunction, disabled } = props;
+  const { label, clickFunction, disabled, onMouseEnterFunction, onMouseLeaveFunction } = props;
   return (
     <button
       disabled={disabled}
       onClick={clickFunction}
+      onMouseEnter={onMouseEnterFunction}
+      onMouseLeave={onMouseLeaveFunction}
       className={classes.PillButton}
     >
       {label}

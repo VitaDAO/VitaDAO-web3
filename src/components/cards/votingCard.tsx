@@ -78,12 +78,16 @@ function VotingCard(props: Props) {
             label="vote yes"
             color="blue"
             clickFunction={() => vote(true)}
+            onMouseEnterFunction={null}
+            onMouseLeaveFunction={null}
           />
 
           <PillButton
             label="vote no"
             color="yellow"
             clickFunction={() => vote(false)}
+            onMouseEnterFunction={null}
+            onMouseLeaveFunction={null}
           />
         </>
       ) : state.stakedBalance === null || state.stakedBalance < 0.001 ? (

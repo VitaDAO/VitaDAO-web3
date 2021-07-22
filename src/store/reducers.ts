@@ -47,6 +47,7 @@ export interface IFlags {
 export interface IBalances {
   vitaBalance: number;
   ethBalance: number;
+  allowedBalance: number;
 }
 export interface Prices {
   ethPrice: string;
@@ -131,6 +132,7 @@ const initialState: State = {
   balances: {
     vitaBalance: 0,
     ethBalance: 0,
+    allowedBalance: 0,
   },
   prices: initialPrices,
   data: null,
@@ -160,6 +162,7 @@ const reducer = (state = initialState, action) => {
         balance: {
           vitaBalance: 0,
           ethBalance: 0,
+          allowedBalance: 0,
         },
         userAddress: "",
         provider: {},
@@ -177,6 +180,7 @@ const reducer = (state = initialState, action) => {
         balance: {
           vitaBalance: 0,
           ethBalance: 0,
+          allowedBalance: 0,
         }};
     case types.SetWalletConnected.SET_WALLET_CONNECTED_SUCCESS:
         return { ...state, isWalletConnected: true };
