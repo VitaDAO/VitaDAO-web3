@@ -38,8 +38,8 @@ export const getProposalData = async(payload: any) => {
     const blockNumber = await web3Provider.eth.getBlockNumber();
     const yesVotes = Number(web3.utils.fromWei(res[1]));
     const noVotes = Number(web3.utils.fromWei(res[2]));
-    const votesTotal = res[1] + res[2];
-    const minVotesNeeded = (await raphaelContract.methods.getMinVotesNeeded().call());
+    const votesTotal = yesVotes + noVotes;
+    const minVotesNeeded = Number(web3.utils.fromWei(await raphaelContract.methods.getMinVotesNeeded().call()));
     const turnoutPercentage = (votesTotal/minVotesNeeded) * 100;
     const startBlock = res[3];
     const endBlock = res[4];
