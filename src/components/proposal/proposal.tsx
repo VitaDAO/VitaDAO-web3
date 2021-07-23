@@ -31,7 +31,7 @@ function Proposal(props: Props) {
   useEffect(() => {
     if (state.data === null) loadProposalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  }, [contracts, library]);
 
   const proposal = state.data?.find(
     (p) => p.id.toString() === params.id
