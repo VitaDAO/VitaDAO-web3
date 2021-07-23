@@ -7,6 +7,7 @@ export interface Props {
   inProgress: boolean;
   votesYes: number;
   votesNo: number;
+  turnoutPercentage: number;
 }
 
 function VoteCount(props: Props) {
@@ -44,7 +45,16 @@ function VoteCount(props: Props) {
         ></div>
       </div>
       <label className={classes.EndVoting}>
-        <span style={{ fontWeight: "bold" }}>{totalVotes}</span> Total Votes
+        <span style={{ fontWeight: "bold" }}>{ totalVotes }</span> Total Votes
+        {
+          props.inProgress &&
+          <div>
+            {props.turnoutPercentage < 100
+              ? <div className={classes.quoromNotMet}>{ props.turnoutPercentage.toFixed(2) }% – Quorum not met</div>
+              : <div className={classes.quorumMet}>{ props.turnoutPercentage.toFixed(2) }% – Quorum met</div>
+            }
+          </div>
+        }
       </label>
     </div>
   );

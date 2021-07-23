@@ -93,7 +93,12 @@ export default function WalletProvider(props: Props) {
   const disconnectWallet = async (activeWallet: any) => {
     deactivate();
     setActivatingConnector(undefined);
-    activeWallet !== injectedConnector && (await activeWallet.close());
+    try{
+      activeWallet !== injectedConnector && (await activeWallet.close());
+    }
+    catch (err){
+      console.log(err)
+    }
     actions.setWalletDisconnected();
   };
 

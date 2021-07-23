@@ -58,6 +58,8 @@ function ActionButtons(props: Props) {
         <PillButton
           color={"grey"}
           clickFunction={null}
+          onMouseEnterFunction={null}
+          onMouseLeaveFunction={null}
           label={disableMessage}
           disabled={true}
           pending={false}
@@ -70,6 +72,8 @@ function ActionButtons(props: Props) {
             <PillButton
               color={"white"}
               clickFunction={approveAction}
+              onMouseEnterFunction={null}
+              onMouseLeaveFunction={null}
               label={"Approve"}
               disabled={
                 disabled ||
@@ -87,6 +91,8 @@ function ActionButtons(props: Props) {
             <PillButton
               color={"white"}
               clickFunction={swapAction}
+              onMouseEnterFunction={null}
+              onMouseLeaveFunction={null}
               label={"Swap"}
               disabled={disabled || !walletConnected || swapPending}
               pending={swapPending}
@@ -98,6 +104,8 @@ function ActionButtons(props: Props) {
             <PillButton
               color={"white"}
               clickFunction={finalAction}
+              onMouseEnterFunction={null}
+              onMouseLeaveFunction={null}
               label={`${transactionType} VITA`}
               disabled={
                 disabled || !walletConnected || mintPending || burnPending

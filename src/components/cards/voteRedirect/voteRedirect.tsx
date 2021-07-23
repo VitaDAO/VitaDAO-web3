@@ -20,6 +20,8 @@ function VoteRedirect(props: Props) {
           color={"grey"}
           label={"please connect wallet"}
           clickFunction={null}
+          onMouseEnterFunction={null}
+          onMouseLeaveFunction={null}
           disabled={true}
           pending={false}
           success={false}

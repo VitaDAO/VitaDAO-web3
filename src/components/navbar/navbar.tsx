@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import Hamburger from "../hamburger/hamburger";
 import Menu from "../menu/menu";
 import { useWeb3React } from "@web3-react/core";
-import logo from "./vitadao-logo.png"
+import logo from "./logo.svg";
 
 export interface Props {
   setShowWalletModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,6 +28,8 @@ function Navbar(props: Props) {
         color={"white"}
         label="disconnect"
         clickFunction={props.disconnectWallet}
+        onMouseEnterFunction={null}
+        onMouseLeaveFunction={null}
       />
     </div>
   ) : (
@@ -37,6 +39,8 @@ function Navbar(props: Props) {
         color={"green"}
         label={"connect wallet"}
         clickFunction={props.setShowWalletModal}
+        onMouseEnterFunction={null}
+        onMouseLeaveFunction={null}
       />
     </div>
   );
@@ -47,7 +51,7 @@ function Navbar(props: Props) {
       <div className={classes.leftContainer}>
         <div className={classes.navItem}>
           <NavLink to="/proposals">
-            <img src={logo} alt="" />
+            <img src={logo} alt="VitaDAO Logo" width="130" />
           </NavLink>
         </div>
         </div>

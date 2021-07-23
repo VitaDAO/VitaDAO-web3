@@ -72,6 +72,13 @@ export const useActions = (state, dispatch) => ({
       payload: data,
     });
   },
+  getApprovedAllowance:(data) =>{
+    dispatch({ type: types.ApprovedAllowance.GET_APPROVED_ALLOWANCE_PENDING });
+    dispatch({
+      type: types.ApprovedAllowance.GET_APPROVED_ALLOWANCE_REQUEST,
+      payload: data,
+    });
+  },
   getStakedBalance:(data) =>{
     dispatch({ type: types.StakedBalance.GET_STAKED_BALANCE_PENDING });
     dispatch({
@@ -141,6 +148,7 @@ export interface Actions {
   stake:(data:any) => void;
   withdraw:(data:any) => void;
   approveTokens:(data: any) => void;
+  getApprovedAllowance:(data: any) => void;
   getStakedBalance:(data: any) => void;
   getUnlockTime:(data: any) => void;
   getProposalData:(data: any) => void;

@@ -1,6 +1,7 @@
 
 import { Contract} from "ethers";
 import web3 from "web3";
+import getBlockAverageTime from "./blocktime";
 
 export interface StakingPayload {
     tokenContract?: Contract;
@@ -46,9 +47,10 @@ export const getUnlockTime = async (payload: any) => {
     const web3Provider = provider();
     const blockNumber = await web3Provider.eth.getBlockNumber();
     var timeNow = new Date();
-    const endBlock = (blockNumber - unlockBlock)*15;
-    const unlockDate = endBlock > 0 ? new Date(timeNow.setSeconds(timeNow.getSeconds()+endBlock)):
-        new Date(timeNow.setDate(timeNow.getDate() - 1));
+    const endBlock = (unlockBlock - blockNumber) * await getBlockAverageTime(web3Provider);
+    let unlockDay = new Date(timeNow.setSeconds(timeNow.getSeconds()+endBlock));
+    //set a guaranteed date where user can withdraw their tokens (plus 1 day)
+    const unlockDate = new Date(unlockDay.setDate(unlockDay.getDate() + 1))
 
     return unlockDate.toDateString();
 

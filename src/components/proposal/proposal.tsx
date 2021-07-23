@@ -31,7 +31,7 @@ function Proposal(props: Props) {
   useEffect(() => {
     if (state.data === null) loadProposalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  }, [contracts, library]);
 
   const proposal = state.data?.find(
     (p) => p.id.toString() === params.id
@@ -139,13 +139,6 @@ function Proposal(props: Props) {
             </div>
           }
 
-
-
-
-
-
-
-
           <br></br>
           <br></br>
           <a
@@ -166,6 +159,7 @@ function Proposal(props: Props) {
             status={proposal.status}
             yesVotes={proposal.yesVotes}
             noVotes={proposal.noVotes}
+            turnoutPercentage={proposal.turnoutPercentage}
           ></VotingCard>
         </div>
       </div>

@@ -14,6 +14,7 @@ export interface Props {
   votesYes: number;
   votesNo: number;
   status: string;
+  turnoutPercentage: number;
 }
 
 function ProposalCard(props: Props) {
@@ -33,6 +34,7 @@ function ProposalCard(props: Props) {
         endDate={props.endDate}
         votesYes={props.votesYes}
         votesNo={props.votesNo}
+        turnoutPercentage={props.turnoutPercentage}
       />
       <PillLink
         label="review"
