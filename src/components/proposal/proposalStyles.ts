@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) =>
       color: (style: Theme & Props) => style.colors.blue,
       font: (style: Theme & Props) => style.typography.p3,
       textAlign: "left",
+      cursor: "pointer",
     },
     ProposalBlock: {
       font: (style: Theme & Props) => style.typography.p1,

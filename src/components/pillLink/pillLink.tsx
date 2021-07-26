@@ -9,7 +9,7 @@ export interface Props {
   path: string;
   small?: boolean;
   icon?: React.ReactNode;
-  molecule?: string;
+  molecule?: boolean;
 }
 
 function PillLink(props: Props) {
@@ -25,7 +25,7 @@ function PillLink(props: Props) {
       target="_blank"
     >
       <div style={{ display: "flex", alignItems: "center", margin: "0.5rem" }}>
-        {label}
+        {label ? label : path}
         <Molecule className={classes.icon} />
         <span style={{ fontWeight: "bold" }}>Molecule</span>
       </div>

@@ -12,12 +12,12 @@ const useStyles = makeStyles(() =>
       display: "flex",
       justifyContent: "center",
       textTransform: (style: Theme & Props) =>
-        style.molecule === "molecule" ? "capitalize" : "uppercase",
+        style.molecule  ? "capitalize" : "uppercase",
       alignItems: "center",
       color: (style: Theme & Props) =>
         style.color === "grey" ? style.colors.white : style.colors[style.color],
       font: (style: Theme & Props) =>
-        style.molecule === "molecule"
+        style.molecule 
           ? style.typography.button3
           : style.small
           ? style.typography.button1
