@@ -72,7 +72,7 @@ export interface State {
   prices:Prices;
   loading: boolean;
   stakedBalance: number;
-  proposals:any;
+  proposal:any;
   proposalStatus: any;
   proposalData: any;
   proposalVotes: any;
@@ -138,7 +138,7 @@ const initialState: State = {
   data: null,
   loading: true,
   stakedBalance: 0,
-  proposals:[],
+  proposal: null,
   proposalData: {},
   proposalStatus: {},
   proposalVotes: {},
@@ -219,7 +219,7 @@ const reducer = (state = initialState, action) => {
     case types.ProposalData.GET_PROPOSAL_DATA_FAIL:
       return { ...state, error: action.payload, loadingProposal: false};
     case types.ProposalData.GET_PROPOSAL_DATA_SUCCESS:
-      return { ...state,  proposals: [...state.proposals, action.payload], loadingProposal: false };
+      return { ...state,  proposal: action.payload, loadingProposal: false };
     case types.ProposalVotes.GET_PROPOSAL_VOTES_FAIL:
       return { ...state, error: action.payload, loadingProposal: false };
     case types.ProposalVotes.GET_PROPOSAL_VOTES_SUCCESS:

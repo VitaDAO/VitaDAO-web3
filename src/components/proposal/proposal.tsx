@@ -1,5 +1,4 @@
-import { useWeb3React } from "@web3-react/core";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ContractContext } from "../../store/contractContext/contractContext";
 import { StoreContext } from "../../store/store";
@@ -8,8 +7,8 @@ import VotingCard from "../cards/votingCard";
 import useStyles from "./proposalStyles";
 import PillLink from "../pillLink/pillLink";
 import InfoBox from "../projectProposalDetails/infoBox/infoBox";
-import ReactMarkdown from 'react-markdown';
-var unwrapImages = require('remark-unwrap-images');
+import ReactMarkdown from "react-markdown";
+var unwrapImages = require("remark-unwrap-images");
 
 export interface Props {
   color: string;
@@ -23,21 +22,31 @@ function Proposal(props: Props) {
   const classes = useStyles({ ...props, ...theme });
   const params = useParams<RouteParams>();
   const { state, actions } = useContext(StoreContext);
-  const { contracts } = useContext(ContractContext);
-  const { library } = useWeb3React();
-  const loadProposalData = async () => {
-    actions.getAllProposals({ contracts: contracts, provider: library });
-  };
-  useEffect(() => {
-    if (state.data === null) loadProposalData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  const { contracts, initializeWeb3 } = useContext(ContractContext);
+  const [proposal, setProposal] = useState(null);
+  const [proposalLoaded, setProposalLoaded] = useState(false);
 
-  const proposal = state.data?.find(
-    (p) => p.id.toString() === params.id
-  );
-  const project = proposal.project;
-  const proposalType = proposal.proposal_type;
+  useEffect(() => {
+    if (
+      (proposal !== null && params.id !== proposal.id) ||
+      state.proposal === null
+    ) {
+      setProposalLoaded(false);
+      actions.getProposalData({
+        contracts: contracts,
+        provider: initializeWeb3,
+        proposalIndex: params.id,
+      });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [proposal, params.id, state.proposal, actions, contracts, initializeWeb3]);
+  useEffect(() => {
+    if (state.proposal !== null) {
+      setProposalLoaded(true);
+      setProposal(state.proposal);
+    }
+  }, [state.proposal]);
 
   // console.log(`PROPOSAL ${params.id}`);
   // console.log("___________________________")
@@ -47,7 +56,7 @@ function Proposal(props: Props) {
   // console.log("Proposal Type:", proposalType);
 
   return (
-    state.data !== null && (
+    proposalLoaded && (
       <div className={classes.GovernanceProposal}>
         <div className={classes.left}>
           <div className={classes.header}>
@@ -58,36 +67,31 @@ function Proposal(props: Props) {
             <h2 className={classes.XSHeading}> Proposal no. {params.id}</h2>
           </div>
 
-          {
-            (proposalType === 'project') &&
+          {state.proposal.proposalType === "project" && (
             <InfoBox
-              institution={project.institution}
-              researchLead={project.research_lead}
-              ipStatus={project.ip_status}
-              clinicalStage={project.clinical_stage}
+              institution={state.proposal.project.institution}
+              researchLead={state.proposal.project.research_lead}
+              ipStatus={state.proposal.project.ip_status}
+              clinicalStage={state.proposal.project.clinical_stage}
             />
-          }
+          )}
 
-          {
-            (proposalType === 'funding' || proposalType === 'project') &&
+          {(state.proposal.proposalType === "funding" ||
+            state.proposal.proposalType === "project") && (
             <div style={{ display: "flex", flexDirection: "row" }}>
               <div className={classes.ProposalBlock} style={{ width: "50%" }}>
-                <div className={classes.SmallHeader}>
-                  BUDGET
-                </div>
+                <div className={classes.SmallHeader}>BUDGET</div>
                 <div>
-                  {project.budget}
-                  {project.budget_currency}
+                  {state.proposal.project.budget}
+                  {state.proposal.project.budget_currency}
                 </div>
               </div>
               <div className={classes.ProposalBlock} style={{ width: "50%" }}>
-                <div className={classes.SmallHeader}>
-                  DURATION
-                </div>
-                <div>{project.duration}</div>
+                <div className={classes.SmallHeader}>DURATION</div>
+                <div>{state.proposal.project.duration}</div>
               </div>
             </div>
-          }
+          )}
 
           <div className={classes.SmallHeader}>PROPOSAL SUMMARY</div>
           <ReactMarkdown
@@ -107,17 +111,17 @@ function Proposal(props: Props) {
             linkTarget="_blank"
           />
 
-          {
-            (proposalType === 'funding' || proposalType === 'project') &&
+          {(proposal.proposalType === "funding" ||
+            proposal.proposalType === "project") && (
             <div>
               <div className={classes.SmallHeader}>Project Title</div>
-              <div className={classes.XSHeading}>{project.title}</div>
+              <div className={classes.XSHeading}>{proposal.project.title}</div>
               <div className={classes.SmallHeader}>Project Summary</div>
               <ReactMarkdown
                 remarkPlugins={[unwrapImages]}
                 skipHtml={true}
                 className="customFormattedContent"
-                children={project.summary}
+                children={proposal.project.summary}
                 linkTarget="_blank"
               />
               <div className={classes.SmallHeader}>Aims and Hypotheses?</div>
@@ -125,7 +129,7 @@ function Proposal(props: Props) {
                 remarkPlugins={[unwrapImages]}
                 skipHtml={true}
                 className="customFormattedContent"
-                children={project.aims_and_hypothesis}
+                children={proposal.project.aims_and_hypothesis}
                 linkTarget="_blank"
               />
               <div style={{ margin: "1rem 0" }}>
@@ -137,7 +141,7 @@ function Proposal(props: Props) {
                 />
               </div>
             </div>
-          }
+          )}
 
           <br></br>
           <br></br>
