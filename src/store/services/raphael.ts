@@ -49,11 +49,11 @@ export const getProposalData = async(payload: any) => {
     if(proposalData.cid !== undefined || proposalData.cid !==null)
      data = JSON.parse(await getProposalDataFromIPFS(proposalData.cid));
     const id = proposalIndex;
-    var timeNow = new Date();
-    const startDateBlock = (startBlock - blockNumber)*13.2; //current avg block time
-    const startVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+startDateBlock));
-    const endDateBlock = (endBlock - blockNumber)*13.2 //current avg block time
-    const endVote = new Date(timeNow.setSeconds(timeNow.getSeconds()+endDateBlock));
+    const timeNow = new Date();
+    const startDateBlock = (startBlock - blockNumber)*13200; //current avg block time
+    const startVote = new Date(timeNow.getTime()+startDateBlock);
+    const endDateBlock = (endBlock - blockNumber)*13200 //current avg block time
+    const endVote = new Date(timeNow.getTime()+endDateBlock);
     //debugger;
     return {proposalData, id, yesVotes, noVotes, startBlock, endBlock, status, turnoutPercentage,
         moleculeLink: data.moleculeLink, link: data.link, linkText: data.linkText, proposal_type: data.proposal_type, details: data.details, summary: data.summary,

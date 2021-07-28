@@ -1,4 +1,4 @@
-import React, { useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import CardWrapper from "./cardWrapper/cardWrapper";
 import CardHeader from "./cardHeader/cardHeader";
 import CardBody from "./cardBody/proposal/cardBody";
@@ -30,8 +30,8 @@ function VotingCard(props: Props) {
   const params = useParams<RouteParams>();
 
   const size =
-    new Date().getTime() >= new Date(props.endDate).getTime() ||
-    new Date().getTime() <= new Date(props.startDate).getTime()
+    new Date() >= props.endDate ||
+    new Date() <= props.startDate
       ? "smallest"
       : "small";
   useEffect(() => {
@@ -54,6 +54,11 @@ function VotingCard(props: Props) {
       contracts,
       provider: library,
       vote: vote,
+      proposalIndex: params.id,
+    });
+    actions.getProposalData({
+      contracts,
+      provider: library,
       proposalIndex: params.id,
     });
   };

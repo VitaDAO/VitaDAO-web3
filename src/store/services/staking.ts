@@ -47,8 +47,8 @@ export const getUnlockTime = async (payload: any) => {
     const web3Provider = provider();
     const blockNumber = await web3Provider.eth.getBlockNumber();
     var timeNow = new Date();
-    const endBlock = (unlockBlock - blockNumber) * await getBlockAverageTime(web3Provider);
-    let unlockDay = new Date(timeNow.setSeconds(timeNow.getSeconds()+endBlock));
+    const endBlock = (unlockBlock - blockNumber) * await getBlockAverageTime(web3Provider) * 1000;
+    let unlockDay = new Date(timeNow.setTime(timeNow.getTime()+endBlock));
     //set a guaranteed date where user can withdraw their tokens (plus 1 day)
     const unlockDate = new Date(unlockDay.setDate(unlockDay.getDate() + 1))
 
