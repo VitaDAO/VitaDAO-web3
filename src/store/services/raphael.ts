@@ -45,7 +45,6 @@ export const getProposalData = async(payload: any) => {
     const endBlock = res[4];
     const proposalData = JSON.parse(res[0]);
     let data;
-    debugger;
     const status = proposalStatus[res[5]];
     if(proposalData.cid !== undefined || proposalData.cid !==null)
      data = JSON.parse(await getProposalDataFromIPFS(proposalData.cid));
