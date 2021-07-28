@@ -1,4 +1,4 @@
-import React, { useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import CardWrapper from "./cardWrapper/cardWrapper";
 import CardHeader from "./cardHeader/cardHeader";
 import CardBody from "./cardBody/proposal/cardBody";
@@ -54,6 +54,11 @@ function VotingCard(props: Props) {
       contracts,
       provider: library,
       vote: vote,
+      proposalIndex: params.id,
+    });
+    actions.getProposalData({
+      contracts,
+      provider: library,
       proposalIndex: params.id,
     });
   };
