@@ -49,7 +49,7 @@ function StakeToken(props: any) {
     });
     if (state.flags.stakedTokens) setStakeAmount(0.0);
     if (state.flags.approvedTokens) setApprovedAmount(0.0);
-    if (state.flags.withdrawedTokens) setWithdrawnAmount(0.0);
+    if (state.flags.withdrawnTokens) setWithdrawnAmount(0.0);
   }
   const hasEnoughBalance = () => {
     return stakeAmount > state.balances[`${token.toLowerCase()}Balance`]
@@ -73,7 +73,7 @@ function StakeToken(props: any) {
   useEffect(() => {
     handleRefresh();
     // eslint-disable-next-line
-  }, [account, state.flags.stakedTokens, state.flags.approvedTokens, state.flags.withdrawedTokens]);
+  }, [account, state.flags.stakedTokens, state.flags.approvedTokens, state.flags.withdrawnTokens]);
 
   useEffect(() => {
     !hasEnoughBalance() &&

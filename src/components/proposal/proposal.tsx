@@ -132,28 +132,31 @@ function Proposal(props: Props) {
                 children={proposal.project.aims_and_hypothesis}
                 linkTarget="_blank"
               />
-              <div style={{ margin: "1rem 0" }}>
+              { (proposal.moleculeLink) &&
+              <div style={{ margin: "2rem 0" }}>
                 <PillLink
                   label={"View project on"}
                   color="moleculeGreen"
-                  path="/projects"
-                  molecule={"molecule"}
+                  path={proposal.moleculeLink}
+                  molecule={ proposal.moleculeLink }
                 />
               </div>
+              }
+              <br/>
+              <br/>
+              
             </div>
           )}
 
           <br></br>
           <br></br>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={proposal.link}
-            className={classes.link}
-          >
-            {proposal.link}
-          </a>
+          { (proposal.link) &&
+              <a href={proposal.link} className={classes.link} target="_blank" rel="noopener noreferrer">
+                {proposal.linkText ? proposal.linkText : proposal.link}
+              </a>
+          }
         </div>
+        
         <div className={classes.right}>
           <VotingCard
             key={1}
