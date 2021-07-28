@@ -30,8 +30,8 @@ function VotingCard(props: Props) {
   const params = useParams<RouteParams>();
 
   const size =
-    new Date().getTime() >= new Date(props.endDate).getTime() ||
-    new Date().getTime() <= new Date(props.startDate).getTime()
+    new Date() >= props.endDate ||
+    new Date() <= props.startDate
       ? "smallest"
       : "small";
   useEffect(() => {
