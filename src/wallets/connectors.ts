@@ -32,7 +32,8 @@ export const chainIDToEndpoint = {
   "4": process.env.REACT_APP_INFURA_ENDPOINT, // ethereum Rinkeby
   "5": process.env.REACT_APP_INFURA_ENDPOINT, // ethereum Goerli
   "77": "https://sokol.poa.network",
-  "100": "https://rpc.xdaichain.com/"
+  "100": "https://rpc.xdaichain.com/",
+  "31337": "http://localhost:8545/"
 }
 export const injectedConnector = new InjectedConnector({
   supportedChainIds: [
