@@ -44,10 +44,7 @@ export const getProposalData = async(payload: any) => {
     const startBlock = res[3];
     const endBlock = res[4];
     const proposalData = JSON.parse(res[0]);
-    let data;
     const status = proposalStatus[res[5]];
-    if(proposalData.cid !== undefined || proposalData.cid !==null)
-     data = JSON.parse(await getProposalDataFromIPFS(proposalData.cid));
     const id = proposalIndex;
     const timeNow = new Date();
     const startDateBlock = (startBlock - blockNumber)*13200; //current avg block time
@@ -55,10 +52,38 @@ export const getProposalData = async(payload: any) => {
     const endDateBlock = (endBlock - blockNumber)*13200 //current avg block time
     const endVote = new Date(timeNow.getTime()+endDateBlock);
     //debugger;
-    return {proposalData, id, yesVotes, noVotes, startBlock, endBlock, status, turnoutPercentage,
-        moleculeLink: data.moleculeLink, link: data.link, linkText: data.linkText, proposal_type: data.proposal_type, details: data.details, summary: data.summary,
-        title: data.title, voting_start_date: startVote, voting_end_date: endVote,
-        project: data.project === undefined? null: data.project};
+
+    let data = {
+        proposalData,
+        id,
+        yesVotes,
+        noVotes,
+        startBlock,
+        endBlock,
+        status,
+        turnoutPercentage,
+        title: proposalData.title,  // this will be overwritten if ipfsData is available
+        proposal_type: "project",   // this default will be overwritten if ipfsData is available
+        voting_start_date: startVote,
+        voting_end_date: endVote
+    }
+    // Assemble response
+    if (proposalData.cid !== undefined && proposalData.cid !== null) {
+        const ipfsData = JSON.parse(await getProposalDataFromIPFS(proposalData.cid));
+        const ipfsDataSubset = {
+            moleculeLink: ipfsData.moleculeLink,
+            link: ipfsData.link,
+            linkText: ipfsData.linkText,
+            proposal_type: ipfsData.proposal_type,
+            details: ipfsData.details,
+            summary: ipfsData.summary,
+            title: ipfsData.title,
+            project: ipfsData.project === undefined ? null: ipfsData.project
+        };
+
+        data = {...data, ...ipfsDataSubset};
+    }
+    return data;
 
 }
 

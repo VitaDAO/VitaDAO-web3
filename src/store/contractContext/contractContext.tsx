@@ -22,7 +22,7 @@ export function ContractProvider(props: any) {
   const initializeWeb3 = () => {
     let web3 = new Web3(Web3.givenProvider || "http://localhost:8545/");
 
-    if (process.env.REACT_APP_CHAIN_ID !== "1337") {
+    if (!["1337", "31337"].includes(process.env.REACT_APP_CHAIN_ID)) {
       //@ts-ignore
       if (process.env.REACT_APP_CHAIN_ID) {
         //@ts-ignore
