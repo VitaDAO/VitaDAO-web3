@@ -63,6 +63,18 @@ function VotingCard(props: Props) {
     });
   };
 
+  const handleRefresh = async () => {
+    actions.getDidVote({
+      contracts,
+      address: state.userAddress,
+      proposalIndex: params.id,
+    });
+  };
+
+  useEffect(() => {
+    handleRefresh();
+    // eslint-disable-next-line
+  }, [contracts, state.userAddress, params.id]);
   return (
     <CardWrapper size={size}>
       <CardHeader heading={headerTitle} />
@@ -81,18 +93,20 @@ function VotingCard(props: Props) {
         <>
           <PillButton
             label="vote yes"
-            color="blue"
+            color={state.userVoted ? "grey" : "blue"}
             clickFunction={() => vote(true)}
             onMouseEnterFunction={null}
             onMouseLeaveFunction={null}
+            disabled={state.userVoted}
           />
 
           <PillButton
             label="vote no"
-            color="yellow"
+            color={state.userVoted ? "grey" : "yellow"}
             clickFunction={() => vote(false)}
             onMouseEnterFunction={null}
             onMouseLeaveFunction={null}
+            disabled={state.userVoted}
           />
         </>
       ) : state.stakedBalance === null || state.stakedBalance < 0.001 ? (

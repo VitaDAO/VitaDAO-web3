@@ -83,6 +83,7 @@ export interface State {
   proposalNumber: any;
   contractsLoaded:boolean;
   unlockTime: any;
+  userVoted: boolean;
 }
 
 const initialFlags: IFlags = {
@@ -148,7 +149,8 @@ const initialState: State = {
   loadingStakedBalance: true,
   proposalNumber: 0,
   contractsLoaded: false,
-  unlockTime: null
+  unlockTime: null,
+  userVoted: false, // TODO: do we need both voted & userVoted?
 };
 
 const reducer = (state = initialState, action) => {
@@ -252,6 +254,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, unlockTime:action.payload};
     case types.GetUnlockTime.GET_UNLOCK_TIME_FAIL:
         return { ...state, error: action.payload};
+    case types.GetDidVote.GET_DID_VOTE_SUCCESS:
+        return { ...state, userVoted: action.payload };
   default:
       return state;
   }
