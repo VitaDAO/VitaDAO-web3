@@ -36,6 +36,7 @@ export interface IFlags {
   approvedTokensPending: boolean;
   stakeTokensPending: boolean;
   stakedTokens: boolean;
+  votePending: boolean;
   withdrawTokensPending: boolean;
   withdrawnTokens:boolean;
   loadingProposalNumbers:boolean;
@@ -83,7 +84,6 @@ export interface State {
   proposalNumber: any;
   contractsLoaded:boolean;
   unlockTime: any;
-  userVoted: boolean;
 }
 
 const initialFlags: IFlags = {
@@ -114,6 +114,7 @@ const initialFlags: IFlags = {
   approvedTokensPending: false,
   stakedTokens: false,
   stakeTokensPending: false,
+  votePending: false,
   withdrawnTokens: false,
   withdrawTokensPending: false,
   loadingProposalNumbers: false,
@@ -150,7 +151,6 @@ const initialState: State = {
   proposalNumber: 0,
   contractsLoaded: false,
   unlockTime: null,
-  userVoted: false, // TODO: do we need both voted & userVoted?
 };
 
 const reducer = (state = initialState, action) => {
@@ -213,7 +213,6 @@ const reducer = (state = initialState, action) => {
       return { ...state, stakedBalance: action.payload, loadingStakedBalance: false };
     case types.StakedBalance.GET_STAKED_BALANCE_FAIL:
       return { ...state, stakedBalance: null, loadingStakedBalance: false, error: action.payload, };
-
     case types.ProposalStatus.GET_PROPOSAL_STATUS_FAIL:
       return { ...state, error: action.payload, loadingProposal: false};
     case types.ProposalStatus.GET_PROPOSAL_STATUS_SUCCESS:
@@ -231,11 +230,11 @@ const reducer = (state = initialState, action) => {
     case types.ProposalResult.GET_PROPOSAL_RESULT_SUCCESS:
       return { ...state,   proposalResult:action.payload, loadingProposal: false };
     case types.Vote.PROPOSAL_VOTE_SUCCESS:
-      return { ...state, voted:true };
+      return { ...state, flags: {...state.flags, votePending:false}, voted:true };
     case types.Vote.PROPOSAL_VOTE_REQUEST:
-      return { ...state, voted:false };
+      return { ...state, flags: {...state.flags, votePending:true}, voted:false };
     case types.Vote.PROPOSAL_VOTE_FAIL:
-      return { ...state, error: action.payload, voted:false};
+      return { ...state, error: action.payload, voted:false, flags: {...state.flags, votePending:false} };
     case types.ProposalNumber.GET_PROPOSAL_NUMBER_SUCCESS:
       return { ...state, proposalNumber:action.payload, flags: {...state.flags, loadingProposalNumber: true}};
     case types.ProposalNumber.GET_PROPOSAL_NUMBER_FAIL:
@@ -255,7 +254,7 @@ const reducer = (state = initialState, action) => {
     case types.GetUnlockTime.GET_UNLOCK_TIME_FAIL:
         return { ...state, error: action.payload};
     case types.GetDidVote.GET_DID_VOTE_SUCCESS:
-        return { ...state, userVoted: action.payload };
+        return { ...state, voted: action.payload };
   default:
       return state;
   }
