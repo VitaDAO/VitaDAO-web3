@@ -10,7 +10,7 @@ export const supportedChains = {
   31337: "hardhat",
 };
 
-const POLLING_INTERVAL = 12000;
+const POLLING_INTERVAL = 1000;
 
 // TODO: setup rpc urls
 const RPC_URL = process.env.REACT_APP_INFURA_ENDPOINT as string;

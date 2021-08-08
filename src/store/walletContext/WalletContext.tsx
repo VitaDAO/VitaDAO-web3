@@ -144,14 +144,14 @@ export default function WalletProvider(props: Props) {
     //   active: connector === torus,
     //   icon: TorusLight,
     // },
-    // {
-    //   name: "walletConnect",
-    //   connectFunction: selectWalletConnect,
-    //   selected: wallet === walletConnect,
-    //   activating: activatingConnector === walletConnect,
-    //   active: connector === walletConnect,
-    //   icon: WalletConnect,
-    // },
+    {
+      name: "walletConnect",
+      connectFunction: selectWalletConnect,
+      selected: wallet === walletConnect,
+      activating: activatingConnector === walletConnect,
+      active: connector === walletConnect,
+      icon: WalletConnect,
+    },
   ];
 
   // const enabledWallets = !metamaskEnabled
