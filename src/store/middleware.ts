@@ -1,6 +1,6 @@
 import types from "./actionTypes";
 import { getBalances } from './services/balances';
-import { createProposal, getAllProposals, getProposalCount, getProposalData, getProposalResult, getProposalStatus, getProposalVotes, vote } from './services/raphael';
+import { createProposal, getAllProposals, getDidVote, getProposalCount, getProposalData, getProposalResult, getProposalStatus, getProposalVotes, vote } from './services/raphael';
 import { getStakedBalance, getUnlockTime, stake, withdraw } from './services/staking';
 import { approveTokens } from './services/token';
 
@@ -138,6 +138,20 @@ export const applyMiddleware = (dispatch) => (action) => {
       .catch((err) =>
         dispatch({
           type: types.ProposalVotes.GET_PROPOSAL_VOTES_FAIL,
+          payload: err.response,
+        })
+      );
+     case types.GetDidVote.GET_DID_VOTE_REQUEST:
+      return getDidVote(action.payload)
+      .then((res) => {
+        dispatch({
+          type: types.GetDidVote.GET_DID_VOTE_SUCCESS,
+          payload: res,
+        });
+      })
+      .catch((err) =>
+        dispatch({
+          type: types.GetDidVote.GET_DID_VOTE_FAIL,
           payload: err.response,
         })
       );

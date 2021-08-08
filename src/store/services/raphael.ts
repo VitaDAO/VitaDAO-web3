@@ -87,6 +87,13 @@ export const getProposalData = async(payload: any) => {
 
 }
 
+export const getDidVote = async(payload: any) => {
+//     function getDidVote(uint256 proposalIndex) public view returns (bool);
+    const { contracts, address, proposalIndex} = payload;
+    const {raphaelContract} = contracts;
+	return await raphaelContract.methods.getDidVote(proposalIndex).call({from: address});
+}
+
 export const proposalValid = async(payload: any) => {
     //debugger;
     if (payload.status === proposalStatus[4]) {
