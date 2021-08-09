@@ -79,6 +79,12 @@ export const useActions = (state, dispatch) => ({
       payload: data,
     });
   },
+  getDidVote:(data) => {
+    dispatch({
+      type: types.GetDidVote.GET_DID_VOTE_REQUEST,
+      payload: data,
+    });
+  },
   getStakedBalance:(data) =>{
     dispatch({ type: types.StakedBalance.GET_STAKED_BALANCE_PENDING });
     dispatch({
@@ -149,6 +155,7 @@ export interface Actions {
   withdraw:(data:any) => void;
   approveTokens:(data: any) => void;
   getApprovedAllowance:(data: any) => void;
+  getDidVote:(data: any) => void;
   getStakedBalance:(data: any) => void;
   getUnlockTime:(data: any) => void;
   getProposalData:(data: any) => void;
