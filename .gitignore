@@ -1,8 +1,0 @@
-
-node_modules/
-build/
-yarn-error.log
-.env
-.DS_Store
-package-lock.json
-debug.log
