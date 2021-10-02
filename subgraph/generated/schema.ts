@@ -132,24 +132,6 @@ export class Proposal extends Entity {
     this.set("votes", Value.fromStringArray(value));
   }
 
-  get numVotesYes(): i32 {
-    let value = this.get("numVotesYes");
-    return value.toI32();
-  }
-
-  set numVotesYes(value: i32) {
-    this.set("numVotesYes", Value.fromI32(value));
-  }
-
-  get numVotesNo(): i32 {
-    let value = this.get("numVotesNo");
-    return value.toI32();
-  }
-
-  set numVotesNo(value: i32) {
-    this.set("numVotesNo", Value.fromI32(value));
-  }
-
   get numTokensYes(): BigDecimal {
     let value = this.get("numTokensYes");
     return value.toBigDecimal();
@@ -166,6 +148,32 @@ export class Proposal extends Entity {
 
   set numTokensNo(value: BigDecimal) {
     this.set("numTokensNo", Value.fromBigDecimal(value));
+  }
+
+  get totalVotes(): BigDecimal {
+    let value = this.get("totalVotes");
+    return value.toBigDecimal();
+  }
+
+  set totalVotes(value: BigDecimal) {
+    this.set("totalVotes", Value.fromBigDecimal(value));
+  }
+
+  get minVotesNeeded(): BigDecimal | null {
+    let value = this.get("minVotesNeeded");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigDecimal();
+    }
+  }
+
+  set minVotesNeeded(value: BigDecimal | null) {
+    if (value === null) {
+      this.unset("minVotesNeeded");
+    } else {
+      this.set("minVotesNeeded", Value.fromBigDecimal(value as BigDecimal));
+    }
   }
 
   get proposalContent(): string {
@@ -260,6 +268,239 @@ export class ProposalContent extends Entity {
 
   set link(value: string) {
     this.set("link", Value.fromString(value));
+  }
+
+  get project(): string | null {
+    let value = this.get("project");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set project(value: string | null) {
+    if (value === null) {
+      this.unset("project");
+    } else {
+      this.set("project", Value.fromString(value as string));
+    }
+  }
+}
+
+export class ProposalProjectContent extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save ProposalProjectContent entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ProposalProjectContent entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ProposalProjectContent", id.toString(), this);
+  }
+
+  static load(id: string): ProposalProjectContent | null {
+    return store.get(
+      "ProposalProjectContent",
+      id
+    ) as ProposalProjectContent | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get proposalContent(): Array<string | null> {
+    let value = this.get("proposalContent");
+    return value.toStringArray();
+  }
+
+  set proposalContent(value: Array<string | null>) {
+    this.set("proposalContent", Value.fromStringArray(value));
+  }
+
+  get fundingStage(): string | null {
+    let value = this.get("fundingStage");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set fundingStage(value: string | null) {
+    if (value === null) {
+      this.unset("fundingStage");
+    } else {
+      this.set("fundingStage", Value.fromString(value as string));
+    }
+  }
+
+  get title(): string | null {
+    let value = this.get("title");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set title(value: string | null) {
+    if (value === null) {
+      this.unset("title");
+    } else {
+      this.set("title", Value.fromString(value as string));
+    }
+  }
+
+  get researchLead(): string | null {
+    let value = this.get("researchLead");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set researchLead(value: string | null) {
+    if (value === null) {
+      this.unset("researchLead");
+    } else {
+      this.set("researchLead", Value.fromString(value as string));
+    }
+  }
+
+  get institution(): string | null {
+    let value = this.get("institution");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set institution(value: string | null) {
+    if (value === null) {
+      this.unset("institution");
+    } else {
+      this.set("institution", Value.fromString(value as string));
+    }
+  }
+
+  get clinicalStage(): string | null {
+    let value = this.get("clinicalStage");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set clinicalStage(value: string | null) {
+    if (value === null) {
+      this.unset("clinicalStage");
+    } else {
+      this.set("clinicalStage", Value.fromString(value as string));
+    }
+  }
+
+  get ipStatus(): string | null {
+    let value = this.get("ipStatus");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set ipStatus(value: string | null) {
+    if (value === null) {
+      this.unset("ipStatus");
+    } else {
+      this.set("ipStatus", Value.fromString(value as string));
+    }
+  }
+
+  get budget(): BigInt | null {
+    let value = this.get("budget");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set budget(value: BigInt | null) {
+    if (value === null) {
+      this.unset("budget");
+    } else {
+      this.set("budget", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get budgetCurrency(): string | null {
+    let value = this.get("budgetCurrency");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set budgetCurrency(value: string | null) {
+    if (value === null) {
+      this.unset("budgetCurrency");
+    } else {
+      this.set("budgetCurrency", Value.fromString(value as string));
+    }
+  }
+
+  get summary(): string | null {
+    let value = this.get("summary");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set summary(value: string | null) {
+    if (value === null) {
+      this.unset("summary");
+    } else {
+      this.set("summary", Value.fromString(value as string));
+    }
+  }
+
+  get aimsAndHypothesis(): string | null {
+    let value = this.get("aimsAndHypothesis");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set aimsAndHypothesis(value: string | null) {
+    if (value === null) {
+      this.unset("aimsAndHypothesis");
+    } else {
+      this.set("aimsAndHypothesis", Value.fromString(value as string));
+    }
   }
 }
 

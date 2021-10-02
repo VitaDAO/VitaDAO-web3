@@ -17,9 +17,11 @@ import {
   // VotingDelayChanged as VotingDelayChangedEvent,
   // VotingDurationChanged as VotingDurationChangedEvent
 } from "../generated/Raphael/Raphael"
+import { Raphael } from "../generated/Raphael/Raphael"
 import {
   Proposal,
   ProposalContent,
+  ProposalProjectContent,
   Vote,
   Voter
 } from "../generated/schema"
@@ -39,7 +41,7 @@ function processProposalDetailsField(proposal: Proposal, details: string): void 
   let author: JSONValue | null = null;
   let cid: JSONValue | null = null;
 
-  if (data.isOk && data.value.kind == JSONValueKind.OBJECT) {
+  if (data.isOk && data.value.kind === JSONValueKind.OBJECT) {
     let dataObj = data.value.toObject();
     title = dataObj.get('title');
     author = dataObj.get('author');
@@ -86,13 +88,14 @@ function createProposalData(proposal: Proposal): Proposal {
   if (ipfsData != null) {
     let jsonData = json.try_fromBytes(ipfsData as Bytes);
 
-    if (jsonData.isOk && jsonData.value.kind == JSONValueKind.OBJECT) {
+    if (jsonData.isOk && jsonData.value.kind === JSONValueKind.OBJECT) {
       let proposalContentDataObj = jsonData.value.toObject();
       let type: JSONValue | null = null;
       let title: JSONValue | null = null;
       let summary: JSONValue | null = null;
       let details: JSONValue | null = null;
       let link: JSONValue | null = null;
+      let project: JSONValue | null = null;
 
       type = proposalContentDataObj.get('proposal_type');
       if(type) {
@@ -118,6 +121,86 @@ function createProposalData(proposal: Proposal): Proposal {
       if(link) {
         proposalContent.link = link.toString();
       }
+
+      if(type.toString() == 'funding' || type.toString() == 'project') {
+        project = proposalContentDataObj.get('project');
+        if(project.isNull()) {
+          log.warning('project data is null: {}', [
+            proposal.id.toString()
+          ]);
+        } else {
+          let proposalProjectContent = new ProposalProjectContent(proposal.id.toString());
+          let projectData = project.toObject()
+
+          let title: JSONValue | null = null;
+          let fundingStage: JSONValue | null = null;
+          let researchLead: JSONValue | null = null;
+          let institution: JSONValue | null = null;
+          let clinicalStage: JSONValue | null = null;
+          let ipStatus: JSONValue | null = null;
+          let budget: JSONValue | null = null;
+          let budgetCurrency: JSONValue | null = null;
+          let summary: JSONValue | null = null;
+          let aimsAndHypothesis: JSONValue | null = null;
+
+          title = projectData.get('title')
+          if(title) {
+            proposalProjectContent.title = title.toString()
+          }
+
+          fundingStage = projectData.get('funding_stage')
+          if(fundingStage) {
+            proposalProjectContent.fundingStage = fundingStage.toString()
+          }
+
+          researchLead = projectData.get('research_lead')
+          if(researchLead) {
+            proposalProjectContent.researchLead = researchLead.toString()
+          }
+
+          institution = projectData.get('institution')
+          if(institution) {
+            proposalProjectContent.institution = institution.toString()
+          }
+
+          clinicalStage = projectData.get('clinical_stage')
+          if(clinicalStage) {
+            proposalProjectContent.clinicalStage = clinicalStage.toString()
+          }
+
+          ipStatus = projectData.get('ip_status')
+          if(ipStatus) {
+            proposalProjectContent.ipStatus = ipStatus.toString()
+          }
+
+          budgetCurrency = projectData.get('budget_currency')
+          if(budgetCurrency) {
+            proposalProjectContent.budgetCurrency = budgetCurrency.toString()
+          }
+
+          aimsAndHypothesis = projectData.get('aims_and_hypothesis')
+          if(aimsAndHypothesis) {
+            proposalProjectContent.aimsAndHypothesis = aimsAndHypothesis.toString()
+          }
+
+          summary = projectData.get('summary')
+          if(summary) {
+            proposalProjectContent.summary = summary.toString()
+          }
+
+          budget = projectData.get('budget')
+          if(budget) {
+            proposalProjectContent.budget = budget.toBigInt()
+          }
+
+          proposalProjectContent.save()
+          proposalContent.project = proposal.id.toString()
+        }
+      } else {
+        log.info('Not getting project data because proposal is not funding/project {}', [
+          proposal.id.toString()
+        ]);
+      }
     } else {
       log.warning('Error parsing IPFS JSON for proposal {}', [
         proposal.id.toString()
@@ -141,10 +224,17 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
   proposal.votingPossible = false;
   proposal.hasPassed = false;
   proposal.createdAt = event.block.timestamp;
-  proposal.numVotesYes = 0;
-  proposal.numVotesNo = 0;
   proposal.numTokensYes = ZERO_BD;
   proposal.numTokensNo = ZERO_BD;
+  proposal.totalVotes = ZERO_BD;
+
+  let raphael = Raphael.bind(event.address)
+  let callResult = raphael.try_getMinVotesNeeded()
+  if (callResult.reverted) {
+    log.info("getMinVotesNeeded reverted", [])
+  } else {
+    proposal.minVotesNeeded = tokenAmountToDecimal(callResult.value, BI_18)
+  }
 
   processProposalDetailsField(proposal, event.params.details);
 
@@ -155,7 +245,7 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 }
 
 export function proposalPassed(proposal: Proposal) : boolean {
-  return (proposal.status == VOTES_FINISHED || proposal.status == RESOLVED) && proposal.numVotesYes > proposal.numVotesNo;
+  return (proposal.status === VOTES_FINISHED || proposal.status === RESOLVED) && proposal.numTokensYes > proposal.numTokensNo;
 }
 
 export function handleProposalStatusChanged(
@@ -208,11 +298,11 @@ export function handleVoted(event: VotedEvent): void {
 
   if(event.params.direction === true) {
     proposal.numTokensYes = proposal.numTokensYes.plus(numTokens);
-    proposal.numVotesYes++;
   } else {
     proposal.numTokensNo = proposal.numTokensNo.plus(numTokens);
-    proposal.numVotesNo++;
   }
+
+  proposal.totalVotes = proposal.numTokensYes.plus(proposal.numTokensNo)
 
   proposal.save();
 

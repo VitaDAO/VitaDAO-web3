@@ -1,67 +1,69 @@
 {
-  "name": "ll_boiler_v3",
-  "version": "3",
-  "description": "Vita DAO dApp",
-  "main": "index.ts",
-  "author": "Mustafa Mahmutovic",
-  "license": "MIT",
-  "dependencies": {
-    "@ethersproject/contracts": "^5.0.9",
-    "@ethersproject/providers": "^5.0.17",
-    "@ethersproject/solidity": "^5.0.8",
-    "@ethersproject/units": "^5.0.8",
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/styles": "^4.11.3",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.41",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.7",
-    "@walletconnect/web3-provider": "^1.3.1",
-    "@web3-react/core": "^6.1.1",
-    "@web3-react/injected-connector": "^6.0.7",
-    "@web3-react/ledger-connector": "^6.1.1",
-    "@web3-react/portis-connector": "^6.1.9",
-    "@web3-react/torus-connector": "^6.1.9",
-    "@web3-react/walletconnect-connector": "^6.1.9",
-    "dotenv": "^8.2.0",
-    "ethers": "4.0.38",
-    "fortmatic": "^2.2.1",
-    "nano-ipfs-store": "^0.1.3",
-    "react": "^16.13.1",
-    "react-click-away-listener": "^2.0.0",
-    "react-copy-to-clipboard": "^5.0.2",
-    "react-dom": "^16.13.1",
-    "react-hooks-helper": "^1.6.0",
-    "react-identicons": "^1.2.4",
-    "react-jazzicon": "^0.1.3",
-    "react-markdown": "^6.0.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "react-transition-group": "^4.4.1",
-    "remark-unwrap-images": "^2.1.0",
-    "typescript": "~3.7.2",
-    "web3": "^1.2.9"
-  },
+  "name": "vita-dao",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vue-cli-service serve --mode mainnet",
+    "rinkeby": "vue-cli-service serve --mode rinkeby",
+    "build": "NODE_ENV=production vue-cli-service build --mode mainnet",
+    "build:rinkeby": "NODE_ENV=production vue-cli-service build --mode rinkeby",
+    "test:e2e": "vue-cli-service test:e2e --mode rinkeby",
+    "lint": "vue-cli-service lint",
+    "prepare": "husky install"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "@apollo/client": "^3.4.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/vue-fontawesome": "^3.0.0-4",
+    "@headlessui/vue": "^1.3.0",
+    "@heroicons/vue": "^1.0.2",
+    "@tailwindcss/typography": "^0.4.1",
+    "@tweenjs/tween.js": "^18.6.4",
+    "@vue/apollo-composable": "^4.0.0-alpha.14",
+    "@walletconnect/web3-provider": "^1.6.4",
+    "core-js": "^3.6.5",
+    "dayjs": "^1.10.6",
+    "ethers": "^5.4.1",
+    "graphql": "^15.5.1",
+    "graphql-tag": "^2.12.5",
+    "markdown-it": "^12.2.0",
+    "vue": "^3.0.0",
+    "vue-router": "4",
+    "vue-toastification": "^2.0.0-rc.1",
+    "vue3-jazzicon": "^0.1.2",
+    "vuex": "^4.0.0-0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.3.3",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-e2e-cypress": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "autoprefixer": "^9.8.6",
+    "babel-eslint": "^10.1.0",
+    "cypress": "^8.2.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.0.0",
+    "husky": ">=6",
+    "lint-staged": "^10.5.4",
+    "postcss": "^7.0.36",
+    "prettier": "^2.2.1",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue}": [
+      "vue-cli-service lint"
     ]
-  },
-  "devDependencies": {}
+  }
 }
