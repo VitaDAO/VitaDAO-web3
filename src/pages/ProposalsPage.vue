@@ -34,6 +34,7 @@ export const proposalFragment = gql`
     minVotesNeeded
     proposalContent {
       title
+      link
       type
     }
   }
