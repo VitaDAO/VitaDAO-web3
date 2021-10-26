@@ -126,6 +126,11 @@
           <!-- dummy to align vote display to box bottom -->
           <div class="flex-grow mb-5" />
           <votes-info :proposal="proposal" />
+          <form :action="proposal.proposalContent.link" target="_blank">
+            <button class="text-sm mt-4 border p-3 rounded-lg" type="submit">
+              Discourse Discussion
+            </button>
+          </form>
         </dl>
       </div>
       <div>
